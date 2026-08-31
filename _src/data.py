@@ -40,6 +40,8 @@ PHOTOS = {
     "furshet": [img("furshet (%d).jpg" % n) for n in range(1, 6)],
     "kofe-breyk": [img("kf breik (%d).jpg" % n) for n in range(1, 6)],
     "detskiy-prazdnik": [img("dr detskii.jpg")],
+    "vypusknoy": [img("zal_ametist.png")],
+    "pominalny-obed": [],
 }
 
 COVERS = {
@@ -52,6 +54,8 @@ COVERS = {
     "furshet": img("furshet.JPG"),
     "kofe-breyk": img("coffee break.png"),
     "detskiy-prazdnik": img("dr detskii.jpg"),
+    "vypusknoy": img("zal_ametist.png"),
+    "pominalny-obed": "",
     "hero": "/assets/img/hero-banquet-1668.jpg",
     "hall2": img("zal1.jpg"),
     "hall3": img("zal2.JPG"),
@@ -128,15 +132,28 @@ FORMATS = [
         "form_value": "Кофе-брейк",
     },
     {
+        "slug": "vypusknoy", "url": "/vypusknoy", "name": "Школьные выпускные", "cap": "от 30 гостей",
+        "short": "Отдельный зал, а не спортзал школы. Родительский комитет получает договор, смету "
+                 "и понятную сумму на одного выпускника.",
+        "form_value": "Выпускной",
+    },
+    {
         "slug": "detskiy-prazdnik", "url": "/detskiy-prazdnik", "name": "Детские праздники", "cap": "от 15 гостей",
         "short": "Игровая зона отделена от банкетной: дети на виду и не бегают между официантами "
                  "с горячим.",
         "form_value": "Детский праздник",
     },
+    {
+        "slug": "pominalny-obed", "url": "/pominalny-obed", "name": "Поминальные обеды", "cap": "от 20 человек",
+        "short": "Отдельный зал, спокойная обстановка и поминальный стол. Позвоните — скажем, "
+                 "что свободно на нужный день.",
+        "form_value": "Поминальный обед",
+    },
 ]
 
-FORM_OPTIONS = ["Свадьба", "Корпоратив", "День рождения", "Юбилей", "Фуршет", "Кофе-брейк",
-                "Конференция", "Детский праздник", "Выездной кейтеринг", "Аренда оборудования", "Другое"]
+FORM_OPTIONS = ["Свадьба", "Корпоратив", "День рождения", "Юбилей", "Выпускной", "Фуршет", "Кофе-брейк",
+                "Конференция", "Детский праздник", "Поминальный обед", "Выездной кейтеринг",
+                "Аренда оборудования", "Другое"]
 
 # --- navigation -------------------------------------------------------------
 NAV = [

@@ -190,11 +190,13 @@ def s_facts(s):
 def s_cards(s):
     cards = []
     for i, c in enumerate(s["items"]):
-        media = ""
+        cap = '<span class="card__cap data">%s</span>' % E(c["cap"]) if c.get("cap") else ""
         if c.get("image"):
             media = '<div class="card__media">%s%s</div>' % (
-                picture(c["image"], c.get("alt", c["name"])),
-                '<span class="card__cap data">%s</span>' % E(c["cap"]) if c.get("cap") else "")
+                picture(c["image"], c.get("alt", c["name"])), cap)
+        else:
+            # a format we deliberately do not illustrate keeps the grid rhythm
+            media = '<div class="card__media card__media--blank">%s</div>' % cap
         cards.append(
             '<article class="card reveal" data-delay="%d">%s<div class="card__body"><h3>%s</h3><p>%s</p>'
             '<span class="tlink card__link">%s%s</span></div>'
