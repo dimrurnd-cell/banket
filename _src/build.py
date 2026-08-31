@@ -378,9 +378,9 @@ def render_form():
     <div class="split split--wide-left">
       <div class="reveal">
         <p class="eyebrow">Заявка</p>
-        <h2 class="h-lg">Расскажите про событие — вернёмся с залом, датой и сметой</h2>
-        <p class="lede mt-s">Достаточно формата, даты и примерного числа гостей. В рабочее время отвечаем
-          в течение 15 минут: сначала говорим, свободна ли дата, потом всё остальное.</p>
+        <h2 class="h-lg">Первое, что скажем, — свободна ли ваша дата</h2>
+        <p class="lede mt-s">Достаточно формата, даты и примерного числа гостей — остальное уточним сами.
+          В рабочее время отвечаем за 15 минут: сначала про дату, потом про зал и смету.</p>
         <div class="contact-methods mt-m">
           <a class="data" href="%(phone_href)s">%(phone)s</a>
           <a class="data" href="mailto:%(email)s">%(email)s</a>
@@ -416,7 +416,7 @@ def render_form():
               <input id="f-date" name="Выберите дату мероприятия" type="date">
             </div>
             <div class="field">
-              <label for="f-guests">Сколько гостей</label>
+              <label for="f-guests">Сколько гостей примерно</label>
               <input id="f-guests" name="Выберите количество гостей" type="number" min="1" inputmode="numeric" placeholder="120">
             </div>
             <div class="field">
@@ -425,7 +425,7 @@ def render_form():
             </div>
             <div class="field field--full">
               <label for="f-note">Что важно знать заранее</label>
-              <textarea id="f-note" name="Комментарий" placeholder="Например: выездная регистрация, живая музыка, детское меню на 10 человек"></textarea>
+              <textarea id="f-note" name="Комментарий" placeholder="Например: свой ведущий, выездная регистрация, детское меню на 10 человек"></textarea>
             </div>
             <div class="field field--full">
               <label class="consent">
@@ -435,7 +435,7 @@ def render_form():
               </label>
             </div>
           </div>
-          <div class="mt-m"><button class="btn btn--lg btn--block" type="submit">Отправить заявку</button></div>
+          <div class="mt-m"><button class="btn btn--lg btn--block" type="submit">Проверить дату и получить расчёт</button></div>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -512,7 +512,7 @@ PAGE = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.donexpocentre.ru">
 %(preload)s
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css?v=2">
 <script type="application/ld+json">%(ld)s</script>
 </head>
