@@ -1,0 +1,29 @@
+User-Agent: *
+Disallow: /page146618776.html
+Disallow: /soglasiye-persdan
+Disallow: /page149515206.html
+Disallow: /policy
+Disallow: /page139817336.html
+Disallow: /page142382746.html
+Disallow: /page151673986.html
+Disallow: /polzovatelskoye-soglasheniye
+Disallow: /page151676366.html
+Disallow: /pravila-rektekhno
+Disallow: /page151678726.html
+Disallow: /soglasiye-metrprog
+Disallow: /page151679436.html
+Disallow: /soglasiye-rekinfo
+Disallow: /page151680726.html
+Disallow: /cookie
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Disallow: /tilda/cart*
+Disallow: /tilda/product*
+Disallow: /tilda/event*
+Disallow:
+
+
+Sitemap: https://banket-na5.ru/sitemap.xml

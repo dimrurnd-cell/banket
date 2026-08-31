@@ -1,0 +1,84 @@
+ErrorDocument 403 /404.html
+ErrorDocument 404 /404.html
+
+DirectoryIndex page139817136.html
+
+RewriteEngine On
+
+RewriteCond %{HTTP:X-Forwarded-Proto} =http
+RewriteRule ^(.*)$ https://banket-na5\.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP:X-Forwarded-Proto} =https
+RewriteCond %{HTTP_HOST} ^www\.banket-na5.ru [NC]
+RewriteRule ^(.*)$ https://banket-na5\.ru/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} /robots.txt
+RewriteCond "%{DOCUMENT_ROOT}/robots_%{HTTP_HOST}.txt" -f
+RewriteRule ^(.*)$ robots_%{HTTP_HOST}.txt [NC,L]
+RewriteRule ^soglasiye-persdan$ page146618776.html [NC]
+RewriteRule ^soglasiye-persdan/$ page146618776.html [NC]
+
+RewriteRule ^policy$ page149515206.html [NC]
+RewriteRule ^policy/$ page149515206.html [NC]
+
+RewriteRule ^polzovatelskoye-soglasheniye$ page151673986.html [NC]
+RewriteRule ^polzovatelskoye-soglasheniye/$ page151673986.html [NC]
+
+RewriteRule ^pravila-rektekhno$ page151676366.html [NC]
+RewriteRule ^pravila-rektekhno/$ page151676366.html [NC]
+
+RewriteRule ^soglasiye-metrprog$ page151678726.html [NC]
+RewriteRule ^soglasiye-metrprog/$ page151678726.html [NC]
+
+RewriteRule ^soglasiye-rekinfo$ page151679436.html [NC]
+RewriteRule ^soglasiye-rekinfo/$ page151679436.html [NC]
+
+RewriteRule ^cookie$ page151680726.html [NC]
+RewriteRule ^cookie/$ page151680726.html [NC]
+
+RewriteRule ^zaly$ page170536309.html [NC]
+RewriteRule ^zaly/$ page170536309.html [NC]
+
+RewriteRule ^zaly/bankethall$ page170540209.html [NC]
+RewriteRule ^zaly/bankethall/$ page170540209.html [NC]
+
+RewriteRule ^zaly/ametist$ page171373509.html [NC]
+RewriteRule ^zaly/ametist/$ page171373509.html [NC]
+
+RewriteRule ^zaly/vystavochny$ page171376509.html [NC]
+RewriteRule ^zaly/vystavochny/$ page171376509.html [NC]
+
+RewriteRule ^meropriyatiya$ page171379109.html [NC]
+RewriteRule ^meropriyatiya/$ page171379109.html [NC]
+
+RewriteRule ^svadba$ page171379309.html [NC]
+RewriteRule ^svadba/$ page171379309.html [NC]
+
+RewriteRule ^korporativ$ page171380009.html [NC]
+RewriteRule ^korporativ/$ page171380009.html [NC]
+
+RewriteRule ^den-rozhdeniya$ page171380109.html [NC]
+RewriteRule ^den-rozhdeniya/$ page171380109.html [NC]
+
+RewriteRule ^furshet$ page171380309.html [NC]
+RewriteRule ^furshet/$ page171380309.html [NC]
+
+RewriteRule ^kofe-breyk$ page171380609.html [NC]
+RewriteRule ^kofe-breyk/$ page171380609.html [NC]
+
+RewriteRule ^detskiy-prazdnik$ page171393309.html [NC]
+RewriteRule ^detskiy-prazdnik/$ page171393309.html [NC]
+
+RewriteRule ^kejtering$ page171393709.html [NC]
+RewriteRule ^kejtering/$ page171393709.html [NC]
+
+RewriteRule ^arenda-oborudovaniya$ page171394109.html [NC]
+RewriteRule ^arenda-oborudovaniya/$ page171394109.html [NC]
+
+RewriteRule ^galereya$ page171394309.html [NC]
+RewriteRule ^galereya/$ page171394309.html [NC]
+
+RewriteRule ^contacts$ page171642909.html [NC]
+RewriteRule ^contacts/$ page171642909.html [NC]
+
+
