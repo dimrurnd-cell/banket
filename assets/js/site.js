@@ -1,0 +1,273 @@
+/* БанкетХолл — site behaviour
+   No dependencies. Every feature degrades to working HTML without JS. */
+(function () {
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ---------- header ---------------------------------------------------- */
+  var header = $('.header');
+  if (header) {
+    var onScroll = function () {
+      header.classList.toggle('is-stuck', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ---------- mobile nav ------------------------------------------------ */
+  var burger = $('.burger');
+  var mnav = $('.mnav');
+  if (burger && mnav) {
+    burger.addEventListener('click', function () {
+      var open = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', String(!open));
+      mnav.classList.toggle('is-open', !open);
+      document.body.style.overflow = !open ? 'hidden' : '';
+    });
+    mnav.addEventListener('click', function (e) {
+      if (e.target.closest('a')) {
+        burger.setAttribute('aria-expanded', 'false');
+        mnav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mnav.classList.contains('is-open')) burger.click();
+    });
+  }
+
+  /* ---------- scroll reveals -------------------------------------------- */
+  var revealables = $$('.reveal');
+  if (revealables.length) {
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealables.forEach(function (el) { el.classList.add('is-in'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('is-in');
+            io.unobserve(en.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+      revealables.forEach(function (el) { io.observe(el); });
+    }
+  }
+
+  /* ---------- count-up stats -------------------------------------------- */
+  var counters = $$('[data-count]');
+  if (counters.length && !reduced && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        cio.unobserve(en.target);
+        var el = en.target;
+        var target = parseFloat(el.getAttribute('data-count'));
+        var t0 = null;
+        var step = function (ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / 1400, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(Math.round(target * eased));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+
+  /* ---------- capacity picker (signature) -------------------------------- */
+  /* A logarithmic guest scale: 20 → 2500. Position on the scale selects the
+     hall, and the chosen number is carried into the request form. */
+  var picker = $('[data-picker]');
+  if (picker) {
+    var slider  = $('[data-picker-range]', picker);
+    var readout = $('[data-picker-count]', picker);
+    var panels  = $$('[data-hall-panel]', picker);
+    var info    = $('[data-picker-info]', picker);
+    var halls   = JSON.parse(picker.getAttribute('data-picker'));
+
+    var LO = Math.log(20), HI = Math.log(2500);
+    var toGuests = function (pct) {
+      var g = Math.exp(LO + (HI - LO) * (pct / 100));
+      var round = g < 100 ? 5 : g < 600 ? 10 : 50;
+      return Math.max(20, Math.round(g / round) * round);
+    };
+
+    var current = -1;
+    var apply = function (pct) {
+      var guests = toGuests(pct);
+      readout.textContent = fmt(guests);
+
+      var idx = 0;
+      for (var i = 0; i < halls.length; i++) { if (guests <= halls[i].to) { idx = i; break; } idx = i; }
+      if (idx === current) return;
+      current = idx;
+
+      panels.forEach(function (p, i) { p.classList.toggle('is-active', i === idx); });
+      var h = halls[idx];
+      info.innerHTML =
+        '<h3>' + h.name + '</h3><p>' + h.note + '</p>' +
+        '<div class="picker__meta">' + h.meta.map(function (m) { return '<span>' + m + '</span>'; }).join('') + '</div>' +
+        '<div class="picker__actions btn-row">' +
+          '<a class="btn" href="' + h.url + '">Смотреть зал<span class="btn__arrow">→</span></a>' +
+          '<a class="btn btn--ghost" href="#zayavka" data-prefill-guests>Проверить дату<span class="btn__arrow">→</span></a>' +
+        '</div>';
+    };
+
+    slider.addEventListener('input', function () { apply(+slider.value); });
+    apply(+slider.value);
+
+    /* carry the chosen guest count into the form */
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-prefill-guests]');
+      if (!t) return;
+      var field = $('#f-guests');
+      if (field) field.value = readout.textContent.replace(/\s/g, '');
+    });
+  }
+
+  /* ---------- gallery filter -------------------------------------------- */
+  var filters = $('[data-filters]');
+  if (filters) {
+    var shots = $$('[data-tags]');
+    filters.addEventListener('click', function (e) {
+      var btn = e.target.closest('button');
+      if (!btn) return;
+      var tag = btn.getAttribute('data-tag');
+      $$('button', filters).forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      shots.forEach(function (s) {
+        s.hidden = !(tag === 'all' || s.getAttribute('data-tags').split(' ').indexOf(tag) > -1);
+      });
+    });
+  }
+
+  /* ---------- lightbox --------------------------------------------------- */
+  var lb = $('.lightbox');
+  if (lb) {
+    var lbImg = $('img', lb);
+    var visible = function () { return $$('.shot').filter(function (s) { return !s.hidden; }); };
+    var at = 0;
+    var show = function (i) {
+      var list = visible();
+      if (!list.length) return;
+      at = (i + list.length) % list.length;
+      var src = list[at].getAttribute('data-full') || $('img', list[at]).src;
+      lbImg.src = src;
+      lbImg.alt = $('img', list[at]).alt || '';
+    };
+    document.addEventListener('click', function (e) {
+      var shot = e.target.closest('.shot');
+      if (shot) {
+        show(visible().indexOf(shot));
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        $('.lightbox__close', lb).focus();
+        return;
+      }
+      if (e.target.closest('.lightbox__close') || e.target === lb) close();
+      if (e.target.closest('.lightbox__nav--prev')) show(at - 1);
+      if (e.target.closest('.lightbox__nav--next')) show(at + 1);
+    });
+    var close = function () {
+      lb.classList.remove('is-open');
+      document.body.style.overflow = '';
+    };
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(at - 1);
+      if (e.key === 'ArrowRight') show(at + 1);
+    });
+  }
+
+  /* ---------- request form ---------------------------------------------- */
+  /* Posts to the venue's existing form endpoint so leads keep landing in the
+     same inbox the team already works from. */
+  var form = $('#request-form');
+  if (form) {
+    var status = $('.form-status', form);
+    var submit = $('[type=submit]', form);
+
+    /* pre-select the event format when a page-level CTA names one */
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-format]');
+      if (!t) return;
+      var sel = $('#f-format', form);
+      if (sel) {
+        var want = t.getAttribute('data-format');
+        $$('option', sel).forEach(function (o) { if (o.value === want) sel.value = want; });
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (submit.disabled) return;
+
+      var root = $('#allrecords');
+      var data = new FormData(form);
+      data.append('tildaspec-formid', 'request-form');
+      data.append('tildaspec-formskey', form.getAttribute('data-formskey') || '');
+      data.append('tildaspec-pageid', root ? root.getAttribute('data-tilda-page-id') : '');
+      data.append('tildaspec-projectid', root ? root.getAttribute('data-tilda-project-id') : '');
+      data.append('tildaspec-referer', window.location.href);
+      data.append('form-spec-comments', '');
+
+      var body = new URLSearchParams();
+      data.forEach(function (v, k) { body.append(k, v); });
+
+      submit.disabled = true;
+      var label = submit.textContent;
+      submit.textContent = 'Отправляем…';
+      say('', '');
+
+      fetch('https://forms.tildacdn.com/procces/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+        body: body.toString()
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.error) throw new Error(res.error);
+          form.reset();
+          say('ok', 'Заявка ушла менеджеру. Перезвоним в течение 15 минут в рабочее время, пн–сб с 9:00 до 18:00.');
+        })
+        .catch(function () {
+          say('err', 'Не удалось отправить форму. Позвоните нам: +7 (863) 256-35-30 — или напишите на banket@donexpocentre.ru.');
+        })
+        .then(function () {
+          submit.disabled = false;
+          submit.textContent = label;
+        });
+    });
+
+    function say(kind, text) {
+      if (!status) return;
+      status.className = 'form-status' + (kind ? ' is-visible form-status--' + kind : '');
+      status.textContent = text;
+    }
+  }
+
+  /* ---------- smooth anchor offset for the fixed header ------------------ */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href');
+    if (id.length < 2) return;
+    var target = document.getElementById(id.slice(1));
+    if (!target) return;
+    e.preventDefault();
+    var y = target.getBoundingClientRect().top + window.scrollY - 84;
+    window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+    target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  });
+})();
