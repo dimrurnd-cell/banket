@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /404
 Заголовок (Title):     Страница не найдена | Банкет-Холл
 Описание (Description): Такой страницы на сайте нет. Вернитесь на главную или выберите зал.
-Картинка для соцсетей: https://donexpocentre.ru/static/banket/assets/img/hero-banquet-1668.jpg
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/hero-banquet-1668.jpg

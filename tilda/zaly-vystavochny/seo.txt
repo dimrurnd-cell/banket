@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /zaly/vystavochny
 Заголовок (Title):     Зал на 1000–2500 человек в Ростове-на-Дону | Банкет-Холл
 Описание (Description): Выставочный зал до 2 500 гостей на пр. М. Нагибина, 30 в Ростове-на-Дону. Конференции, выставки, крупные фуршеты и корпоративы. Полное оснащение, прямой подъезд для монтажа.
-Картинка для соцсетей: https://donexpocentre.ru/static/banket/assets/img/photo/cover-vystavochny.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/cover-vystavochny.webp

@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /cookie
 Заголовок (Title):     Политика обработки файлов cookie | Банкет-Холл
 Описание (Description): Правовая информация Банкет-Холла: условия обработки персональных данных и правила использования сайта banket-na5.ru.
-Картинка для соцсетей: https://donexpocentre.ru/static/banket/assets/img/hero-banquet-1668.jpg
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/hero-banquet-1668.jpg

@@ -22,10 +22,16 @@ from data import SITE  # noqa: E402
 import pages as P  # noqa: E402
 
 OUT = os.path.join(ROOT, "tilda")
-# Куда залиты css/, js/ и img/ из assets/. Перебивается переменной окружения.
+# Куда залито содержимое assets/. Перебивается переменной окружения.
 ASSET_BASE = os.environ.get(
     "ASSET_BASE", "https://donexpocentre.ru/static/banket/assets/").rstrip("/") + "/"
+# Стили и скрипт можно держать отдельно от фотографий — и лучше держать.
+# Если хранилище с картинками окажется недоступным, страница потеряет
+# фотографии; если недоступен адрес со стилями — она рассыплется целиком.
+# Поэтому css/ и js/ имеет смысл класть туда, от чего сайт зависит и так.
+CODE_BASE = os.environ.get("CODE_BASE", ASSET_BASE).rstrip("/") + "/"
 ASSET_ORIGIN = "/".join(ASSET_BASE.split("/")[:3])
+CODE_ORIGIN = "/".join(CODE_BASE.split("/")[:3])
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600"
          "&family=JetBrains+Mono:wght@400;500&display=swap")
@@ -39,6 +45,7 @@ def absolutise(html):
     не пересматривает собственную подстановку, поэтому уже абсолютные
     адреса (в них тоже есть «/assets/») не портятся.
     """
+    html = re.sub(r'(?<=[\s"\'(,])/assets/(css|js)/', CODE_BASE + r"\1/", html)
     return re.sub(r'(?<=[\s"\'(,])/assets/', ASSET_BASE, html)
 
 
@@ -65,11 +72,13 @@ def build():
         '<!-- Настройки сайта → Ещё → HTML-код для вставки внутрь HEAD -->\n'
         '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-        '<link rel="preconnect" href="%s" crossorigin>\n'
+        '%s'
         '%s'
         '<link href="%s" rel="stylesheet">\n'
         '<meta name="theme-color" content="#0B181C">\n' % (
-            ASSET_ORIGIN, B.CDN_PRECONNECT, FONTS)))
+            "".join('<link rel="preconnect" href="%s" crossorigin>\n' % o
+                    for o in dict.fromkeys([CODE_ORIGIN, ASSET_ORIGIN])),
+            B.CDN_PRECONNECT, FONTS)))
 
     write(os.path.join(OUT, "_global", "body-code.html"), absolutise(
         '<!-- Настройки сайта → Ещё → HTML-код перед закрывающим тегом </body> -->\n'
@@ -139,6 +148,8 @@ def build():
         raise SystemExit("остались относительные пути к ассетам:\n  " + "\n  ".join(leftovers))
 
     print("готово: %d страниц в tilda/, относительных путей к ассетам нет" % len(rows))
+    if CODE_BASE != ASSET_BASE:
+        print("CODE_BASE  = %s   (стили и скрипт)" % CODE_BASE)
     print("ASSET_BASE = %s" % ASSET_BASE)
 
 
@@ -166,32 +177,74 @@ ASSET_BASE=%(asset_base)s python3 _src/build_tilda.py
 `_src/images.json`. Дальше сборка подставляет `<picture>` с `srcset` —
 браузер берёт версию под свой экран.
 
-### 2. Выложить стили, скрипт и фотографии
+### 2. Откуда берутся файлы
 
-Tilda не хранит произвольные файлы, поэтому `assets/` нужно положить на любой
-доступный по HTTPS адрес. Подходит любой из трёх вариантов:
+Tilda не хранит произвольные файлы, поэтому 700 с лишним картинок, стили и
+скрипт лежат в вашем публичном репозитории на GitHub и раздаются через
+**jsDelivr** — бесплатный CDN, который умеет отдавать файлы прямо из
+репозитория. Заливать ничего не нужно: всё уже там.
 
-- **Ваш сервер `donexpocentre.ru`** — там уже лежат все фотографии сайта.
-  Самый простой путь: залить папку `assets/` рядом с ними. Заливать её нужно
-  целиком, вместе с `img/opt/`: страницы ссылаются на сжатые версии, и если
-  этой папки не будет, фотографии не откроются.
-- **Файловый менеджер Tilda** — годится для `site.css` и `site.js` (Tilda
-  выдаст ссылки на `static.tildacdn.com`), но не для сотни фотографий.
-- **jsDelivr** — бесплатный CDN поверх публичного репозитория. После сжатия
-  все фотографии весят немного, их можно закоммитить и не заливать никуда:
-  `ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@main/assets/`
-  Учтите: ветку `@main` jsDelivr кэширует до 12 часов. Чтобы изменения
-  появились сразу, ссылайтесь на тег или коммит вместо `@main`.
+Адрес зашит в блоки и привязан к метке `assets-v1`, а не к ветке. Это
+важно: метка неизменяема, поэтому jsDelivr кэширует файлы навсегда и
+отдаёт их мгновенно, а случайный коммит не может сломать работающий сайт.
 
-Затем пересоберите с нужным адресом:
+**Сначала проверьте, что CDN открывается у вас.** Из среды, где собирался
+сайт, cdn.jsdelivr.net заблокирован, и я не смог это проверить за вас.
+Откройте в браузере:
 
 ```
-ASSET_BASE=https://ваш-адрес/assets/ python3 _src/build_tilda.py
+%(asset_base)simg/photo/gallery-01.webp
 ```
 
-Сейчас в файлах подставлено: `%(asset_base)s`
-(этот адрес зашит в `_src/build_tilda.py` как значение по умолчанию —
-переменную окружения задавать не обязательно).
+Если картинка открылась — всё в порядке, вставляйте блоки. Если нет —
+не вставляйте, а пересоберите на другой адрес (см. ниже): иначе сайт
+останется без фотографий.
+
+#### Стили и скрипт лучше перенести в Tilda
+
+Сейчас `site.css` и `site.js` тоже едут с jsDelivr. Это рабочая, но
+рискованная схема: если CDN окажется недоступен, страница потеряет не
+только фотографии, а всё оформление сразу.
+
+Надёжнее положить эти два файла в файловый менеджер самой Tilda — от неё
+сайт зависит в любом случае, так что новой точки отказа не появится.
+Загрузите `assets/css/site.css` и `assets/js/site.js`, возьмите выданные
+ссылки на `static.tildacdn.com` и пересоберите:
+
+```
+CODE_BASE=https://static.tildacdn.com/ВАШ-ПУТЬ/ \
+ASSET_BASE=%(asset_base)s \
+python3 _src/build_tilda.py
+```
+
+Сборщик подставит `CODE_BASE` только под `css/` и `js/`, картинки
+останутся на прежнем адресе.
+
+#### Если фотографии меняются
+
+Метка неизменяема, поэтому под новые файлы нужна новая метка:
+
+```
+git tag -a assets-v2 -m "Новые фотографии" && git push origin assets-v2
+ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v2/assets/ \
+python3 _src/build_tilda.py
+```
+
+Затем заново вставить изменившиеся блоки. Старые страницы продолжат
+работать со старой меткой, пока вы их не тронете.
+
+#### Запасной вариант
+
+Если jsDelivr подведёт, любая другая площадка подключается одной командой —
+залить туда папку `assets/` и пересобрать:
+
+```
+ASSET_BASE=https://static.banket-na5.ru/assets/ python3 _src/build_tilda.py
+```
+
+Свой поддомен на объектном хранилище (Yandex Cloud, Selectel) — самый
+устойчивый вариант: в адресах стоит ваш домен, провайдера можно поменять,
+не трогая ни одной страницы.
 
 ### 3. Фотографии галереи
 

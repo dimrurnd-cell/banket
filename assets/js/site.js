@@ -174,6 +174,24 @@
     });
   }
 
+  /* ---------- логотипы клиентов ------------------------------------------ */
+  /* Файлы логотипов пока лежат на стороннем адресе. Если он недоступен,
+     двадцать «битых» картинок выглядят хуже, чем их отсутствие. */
+  var marquee = $('.marquee');
+  if (marquee) {
+    var logos = $$('img', marquee);
+    var dead = 0;
+    logos.forEach(function (im) {
+      im.addEventListener('error', function () {
+        im.style.display = 'none';
+        if (++dead >= logos.length) {
+          var sec = marquee.closest('section');
+          if (sec) sec.hidden = true;
+        }
+      });
+    });
+  }
+
   /* ---------- lightbox --------------------------------------------------- */
   var lb = $('.lightbox');
   if (lb) {
