@@ -836,6 +836,9 @@ ul{margin:0;padding:0;list-style:none}
 
 /* --- utilities ---------------------------------------------------------- */
 .mt-s{margin-top:18px}.mt-m{margin-top:30px}.mt-l{margin-top:clamp(38px,4vw,64px)}
+/* якоря останавливаются ниже фиксированной шапки */
+section[id],main[id]{scroll-margin-top:84px}
+
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;
   background:var(--brass);color:var(--ink);padding:12px 20px;border-radius:0 0 8px 0;font-weight:600;

@@ -83,22 +83,17 @@ def build():
         % (B.render_header(""), B.render_mobile_nav())))
 
     write(os.path.join(OUT, "_global", "footer-block.html"), absolutise(
-        '<!-- Страница «Футер» → блок T123 «HTML-код» -->\n'
-        '<div class="bn5-root">\n%s\n</div>\n' % B.render_footer()))
+        '<!-- Страница «Футер» → блок T123 «HTML-код».\n'
+        '     Здесь же лежит форма заявки: она одинакова на всех страницах,\n'
+        '     поэтому в блоки самих страниц её вставлять не нужно.\n'
+        '     Кнопки «Проверить дату» ведут на якорь #zayavka внутри этого блока. -->\n'
+        '<div class="bn5-root">\n%s\n</div>\n' % B.render_chrome()))
 
     # ---------- страницы -------------------------------------------------
     rows = []
     for p in P.PAGES:
         body = "\n".join(B.RENDER[s["t"]](s) for s in p["sections"])
-        form = "" if p.get("no_form") else B.render_form()
-        lightbox = (
-            '<div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">\n'
-            '  <button class="lightbox__close" type="button" aria-label="Закрыть">✕</button>\n'
-            '  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>\n'
-            '  <img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">\n'
-            '  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>\n'
-            '</div>')
-        block = '<div class="bn5-root">\n%s\n%s\n%s\n</div>\n' % (body, form, lightbox)
+        block = '<div class="bn5-root">\n%s\n</div>\n' % body
         block = re.sub(r"\n{3,}", "\n\n", absolutise(block))
 
         slug = slug_of(p)
@@ -206,6 +201,10 @@ css Tilda (`tilda-grid-3.0`) задаёт `box-sizing: content-box` для вс�
 3. Вставить содержимое `<папка>/block.html`
 4. В настройках блока выставить **отступы сверху и снизу = 0**
    (иначе Tilda добавит инлайн-padding и разорвёт полноэкранные секции)
+
+Форму заявки в страницы вставлять не нужно — она лежит в блоке футера
+и появляется на всех страницах сама. Кнопки «Проверить дату» ведут
+на якорь `#zayavka` внутри этого блока.
 
 | Адрес | Страница | Папка | Размер блока |
 |-------|----------|-------|--------------|

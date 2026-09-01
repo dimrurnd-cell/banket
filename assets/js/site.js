@@ -265,7 +265,30 @@
     }
   }
 
-  /* ---------- smooth anchor offset for the fixed header ------------------ */
+  /* ---------- anchor scrolling ------------------------------------------- */
+  /* Отступ под фиксированную шапку задаётся в css через scroll-margin-top,
+     поэтому здесь достаточно scrollIntoView. Ленивые картинки догружаются
+     уже во время прокрутки и сдвигают вёрстку вниз, из-за чего плавный
+     скролл недоезжает — после остановки доводим цель на место. */
+  function scrollToTarget(el) {
+    el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    el.setAttribute('tabindex', '-1');
+    el.focus({ preventScroll: true });
+    if (reduced) return;
+
+    var tries = 0;
+    var settle = function () {
+      var drift = el.getBoundingClientRect().top - 84;
+      var canScroll = window.scrollY + window.innerHeight < document.body.scrollHeight - 4;
+      if (Math.abs(drift) > 24 && canScroll && tries < 3) {
+        tries++;
+        el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        setTimeout(settle, 220);
+      }
+    };
+    setTimeout(settle, 700);
+  }
+
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -274,9 +297,6 @@
     var target = document.getElementById(id.slice(1));
     if (!target) return;
     e.preventDefault();
-    var y = target.getBoundingClientRect().top + window.scrollY - 84;
-    window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
-    target.setAttribute('tabindex', '-1');
-    target.focus({ preventScroll: true });
+    scrollToTarget(target);
   });
 })();

@@ -479,6 +479,23 @@ def render_footer():
                 E(SITE["address_full"]), E(SITE["hours"]), E(SITE["legal_name"]), legal)
 
 
+LIGHTBOX = """<div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+  <button class="lightbox__close" type="button" aria-label="Закрыть">✕</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>
+  <img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>
+</div>"""
+
+
+def render_chrome():
+    """Форма заявки, подвал и лайтбокс — одинаковы на всех страницах.
+
+    В сборке для Tilda этот же кусок целиком уходит в служебную страницу
+    «Футер», поэтому вставлять форму в каждую страницу не нужно.
+    """
+    return "\n".join([render_form(), render_footer(), LIGHTBOX])
+
+
 LD = """{
   "@context":"https://schema.org",
   "@type":"EventVenue",
@@ -526,15 +543,8 @@ PAGE = """<!DOCTYPE html>
 %(mnav)s
 <main id="main">
 %(body)s
-%(form)s
 </main>
-%(footer)s
-<div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
-  <button class="lightbox__close" type="button" aria-label="Закрыть">✕</button>
-  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>
-  <img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
-  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>
-</div>
+%(chrome)s
 <script src="/assets/js/site.js?v=2" defer></script>
 </body>
 </html>
@@ -562,8 +572,7 @@ def build():
             "header": render_header(p.get("nav", "")),
             "mnav": render_mobile_nav(),
             "body": body,
-            "form": "" if p.get("no_form") else render_form(),
-            "footer": render_footer(),
+            "chrome": render_chrome(),
         }
         html_out = re.sub(r"\n{3,}", "\n\n", html_out)
         with open(os.path.join(ROOT, p["file"]), "w", encoding="utf-8") as fh:

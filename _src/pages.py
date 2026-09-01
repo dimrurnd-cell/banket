@@ -1029,7 +1029,7 @@ LEGAL_DESC = ("Правовая информация Банкет-Холла: у
 
 def legal_page(doc):
     return {
-        "file": doc["file"], "url": doc["url"], "nav": "", "no_form": True,
+        "file": doc["file"], "url": doc["url"], "nav": "",
         "title": doc["title"] + " | Банкет-Холл",
         "desc": LEGAL_DESC,
         "sections": [
@@ -1043,7 +1043,7 @@ def legal_page(doc):
 
 
 NOT_FOUND = {
-    "file": "404.html", "url": "/404", "nav": "", "no_form": True,
+    "file": "404.html", "url": "/404", "nav": "",
     "title": "Страница не найдена | Банкет-Холл",
     "desc": "Такой страницы на сайте нет. Вернитесь на главную или выберите зал.",
     "sections": [
