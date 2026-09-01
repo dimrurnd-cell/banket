@@ -93,6 +93,7 @@ def build():
     # ---------- страницы -------------------------------------------------
     rows = []
     for p in P.PAGES:
+        B.seed_page_images(p)
         body = "\n".join(B.RENDER[s["t"]](s) for s in p["sections"])
         block = '<div class="bn5-root">\n%s\n</div>\n' % body
         block = re.sub(r"\n{3,}", "\n\n", absolutise(block))

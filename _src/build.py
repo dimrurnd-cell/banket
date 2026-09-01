@@ -69,7 +69,34 @@ def section(inner, s):
     return '<section class="%s"%s><div class="wrap">%s</div></section>' % (cls, sid, inner)
 
 
+# Фотографии, уже показанные на текущей странице. Нужен, чтобы галерея
+# страницы не повторяла кадры из шапки и разделов.
+PAGE_IMAGES = set()
+
+
+def reset_page_images():
+    PAGE_IMAGES.clear()
+
+
+def seed_page_images(page):
+    """Заранее помечает кадры, которые страница покажет крупно.
+
+    Галерея фильтруется по этому набору, поэтому неважно, идёт ли она
+    в разметке до или после раздела с большой фотографией.
+    """
+    reset_page_images()
+    for sec in page["sections"]:
+        if sec["t"] == "gallery":
+            continue
+        if sec.get("image"):
+            PAGE_IMAGES.add(sec["image"])
+        for item in sec.get("items", []):
+            if isinstance(item, dict) and item.get("image"):
+                PAGE_IMAGES.add(item["image"])
+
+
 def picture(src, alt, cls="", lazy=True, sizes=None):
+    PAGE_IMAGES.add(src)
     return '<img src="%s" alt="%s"%s%s decoding="async"%s>' % (
         E(src), E(alt, quote=True), ' class="%s"' % cls if cls else "",
         ' loading="lazy"' if lazy else "", ' sizes="%s"' % sizes if sizes else "")
@@ -148,16 +175,18 @@ def s_stats(s):
 def s_picker(s):
     import json
     payload = json.dumps([{k: h[k] for k in ("name", "note", "meta", "url", "to")} for h in HALLS], ensure_ascii=False)
+    from data import PHOTOS
     panels = "".join(
         '<div class="picker__panel%s" data-hall-panel>%s</div>' % (
-            " is-active" if i == 0 else "", picture(COVERS[h["slug"]], "Зал: " + h["name"]))
+            " is-active" if i == 0 else "",
+            picture(PHOTOS[h["slug"]][0], "Зал: " + h["name"]))
         for i, h in enumerate(HALLS))
     # no-JS fallback: the halls stay reachable as plain links
     fallback = "".join('<li><a class="tlink" href="%s">%s — %s%s</a></li>' % (h["url"], E(h["name"]), E(h["cap"]), CHEV)
                        for h in HALLS)
     inner = """%s
 <div class="picker reveal" data-picker='%s'>
-  <div class="picker__stage">%s<span class="picker__badge">Зал подбирается по числу гостей</span></div>
+  <div class="picker__stage">%s<span class="picker__badge">Рекомендация по вместимости</span></div>
   <div>
     <div class="picker__read"><div class="picker__count" data-picker-count>120</div>
       <div class="picker__count-label">гостей</div></div>
@@ -250,6 +279,8 @@ def s_price(s):
 
 
 def s_gallery(s):
+    shots_src = [x for x in s["shots"] if x[0] not in PAGE_IMAGES]
+    s = dict(s, shots=shots_src or s["shots"])
     chips = ""
     if s.get("filters"):
         chips = '<div class="filters reveal" data-filters>%s</div>' % "".join(
@@ -559,6 +590,7 @@ def build():
     import pages as P
     n = 0
     for p in P.PAGES:
+        seed_page_images(p)
         body = "\n".join(RENDER[s["t"]](s) for s in p["sections"])
         html_out = PAGE % {
             "title": E(p["title"], quote=True),

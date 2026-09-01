@@ -44,7 +44,7 @@ PHOTOS = {
     "furshet": [img("furshet (%d).jpg" % n) for n in range(1, 6)],
     "kofe-breyk": [img("kf breik (%d).jpg" % n) for n in range(1, 6)],
     "detskiy-prazdnik": [img("dr detskii.jpg")],
-    "vypusknoy": [img("zal_ametist.png")],
+    "vypusknoy": [img("zal0.JPG")],
     "novogodniy-korporativ": ["/assets/img/newyear.jpg"],
     "pominalny-obed": ["/assets/img/pominki.jpg"],
 }
@@ -59,7 +59,7 @@ COVERS = {
     "furshet": img("furshet.JPG"),
     "kofe-breyk": img("coffee break.png"),
     "detskiy-prazdnik": img("dr detskii.jpg"),
-    "vypusknoy": img("zal_ametist.png"),
+    "vypusknoy": img("zal1.jpg"),
     "novogodniy-korporativ": "/assets/img/newyear.jpg",
     "pominalny-obed": "/assets/img/pominki.jpg",
     "hero": "/assets/img/hero-banquet-1668.jpg",
@@ -125,8 +125,8 @@ FORMATS = [
         "slug": "novogodniy-korporativ", "url": "/novogodniy-korporativ",
         "name": "Новогодние корпоративы", "cap": "50–2 500 гостей",
         "note": "Открыли бронь на декабрь 2026",
-        "short": "Итоги года, награждение и шоу-программа в одном зале. В декабре четыре пятницы — "
-                 "и половина города хочет две из них.",
+        "short": "Итоги года, награждение и шоу-программа в одном зале — с документами "
+                 "для бухгалтерии и парковкой для сотрудников.",
         "form_value": "Новогодний корпоратив",
     },
     {
