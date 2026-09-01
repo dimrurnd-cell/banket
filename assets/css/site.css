@@ -889,3 +889,45 @@ ul{margin:0;padding:0;list-style:none}
 .doc thead th,.doc tr:first-child td{color:var(--cream);font-weight:600;background:rgba(243,234,216,.05)}
 .doc td p{margin:0 0 8px}
 .doc td p:last-child{margin-bottom:0}
+
+/* ==========================================================================
+   Совместимость с Tilda
+   Нужна только если разметка вставляется блоками «HTML-код» внутрь Tilda.
+   На отдельно стоящем статическом сайте эти правила ничего не меняют.
+   ========================================================================== */
+
+/* tilda-grid-3.0 задаёт box-sizing:content-box для всех элементов и грузится
+   после пользовательского кода. Селектор из трёх элементов выигрывает
+   у «*» независимо от порядка подключения. */
+html body *,
+html body *::before,
+html body *::after{box-sizing:border-box}
+
+/* Tilda пишет body{background-color:#fff} и .t-body{margin:0} из настроек
+   страницы — перебиваем без !important, повышая специфичность. */
+html body.t-body,
+html body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--font-body);
+  font-size:17.5px;
+  font-weight:400;
+  line-height:1.72;
+  letter-spacing:.004em;
+  margin:0;
+}
+html body #allrecords{background:var(--ink)}
+
+/* Отступы блока-контейнера задаются в редакторе Tilda инлайн-стилем.
+   Выставьте у блока padding 0 сверху и снизу; правило ниже — подстраховка. */
+.t-rec:has(> .bn5-root){padding-top:0 !important;padding-bottom:0 !important}
+.bn5-root{position:relative}
+
+/* Tilda обнуляет border у div/a/img — возвращаем там, где он несущий. */
+html body .card,
+html body .tiles,
+html body .price,
+html body .formwrap,
+html body .contact-card,
+html body .map,
+html body .doc__toc{border-style:solid}
