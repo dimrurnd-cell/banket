@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Page definitions: structure + copy for every URL on banket-na5.ru."""
 import os
-from data import (SITE, HALLS, FORMATS, PHOTOS, COVERS, INCLUDED, TIMING, LEGAL, img,
+from data import (SITE, HALLS, FORMATS, PHOTOS, COVERS, INCLUDED, TIMING, LEGAL, ph,
                   GALLERY, GALLERY_GROUPS, GALLERY_ALT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -563,7 +563,7 @@ EVENT_PAGES = {
         "urgency_lede": "Три причины, по которым декабрь готовят заранее.",
         "urgency": NY_URGENCY,
         "halls_order": ["ametist", "vystavochny", "bankethall"],
-        "split_image": img("zal2.JPG"),
+        "split_image": ph("zal-2"),
         "feature_title": "Итоги года днём, банкет вечером — в одном зале",
         "feature_body": [
             "Отчётное собрание, награждение и шоу-программа помещаются в один вечер и один зал. "
@@ -607,7 +607,7 @@ EVENT_PAGES = {
         "desc": "Выпускной вечер в Ростове-на-Дону, пр. М. Нагибина, 30. Отдельный зал от 30 человек, своя "
                 "кухня, парковка на 300 мест, смета с суммой на одного выпускника. Проверить дату.",
         "h1": "Школьный выпускной",
-        "split_image": img("zal2.JPG"),
+        "split_image": ph("zal-2"),
         "lede": "Отдельный зал вместо школьного спортзала: с кухней в здании, парковкой для родителей "
                 "и сметой, в которой видно сумму на одного выпускника.",
         "halls_order": ["bankethall", "ametist", "vystavochny"],
@@ -650,7 +650,7 @@ EVENT_PAGES = {
         "desc": "Зал для детского праздника в Ростове-на-Дону, пр. М. Нагибина, 30. Игровая зона отделена "
                 "от банкетной, детское меню по возрасту, от 15 гостей. Свои аниматоры — можно.",
         "h1": "Детский праздник",
-        "split_image": img("zal1.jpg"),
+        "split_image": ph("zal-1"),
         "lede": "Дети играют там, где их видно, взрослые сидят за своим столом и не вскакивают "
                 "каждые пять минут. Игровая зона отделена от банкетной — это и есть вся идея.",
         "halls_order": ["bankethall", "ametist", "vystavochny"],

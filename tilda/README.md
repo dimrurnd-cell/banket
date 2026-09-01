@@ -147,11 +147,11 @@ Telegram) настраиваются средствами Tilda и точно р
 | `/meropriyatiya` | Где провести мероприятие в Ростове-на-Дону |… | meropriyatiya | 26 КБ |
 | `/svadba` | Зал для свадьбы в Ростове-на-Дону на 50–2 50… | svadba | 24 КБ |
 | `/korporativ` | Корпоратив в Ростове-на-Дону: зал, кухня, до… | korporativ | 22 КБ |
-| `/novogodniy-korporativ` | Новогодний корпоратив в Ростове-на-Дону: бро… | novogodniy-korporativ | 18 КБ |
+| `/novogodniy-korporativ` | Новогодний корпоратив в Ростове-на-Дону: бро… | novogodniy-korporativ | 19 КБ |
 | `/den-rozhdeniya` | Зал на юбилей и день рождения в Ростове-на-Д… | den-rozhdeniya | 23 КБ |
 | `/furshet` | Фуршет в Ростове-на-Дону для выставок и дело… | furshet | 21 КБ |
 | `/kofe-breyk` | Кофе-брейк в Ростове-на-Дону для конференций… | kofe-breyk | 21 КБ |
-| `/vypusknoy` | Зал на выпускной в Ростове-на-Дону: банкет д… | vypusknoy | 14 КБ |
+| `/vypusknoy` | Зал на выпускной в Ростове-на-Дону: банкет д… | vypusknoy | 15 КБ |
 | `/detskiy-prazdnik` | Детский день рождения в Ростове-на-Дону: зал… | detskiy-prazdnik | 14 КБ |
 | `/pominalny-obed` | Поминальный обед в Ростове-на-Дону: зал от 2… | pominalny-obed | 5 КБ |
 | `/kejtering` | Выездной кейтеринг в Ростове-на-Дону и облас… | kejtering | 7 КБ |
