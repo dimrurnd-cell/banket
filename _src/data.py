@@ -60,8 +60,11 @@ PHOTOS = {
     # В присланной подборке нашлись настоящие новогодние кадры — корпоратив
     # «Ростсельмаша» и две фотозоны. Они лучше прежней случайной картинки.
     "novogodniy-korporativ": [ph("gallery-13"), ph("gallery-20"), ph("gallery-21")],
-    # Единственное фото, которого нет в сжатой подборке: лежит на хостинге.
-    "pominalny-obed": ["/assets/img/pominki.jpg"],
+    # Кадра именно с поминального обеда в подборке нет, а прежний pominki.jpg
+    # остался на старом хостинге и не переехал. Ставим самый нейтральный из
+    # имеющихся: зал с круглыми столами, без украшений и праздничного света.
+    # Заменить — положить файл в assets/img/photo и поправить эту строку.
+    "pominalny-obed": [ph("gallery-19")],
 }
 
 COVERS = {
@@ -78,7 +81,7 @@ COVERS = {
     "detskiy-prazdnik": ph("detskiy-prazdnik"),
     "vypusknoy": ph("zal-1"),
     "novogodniy-korporativ": ph("gallery-20"),
-    "pominalny-obed": "/assets/img/pominki.jpg",
+    "pominalny-obed": ph("gallery-19"),
     "hero": "/assets/img/hero-banquet-1668.jpg",
     "hall2": ph("zal-1"),
     "hall3": ph("zal-2"),

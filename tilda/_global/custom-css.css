@@ -673,15 +673,21 @@ ul{margin:0;padding:0;list-style:none}
 .filters button:hover{color:var(--cream);border-color:rgba(243,234,216,.36)}
 .filters button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--ink);font-weight:600}
 
-.masonry{columns:3;column-gap:clamp(12px,1.4vw,20px)}
-@media(max-width:900px){.masonry{columns:2}}
-@media(max-width:560px){.masonry{columns:1}}
+/* Сетка, а не колонки: у кадров разные пропорции, и в колоночной кладке
+   ряды не выравниваются — низ каждой колонки обрывается на своей высоте.
+   Одинаковые плитки с object-fit:cover читаются как одна галерея. */
+.masonry{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,1.4vw,20px);
+}
+@media(max-width:900px){.masonry{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.masonry{grid-template-columns:1fr}}
 .shot{
-  break-inside:avoid;margin-bottom:clamp(12px,1.4vw,20px);
+  aspect-ratio:3/2;
   border-radius:10px;overflow:hidden;position:relative;background:var(--petrol);
   display:block;width:100%;padding:0;border:0;cursor:zoom-in;
 }
-.shot img{width:100%;height:auto;display:block;transition:transform .9s var(--slow),opacity .5s var(--ease)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s var(--slow),opacity .5s var(--ease)}
 .shot:hover img{transform:scale(1.04)}
 .shot::after{
   content:"";position:absolute;inset:0;background:rgba(11,24,28,.18);opacity:0;
