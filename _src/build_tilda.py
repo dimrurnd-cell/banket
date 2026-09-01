@@ -32,8 +32,14 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600
 
 
 def absolutise(html):
-    """Внутри Tilda относительные пути к ассетам не работают."""
-    return html.replace('"/assets/', '"' + ASSET_BASE).replace("'/assets/", "'" + ASSET_BASE)
+    """Внутри Tilda относительные пути к ассетам не работают.
+
+    Замена по кавычке пропускала вторых кандидатов в srcset — они отделены
+    запятой, а не кавычкой. Ловим начало URL по любому разделителю; re.sub
+    не пересматривает собственную подстановку, поэтому уже абсолютные
+    адреса (в них тоже есть «/assets/») не портятся.
+    """
+    return re.sub(r'(?<=[\s"\'(,])/assets/', ASSET_BASE, html)
 
 
 def slug_of(page):
@@ -122,7 +128,19 @@ def build():
     write(os.path.join(OUT, "README.md"), README % {
         "count": len(rows), "table": table, "asset_base": ASSET_BASE, "fonts": FONTS})
 
-    print("готово: %d страниц в tilda/" % len(rows))
+    leftovers = []
+    for root, _, files in os.walk(OUT):
+        for f in files:
+            if not f.endswith(".html"):
+                continue
+            path = os.path.join(root, f)
+            with open(path, encoding="utf-8") as fh:
+                for m in re.finditer(r'(?<=[\s"\'(,])/assets/\S*', fh.read()):
+                    leftovers.append("%s: %s" % (os.path.relpath(path, OUT), m.group(0)[:70]))
+    if leftovers:
+        raise SystemExit("остались относительные пути к ассетам:\n  " + "\n  ".join(leftovers))
+
+    print("готово: %d страниц в tilda/, относительных путей к ассетам нет" % len(rows))
     print("ASSET_BASE = %s" % ASSET_BASE)
 
 
