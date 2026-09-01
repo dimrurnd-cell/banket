@@ -39,13 +39,20 @@ ASSET_BASE = os.environ.get(
     "ASSET_BASE", "https://donexpocentre.ru/static/banket/assets/").rstrip("/") + "/"
 
 # Лесенка ширин. Браузер выберет по sizes нужную и не скачает остальные.
-LADDER = [400, 640, 900, 1280, 1680, 2000]
+# 400 — плитка на телефоне, 800 — она же на retina и половина ширины,
+# 1280 — крупный кадр, дальше идёт сам оригинал.
+LADDER = [400, 800, 1280]
 # Логотипы в бегущей строке — высотой до 62 px, огромные версии им не нужны.
 LADDER_SMALL = [200, 400]
-# Оригиналы шире этого уменьшаем: 2000 px хватает на full-bleed на 2x-экране.
-MAX_WIDTH = 2000
+# Оригиналы шире этого уменьшаем: 1920 px хватает на full-bleed на 2x-экране.
+MAX_WIDTH = 1920
+# JPEG нужен только как запасной вариант для браузеров без WebP — их единицы,
+# и целую лесенку под них держать незачем.
+WIDTHS_BY_FORMAT = {"jpg": [1280]}
 
-QUALITY = {"avif": 52, "webp": 76, "jpg": 80}
+# JPEG виден только браузерам без WebP и соцсетям в og:image —
+# держать его на «фотографическом» качестве незачем.
+QUALITY = {"avif": 52, "webp": 76, "jpg": 72}
 
 UA = {"User-Agent": "Mozilla/5.0 (compatible; banket-image-optimizer)"}
 
@@ -163,16 +170,30 @@ def process(url, role, formats, force):
     ow, oh = im.size
     slug = slugify(url)
     ladder = LADDER_SMALL if role == "logo" else LADDER
-    widths = sorted({w for w in ladder if w < ow} | {min(ow, MAX_WIDTH)})
+    top = min(ow, MAX_WIDTH)
+    widths = sorted({w for w in ladder if w < ow} | {top})
+    master_is_webp = Image.open(io.BytesIO(blob)).format == "WEBP"
 
     os.makedirs(OUT_DIR, exist_ok=True)
     entry = {"slug": slug, "w": ow, "h": oh, "alpha": alpha, "src": url, "files": {}}
     written = 0
     for fmt in formats:
         ext = "png" if (fmt == "jpg" and alpha) else fmt
+        only = WIDTHS_BY_FORMAT.get(fmt)
+        use = sorted({w for w in widths if only is None or w in only}
+                     | ({top} if only is None else set()))
+        if only and not use:                     # оригинал мельче запасных ширин
+            use = [top]
         rows = []
-        for w in widths:
-            path = os.path.join(OUT_DIR, "%s-%d.%s" % (slug, w, ext))
+        for w in use:
+            # Мастер уже сжат в WebP и лежит в репозитории: пересохранять его
+            # в тот же формат — терять качество и держать те же байты дважды.
+            # Самую большую ширину просто берём из assets/img/photo.
+            if fmt == "webp" and w == ow and master_is_webp and url.startswith("/assets/"):
+                rows.append([w, len(blob), url])
+                continue
+            name = "%s-%d.%s" % (slug, w, ext)
+            path = os.path.join(OUT_DIR, name)
             if force or not os.path.exists(path):
                 resized = im if w == ow else im.resize(
                     (w, max(1, round(oh * w / ow))), Image.LANCZOS)
@@ -184,7 +205,7 @@ def process(url, role, formats, force):
                 written += 1
             else:
                 size = os.path.getsize(path)
-            rows.append([w, size])
+            rows.append([w, size, OUT_URL + name])
         entry["files"][fmt] = {"ext": ext, "widths": rows}
     return entry, len(blob), written
 

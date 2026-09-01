@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /meropriyatiya
 Заголовок (Title):     Где провести мероприятие в Ростове-на-Дону | Банкет-Холл
 Описание (Description): Свадьбы, корпоративы, юбилеи, фуршеты, кофе-брейки и детские праздники в трёх залах на пр. М. Нагибина, 30 в Ростове-на-Дону. От 15 до 2 500 гостей, своя кухня в здании.
-Картинка для соцсетей: https://www.donexpocentre.ru/media/filer_public/GG/svadba.JPG
+Картинка для соцсетей: https://donexpocentre.ru/static/banket/assets/img/photo/cover-svadba.webp

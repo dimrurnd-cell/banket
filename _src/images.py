@@ -45,17 +45,14 @@ def known(src):
 
 
 def _srcset(entry, fmt):
-    ext = entry["files"][fmt]["ext"]
-    return ", ".join("%s%s-%d.%s %dw" % (DIR, entry["slug"], w, ext, w)
-                     for w, _size in entry["files"][fmt]["widths"])
+    return ", ".join("%s %dw" % (url, w)
+                     for w, _size, url in entry["files"][fmt]["widths"])
 
 
 def _at(entry, fmt, target):
     """Один файл ближайшей сверху ширины — для og:image и лайтбокса."""
-    ext = entry["files"][fmt]["ext"]
-    widths = [w for w, _ in entry["files"][fmt]["widths"]]
-    pick = next((w for w in widths if w >= target), widths[-1])
-    return "%s%s-%d.%s" % (DIR, entry["slug"], pick, ext)
+    rows = entry["files"][fmt]["widths"]
+    return next((url for w, _s, url in rows if w >= target), rows[-1][2])
 
 
 def at(src, fmt, target):

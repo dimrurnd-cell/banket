@@ -29,56 +29,107 @@ SITE = {
 }
 
 # --- photography ------------------------------------------------------------
+# Все кадры сжаты заказчиком и лежат в репозитории: assets/img/photo/*.webp.
+# Отсюда их разбирает _src/optimize_images.py и делает адаптивные версии.
+PHOTO = "/assets/img/photo/"
+
+
+def ph(name):
+    return PHOTO + name + ".webp"
+
+
 PHOTOS = {
-    "bankethall": [img("bx zal (%d)%s" % (n, e)) for n, e in
-                   [(1, ".JPG"), (2, ".jpg"), (3, ".jpg"), (4, ".jpg"), (5, ".JPG"), (6, ".jpg")]],
-    "ametist": [img("ametist (%d)%s" % (n, e)) for n, e in
-                [(1, ".JPG"), (2, ".JPG"), (3, ".jpg"), (4, ".jpg"), (5, ".jpg"),
-                 (6, ".jpg"), (7, ".jpg"), (8, ".jpg"), (9, ".jpg"), (10, ".jpg")]],
-    "vystavochny": [img("vz (%d).webp" % n) for n in range(1, 5)],
-    "svadba": [img("svdb (%d)%s" % (n, e)) for n, e in
-               [(1, ".JPG"), (2, ".jpg"), (3, ".jpg"), (4, ".jpg"), (5, ".jpg"), (6, ".jpg")]],
-    "korporativ": [img("krprt (1).JPG"), img("krprt (2).JPG"), img("krprt (3).jpg"), img("krprt (4).jpg")],
-    "den-rozhdeniya": [img("dr (%d)%s" % (n, e)) for n, e in
-                       [(1, ".jpg"), (2, ".jpg"), (3, ".jpg"), (4, ".jpg"), (5, ".JPG"), (6, ".jpg")]],
-    "furshet": [img("furshet (%d).jpg" % n) for n in range(1, 6)],
-    "kofe-breyk": [img("kf breik (%d).jpg" % n) for n in range(1, 6)],
-    "detskiy-prazdnik": [img("dr detskii.jpg")],
-    "vypusknoy": [img("zal0.JPG")],
-    "novogodniy-korporativ": ["/assets/img/newyear.jpg"],
+    # «bankethall-3» намеренно не показываем: это столовая с квадратными
+    # столами, а не банкетная расстановка — кадр работает против предложения.
+    "bankethall": [ph("bankethall-%d" % n) for n in (1, 2, 4, 5, 6)],
+    "ametist": [ph("ametist-%d" % n) for n in range(1, 11)],
+    "vystavochny": [ph("vystavochny-%d" % n) for n in range(1, 6)],
+    # Отдельных свадебных кадров в фотобанке нет: все шесть файлов «svdb»
+    # побайтно совпадали со снимками залов. Показываем те же залы, но
+    # ссылаемся на один файл, а не на две его копии.
+    "svadba": [ph("ametist-2"), ph("bankethall-2"), ph("ametist-10"),
+               ph("ametist-7"), ph("bankethall-6"), ph("ametist-3")],
+    "korporativ": [ph("korporativ-%d" % n) for n in range(1, 5)] + [ph("korporativ-konferentsiya")],
+    "den-rozhdeniya": [ph("den-rozhdeniya-1"), ph("bankethall-4"), ph("den-rozhdeniya-3"),
+                       ph("den-rozhdeniya-4"), ph("den-rozhdeniya-5"), ph("korporativ-4")],
+    "furshet": [ph("furshet-%d" % n) for n in range(1, 6)],
+    "kofe-breyk": [ph("kofe-breyk-1"), ph("kofe-breyk-2"), ph("kofe-breyk-3"),
+                   ph("furshet-4"), ph("kofe-breyk-5")],
+    "detskiy-prazdnik": [ph("detskiy-prazdnik")],
+    "vypusknoy": [ph("zal-0")],
+    # В присланной подборке нашлись настоящие новогодние кадры — корпоратив
+    # «Ростсельмаша» и две фотозоны. Они лучше прежней случайной картинки.
+    "novogodniy-korporativ": [ph("gallery-13"), ph("gallery-20"), ph("gallery-21")],
+    # Единственное фото, которого нет в сжатой подборке: лежит на хостинге.
     "pominalny-obed": ["/assets/img/pominki.jpg"],
 }
 
 COVERS = {
-    "bankethall": img("zal_bh.png"),
-    "ametist": img("zal_ametist.png"),
-    "vystavochny": img("zal_vustavochnuyi.png"),
-    "svadba": img("svadba.JPG"),
-    "korporativ": img("korporat.jpg"),
-    "den-rozhdeniya": img("dr.JPG"),
-    "furshet": img("furshet.JPG"),
-    "kofe-breyk": img("coffee break.png"),
-    "detskiy-prazdnik": img("dr detskii.jpg"),
-    "vypusknoy": img("zal1.jpg"),
-    "novogodniy-korporativ": "/assets/img/newyear.jpg",
+    "bankethall": ph("cover-bankethall"),
+    "ametist": ph("cover-ametist"),
+    "vystavochny": ph("cover-vystavochny"),
+    "svadba": ph("cover-svadba"),
+    "korporativ": ph("cover-korporativ"),
+    "den-rozhdeniya": ph("cover-den-rozhdeniya"),
+    "furshet": ph("cover-furshet"),
+    # Прежняя обложка «coffee break.png» в подборку не попала; берём кофейную
+    # стойку — она и была снята для этого формата.
+    "kofe-breyk": ph("kofe-bar"),
+    "detskiy-prazdnik": ph("detskiy-prazdnik"),
+    "vypusknoy": ph("zal-1"),
+    "novogodniy-korporativ": ph("gallery-20"),
     "pominalny-obed": "/assets/img/pominki.jpg",
     "hero": "/assets/img/hero-banquet-1668.jpg",
-    "hall2": img("zal1.jpg"),
-    "hall3": img("zal2.JPG"),
+    "hall2": ph("zal-1"),
+    "hall3": ph("zal-2"),
 }
 
-# Подборка, залитая клиентом на donexpocentre: /static/banket/assets/gallery/1.jpg … 27.jpg.
-# Это единственный источник кадров для страницы «Галерея».
-GALLERY = ["/assets/gallery/%d.jpg" % n for n in range(1, 28)]
+GALLERY = [ph("gallery-%02d" % n) for n in range(1, 28)]
 
-# Разметка подборки по фильтрам: тег чипа -> номера файлов.
-# Пока словарь пуст, галерея выводится одной лентой без чипов. Чтобы включить
-# фильтры, достаточно перечислить номера, например: {"svadba": [1, 4, 9], ...}.
-GALLERY_GROUPS = {}
+# Разметка галереи по фильтрам: тег чипа -> номера кадров. Проставлена по
+# самим фотографиям, а не по именам файлов.
+GALLERY_GROUPS = {
+    "zaly": [5, 8, 14, 15, 19, 23, 25, 26, 27],
+    "stol": [1, 3, 9, 17, 24],
+    "svadba": [2, 5, 6, 18, 24],
+    "korporativ": [12, 13, 14, 16, 22],
+    "ny": [13, 20, 21],
+    "furshet": [4, 7, 10, 11],
+}
 
-# Подписи к кадрам (alt). Ключ — номер файла. Для неразмеченных берётся общая.
-GALLERY_ALT = {}
+# Подписи для поисковиков и экранных дикторов — по содержанию кадра.
+GALLERY_ALT = {
+    1: "Десерты на кофе-брейк: тирамису в креманках и зефир",
+    2: "Свадебная зона с драпировкой и свечами в банкетном зале",
+    3: "Банкетный стол: холодные закуски, нарезки и фруктовая композиция",
+    4: "Фуршетное ассорти: канапе и мясная нарезка на подаче",
+    5: "Сервированный стол и свадебная арка в банкетном зале",
+    6: "Банкетный зал во время свадебного вечера",
+    7: "Официант выносит канапе на фуршете",
+    8: "Банкетный зал с расстановкой круглыми столами",
+    9: "Закуски и салаты на банкетном столе",
+    10: "Фуршетная линия: канапе и овощные палочки",
+    11: "Кофе-брейк: кофейная станция, выпечка и канапе",
+    12: "Корпоративный банкет: круглые столы и сцена",
+    13: "Новогодний корпоратив: сцена, экраны и накрытые столы",
+    14: "Зал «Аметист» во время большого банкета",
+    15: "Зал «Аметист» с цветной подсветкой и сервированными столами",
+    16: "Корпоративная вечеринка: длинные столы и сцена",
+    17: "Сервировка банкетного стола крупным планом",
+    18: "Свадебная сервировка: свечи, розы и бокалы",
+    19: "Банкетный зал, подготовленный к мероприятию",
+    20: "Новогодняя фотозона: ёлка, месяц и часы",
+    21: "Новогодняя фотозона с ёлками и мостиком",
+    22: "Корпоратив в большом зале с голубой подсветкой",
+    23: "Зал в классическом оформлении с накрытыми столами",
+    24: "Праздничный стол: белые салфетки, цветы и подсветка",
+    25: "Зал «Аметист»: картины, драпировки и лиловая подсветка",
+    26: "Зал «Аметист» с бирюзовой подсветкой",
+    27: "Зал «Аметист»: сервировка на большое торжество",
+}
 
+# Логотипы клиентов в бегущей строке — единственное, что осталось на старом
+# CDN: в сжатую подборку они не попали.
 LOGOS = [img("logobh1 (%d).jpg" % n) for n in range(1, 21)]
 
 # --- halls ------------------------------------------------------------------
