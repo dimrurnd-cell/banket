@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Page definitions: structure + copy for every URL on banket-na5.ru."""
 import os
-from data import (SITE, HALLS, FORMATS, PHOTOS, COVERS, INCLUDED, TIMING, LEGAL, img)
+from data import (SITE, HALLS, FORMATS, PHOTOS, COVERS, INCLUDED, TIMING, LEGAL, img,
+                  GALLERY, GALLERY_GROUPS, GALLERY_ALT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -1011,35 +1012,39 @@ ARENDA = {
 GALLERY_TAGS = [("all", "Все"), ("halls", "Залы"), ("svadba", "Свадьбы"), ("korporativ", "Корпоративы"),
                 ("dr", "Дни рождения"), ("furshet", "Фуршеты"), ("kofe", "Кофе-брейки"), ("deti", "Детские")]
 
+GALLERY_ALT_DEFAULT = "Банкет-Холл, Ростов-на-Дону — фото %d"
+
 
 def gallery_shots():
+    """Кадры страницы «Галерея» — подборка из assets/gallery."""
+    tags_of = {}
+    for tag, numbers in GALLERY_GROUPS.items():
+        for n in numbers:
+            tags_of.setdefault(n, []).append(tag)
     out = []
-    for s in PHOTOS["bankethall"]:
-        out.append((s, "Банкетный зал", "all halls"))
-    for s in PHOTOS["ametist"]:
-        out.append((s, "Зал «Аметист»", "all halls"))
-    for s in PHOTOS["vystavochny"]:
-        out.append((s, "Выставочный зал", "all halls"))
-    for s in PHOTOS["svadba"]:
-        out.append((s, "Свадьба в Банкет-Холле", "all svadba"))
-    for s in PHOTOS["korporativ"]:
-        out.append((s, "Корпоратив в Банкет-Холле", "all korporativ"))
-    for s in PHOTOS["den-rozhdeniya"]:
-        out.append((s, "День рождения в Банкет-Холле", "all dr"))
-    for s in PHOTOS["furshet"]:
-        out.append((s, "Фуршет в Банкет-Холле", "all furshet"))
-    for s in PHOTOS["kofe-breyk"]:
-        out.append((s, "Кофе-брейк в Банкет-Холле", "all kofe"))
-    for s in PHOTOS["detskiy-prazdnik"]:
-        out.append((s, "Детский праздник в Банкет-Холле", "all deti"))
+    for n, src in enumerate(GALLERY, start=1):
+        alt = GALLERY_ALT.get(n) or GALLERY_ALT_DEFAULT % n
+        out.append((src, alt, " ".join(["all"] + tags_of.get(n, []))))
     return out
 
+
+def gallery_filters():
+    """Чипы показываем только тогда, когда кадры размечены по форматам."""
+    if not GALLERY_GROUPS:
+        return None
+    used = {"all"} | set(GALLERY_GROUPS)
+    return [(tag, label) for tag, label in GALLERY_TAGS if tag in used]
+
+
+GALLERY_LEDE = ("Выберите зал или формат — покажем только его." if GALLERY_GROUPS else
+                "Съёмка в наших залах — без рендеров и стоковых картинок. "
+                "Нажмите на кадр, чтобы открыть его крупно.")
 
 GALEREYA = {
     "file": "page171394309.html", "url": "/galereya", "nav": "galereya",
     "title": "Фото залов и мероприятий в Ростове-на-Дону | Банкет-Холл",
     "desc": "Фотографии залов, свадеб, корпоративов и фуршетов на пр. М. Нагибина, 30 в Ростове-на-Дону. "
-            "Фильтр по залу и формату, съёмка с реальных мероприятий — без рендеров.",
+            "Съёмка с реальных мероприятий — без рендеров и стоковых картинок.",
     "og": COVERS["hall3"],
     "sections": [
         {"t": "hero_page", "image": COVERS["hall3"], "alt": "Банкетный зал",
@@ -1049,10 +1054,10 @@ GALEREYA = {
                  "но не звук и не свет — за этим лучше приехать.",
          "actions": [("Записаться на просмотр зала", "#zayavka", "")]},
 
-        {"t": "gallery", "tone": "ink2", "filters": GALLERY_TAGS,
+        {"t": "gallery", "tone": "ink2", "filters": gallery_filters(),
          "eyebrow": "Фотографии",
          "title": "Залы и мероприятия",
-         "lede": "Выберите зал или формат — покажем только его.",
+         "lede": GALLERY_LEDE,
          "shots": gallery_shots()},
     ],
 }
