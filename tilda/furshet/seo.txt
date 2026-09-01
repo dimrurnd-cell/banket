@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /furshet
 Заголовок (Title):     Фуршет в Ростове-на-Дону для выставок и деловых событий | Банкет-Холл
 Описание (Description): Фуршетное обслуживание в Ростове-на-Дону для приёмов, презентаций и выставок, в том числе прямо в залах ВЦ «ДонЭкспоцентр». От 50 до 2 500 гостей, посуда и мебель свои.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/cover-furshet.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/cover-furshet.webp

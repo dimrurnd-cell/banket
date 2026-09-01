@@ -14,7 +14,7 @@
 pip install pillow
 python3 _src/optimize_images.py
 python3 _src/build.py
-ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/ python3 _src/build_tilda.py
+ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/ python3 _src/build_tilda.py
 ```
 
 Скрипт раскладывает каждый кадр по ширинам 400 / 800 / 1280 px в AVIF и WebP
@@ -29,16 +29,26 @@ Tilda не хранит произвольные файлы, поэтому 700 
 **jsDelivr** — бесплатный CDN, который умеет отдавать файлы прямо из
 репозитория. Заливать ничего не нужно: всё уже там.
 
-Адрес зашит в блоки и привязан к метке `assets-v1`, а не к ветке. Это
-важно: метка неизменяема, поэтому jsDelivr кэширует файлы навсегда и
-отдаёт их мгновенно, а случайный коммит не может сломать работающий сайт.
+Адрес зашит в блоки и привязан к конкретному коммиту, а не к ветке. Это
+важно: коммит неизменяем, поэтому jsDelivr кэширует файлы навсегда и
+отдаёт их мгновенно, а новые правки в репозитории не могут сломать уже
+работающий сайт.
+
+Вместо длинного номера коммита можно поставить метку — так короче и
+понятнее. Из среды сборки метки не пушатся (доступ только к рабочей
+ветке), поэтому это делается вручную, один раз:
+
+```
+git tag -a assets-v1 -m "Файлы сайта" && git push origin assets-v1
+ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/ python3 _src/build_tilda.py
+```
 
 **Сначала проверьте, что CDN открывается у вас.** Из среды, где собирался
 сайт, cdn.jsdelivr.net заблокирован, и я не смог это проверить за вас.
 Откройте в браузере:
 
 ```
-https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/gallery-01.webp
+https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/gallery-01.webp
 ```
 
 Если картинка открылась — всё в порядке, вставляйте блоки. Если нет —
@@ -57,7 +67,7 @@ https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/gall
 ссылки на `static.tildacdn.com` и пересоберите:
 
 ```
-CODE_BASE=https://static.tildacdn.com/ВАШ-ПУТЬ/ ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/ python3 _src/build_tilda.py
+CODE_BASE=https://static.tildacdn.com/ВАШ-ПУТЬ/ ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/ python3 _src/build_tilda.py
 ```
 
 Сборщик подставит `CODE_BASE` только под `css/` и `js/`, картинки
@@ -65,15 +75,17 @@ CODE_BASE=https://static.tildacdn.com/ВАШ-ПУТЬ/ ASSET_BASE=https://cdn.js
 
 #### Если фотографии меняются
 
-Метка неизменяема, поэтому под новые файлы нужна новая метка:
+Адрес неизменяем, поэтому под новые файлы нужен новый адрес — коммит
+или метка:
 
 ```
-git tag -a assets-v2 -m "Новые фотографии" && git push origin assets-v2
-ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v2/assets/ python3 _src/build_tilda.py
+git commit -am "Новые фотографии" && git push
+ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@$(git rev-parse HEAD)/assets/ python3 _src/build_tilda.py
 ```
 
 Затем заново вставить изменившиеся блоки. Старые страницы продолжат
-работать со старой меткой, пока вы их не тронете.
+работать со старым адресом, пока вы их не тронете, — это защита от
+случая «поправил одно фото, а сайт лёг весь».
 
 #### Запасной вариант
 
@@ -178,25 +190,25 @@ Telegram) настраиваются средствами Tilda и точно р
 
 | Адрес | Страница | Папка | Размер блока |
 |-------|----------|-------|--------------|
-| `/` | Банкетный зал в Ростове-на-Дону на 50–2 500 … | glavnaya | 56 КБ |
-| `/zaly` | Банкетные залы в Ростове-на-Дону: от 50 до 2… | zaly | 19 КБ |
-| `/zaly/bankethall` | Банкетный зал на 50–150 человек в Ростове-на… | zaly-bankethall | 17 КБ |
-| `/zaly/ametist` | Зал на 300 человек в Ростове-на-Дону — «Амет… | zaly-ametist | 26 КБ |
-| `/zaly/vystavochny` | Зал на 1000–2500 человек в Ростове-на-Дону |… | zaly-vystavochny | 16 КБ |
-| `/meropriyatiya` | Где провести мероприятие в Ростове-на-Дону |… | meropriyatiya | 28 КБ |
-| `/svadba` | Зал для свадьбы в Ростове-на-Дону на 50–2 50… | svadba | 26 КБ |
-| `/korporativ` | Корпоратив в Ростове-на-Дону: зал, кухня, до… | korporativ | 24 КБ |
-| `/novogodniy-korporativ` | Новогодний корпоратив в Ростове-на-Дону: бро… | novogodniy-korporativ | 21 КБ |
-| `/den-rozhdeniya` | Зал на юбилей и день рождения в Ростове-на-Д… | den-rozhdeniya | 25 КБ |
-| `/furshet` | Фуршет в Ростове-на-Дону для выставок и дело… | furshet | 23 КБ |
-| `/kofe-breyk` | Кофе-брейк в Ростове-на-Дону для конференций… | kofe-breyk | 23 КБ |
-| `/vypusknoy` | Зал на выпускной в Ростове-на-Дону: банкет д… | vypusknoy | 16 КБ |
-| `/detskiy-prazdnik` | Детский день рождения в Ростове-на-Дону: зал… | detskiy-prazdnik | 15 КБ |
+| `/` | Банкетный зал в Ростове-на-Дону на 50–2 500 … | glavnaya | 61 КБ |
+| `/zaly` | Банкетные залы в Ростове-на-Дону: от 50 до 2… | zaly | 21 КБ |
+| `/zaly/bankethall` | Банкетный зал на 50–150 человек в Ростове-на… | zaly-bankethall | 19 КБ |
+| `/zaly/ametist` | Зал на 300 человек в Ростове-на-Дону — «Амет… | zaly-ametist | 30 КБ |
+| `/zaly/vystavochny` | Зал на 1000–2500 человек в Ростове-на-Дону |… | zaly-vystavochny | 18 КБ |
+| `/meropriyatiya` | Где провести мероприятие в Ростове-на-Дону |… | meropriyatiya | 31 КБ |
+| `/svadba` | Зал для свадьбы в Ростове-на-Дону на 50–2 50… | svadba | 29 КБ |
+| `/korporativ` | Корпоратив в Ростове-на-Дону: зал, кухня, до… | korporativ | 27 КБ |
+| `/novogodniy-korporativ` | Новогодний корпоратив в Ростове-на-Дону: бро… | novogodniy-korporativ | 23 КБ |
+| `/den-rozhdeniya` | Зал на юбилей и день рождения в Ростове-на-Д… | den-rozhdeniya | 29 КБ |
+| `/furshet` | Фуршет в Ростове-на-Дону для выставок и дело… | furshet | 26 КБ |
+| `/kofe-breyk` | Кофе-брейк в Ростове-на-Дону для конференций… | kofe-breyk | 26 КБ |
+| `/vypusknoy` | Зал на выпускной в Ростове-на-Дону: банкет д… | vypusknoy | 17 КБ |
+| `/detskiy-prazdnik` | Детский день рождения в Ростове-на-Дону: зал… | detskiy-prazdnik | 17 КБ |
 | `/pominalny-obed` | Поминальный обед в Ростове-на-Дону: зал от 2… | pominalny-obed | 5 КБ |
-| `/kejtering` | Выездной кейтеринг в Ростове-на-Дону и облас… | kejtering | 7 КБ |
+| `/kejtering` | Выездной кейтеринг в Ростове-на-Дону и облас… | kejtering | 8 КБ |
 | `/arenda-oborudovaniya` | Аренда посуды, мебели и шатров в Ростове-на-… | arenda-oborudovaniya | 7 КБ |
-| `/galereya` | Фото залов и мероприятий в Ростове-на-Дону |… | galereya | 50 КБ |
-| `/contacts` | Контакты и схема проезда — Ростов-на-Дону, п… | contacts | 4 КБ |
+| `/galereya` | Фото залов и мероприятий в Ростове-на-Дону |… | galereya | 59 КБ |
+| `/contacts` | Контакты и схема проезда — Ростов-на-Дону, п… | contacts | 5 КБ |
 | `/policy` | Политика обработки персональных данных | Бан… | policy | 22 КБ |
 | `/soglasiye-persdan` | Согласие на обработку персональных данных | … | soglasiye-persdan | 3 КБ |
 | `/polzovatelskoye-soglasheniye` | Пользовательское соглашение | Банкет-Холл | polzovatelskoye-soglasheniye | 19 КБ |
@@ -204,7 +216,7 @@ Telegram) настраиваются средствами Tilda и точно р
 | `/soglasiye-metrprog` | Согласие на обработку данных метрических про… | soglasiye-metrprog | 3 КБ |
 | `/soglasiye-rekinfo` | Согласие на получение рассылки | Банкет-Холл | soglasiye-rekinfo | 3 КБ |
 | `/cookie` | Политика обработки файлов cookie | Банкет-Хо… | cookie | 44 КБ |
-| `/404` | Страница не найдена | Банкет-Холл | 404 | 9 КБ |
+| `/404` | Страница не найдена | Банкет-Холл | 404 | 10 КБ |
 
 ## Что перестанет работать в Tilda
 

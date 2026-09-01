@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /arenda-oborudovaniya
 Заголовок (Title):     Аренда посуды, мебели и шатров в Ростове-на-Дону | Банкет-Холл
 Описание (Description): Аренда посуды, мебели, текстиля, шатров и тентовых конструкций в Ростове-на-Дону. Доставка, монтаж и вывоз своими силами. Наличие и расчёт — по запросу.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/korporativ-2.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/korporativ-2.webp

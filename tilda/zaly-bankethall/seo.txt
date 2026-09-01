@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /zaly/bankethall
 Заголовок (Title):     Банкетный зал на 50–150 человек в Ростове-на-Дону | Банкет-Холл
 Описание (Description): Банкетный зал на 50–150 гостей на пр. М. Нагибина, 30 в Ростове-на-Дону. Кухня в здании, своя посуда и мебель, парковка на 300 мест. Юбилеи, свадьбы, корпоративы отдела.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/cover-bankethall.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/cover-bankethall.webp

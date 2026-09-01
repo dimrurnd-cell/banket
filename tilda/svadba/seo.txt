@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /svadba
 Заголовок (Title):     Зал для свадьбы в Ростове-на-Дону на 50–2 500 гостей | Банкет-Холл
 Описание (Description): Свадебный зал в Ростове-на-Дону на пр. М. Нагибина, 30: от 50 до 2 500 гостей. Просмотр зала до брони, своя кухня, свой ведущий и декоратор — можно. Проверить свободную дату.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/cover-svadba.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/cover-svadba.webp

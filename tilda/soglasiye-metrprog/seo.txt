@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /soglasiye-metrprog
 Заголовок (Title):     Согласие на обработку данных метрических программ | Банкет-Холл
 Описание (Description): Правовая информация Банкет-Холла: условия обработки персональных данных и правила использования сайта banket-na5.ru.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/hero-banquet-1668.jpg
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/hero-banquet-1668.jpg

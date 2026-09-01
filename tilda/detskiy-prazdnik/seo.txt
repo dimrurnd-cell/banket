@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /detskiy-prazdnik
 Заголовок (Title):     Детский день рождения в Ростове-на-Дону: зал и меню | Банкет-Холл
 Описание (Description): Зал для детского праздника в Ростове-на-Дону, пр. М. Нагибина, 30. Игровая зона отделена от банкетной, детское меню по возрасту, от 15 гостей. Свои аниматоры — можно.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/img/photo/detskiy-prazdnik.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/detskiy-prazdnik.webp
