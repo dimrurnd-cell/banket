@@ -65,7 +65,7 @@ css Tilda (`tilda-grid-3.0`) задаёт `box-sizing: content-box` для вс�
 |-------|----------|-------|--------------|
 | `/` | Банкетный зал в Ростове-на-Дону на 50–2 500 … | glavnaya | 34 КБ |
 | `/zaly` | Банкетные залы в Ростове-на-Дону: от 50 до 2… | zaly | 14 КБ |
-| `/zaly/bankethall` | Банкетный зал на 50–150 человек в Ростове-на… | zaly-bankethall | 12 КБ |
+| `/zaly/bankethall` | Банкетный зал на 50–150 человек в Ростове-на… | zaly-bankethall | 13 КБ |
 | `/zaly/ametist` | Зал на 300 человек в Ростове-на-Дону — «Амет… | zaly-ametist | 14 КБ |
 | `/zaly/vystavochny` | Зал на 1000–2500 человек в Ростове-на-Дону |… | zaly-vystavochny | 12 КБ |
 | `/meropriyatiya` | Где провести мероприятие в Ростове-на-Дону |… | meropriyatiya | 17 КБ |
@@ -77,7 +77,7 @@ css Tilda (`tilda-grid-3.0`) задаёт `box-sizing: content-box` для вс�
 | `/vypusknoy` | Зал на выпускной в Ростове-на-Дону: банкет д… | vypusknoy | 14 КБ |
 | `/detskiy-prazdnik` | Детский день рождения в Ростове-на-Дону: зал… | detskiy-prazdnik | 13 КБ |
 | `/pominalny-obed` | Поминальный обед в Ростове-на-Дону: зал от 2… | pominalny-obed | 9 КБ |
-| `/kejtering` | Выездной кейтеринг в Ростове-на-Дону и облас… | kejtering | 9 КБ |
+| `/kejtering` | Выездной кейтеринг в Ростове-на-Дону и облас… | kejtering | 10 КБ |
 | `/arenda-oborudovaniya` | Аренда посуды, мебели и шатров в Ростове-на-… | arenda-oborudovaniya | 9 КБ |
 | `/galereya` | Фото залов и мероприятий в Ростове-на-Дону |… | galereya | 19 КБ |
 | `/contacts` | Контакты и схема проезда — Ростов-на-Дону, п… | contacts | 8 КБ |

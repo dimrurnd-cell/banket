@@ -214,6 +214,15 @@
 
       var root = $('#allrecords');
       var data = new FormData(form);
+
+      /* <input type=date> отдаёт ГГГГ-ММ-ДД, а прежняя форма сайта слала
+         ДД-ММ-ГГГГ. Приводим к привычному виду, чтобы менеджер видел дату
+         в том же формате, что и раньше. */
+      var dateField = $('#f-date', form);
+      if (dateField && /^\d{4}-\d{2}-\d{2}$/.test(dateField.value)) {
+        var p = dateField.value.split('-');
+        data.set(dateField.name, p[2] + '-' + p[1] + '-' + p[0]);
+      }
       data.append('tildaspec-formid', 'request-form');
       data.append('tildaspec-formskey', form.getAttribute('data-formskey') || '');
       data.append('tildaspec-pageid', root ? root.getAttribute('data-tilda-page-id') : '');

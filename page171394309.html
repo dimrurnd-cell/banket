@@ -89,6 +89,7 @@
       </div>
       <div class="formwrap reveal" data-delay="1">
         <form id="request-form" data-formskey="c53fc24e4301392e86f2b05625155506">
+          <input type="hidden" name="formservices[]" value="c9c886a7d6cb212a0785bd0ff5920e0b">
           <div class="form-grid">
             <div class="field field--full">
               <label for="f-name">Как к вам обращаться</label>
@@ -97,10 +98,10 @@
             <div class="field">
               <label for="f-mtype">Как удобнее связаться</label>
               <select id="f-mtype" name="messenger-type">
-                <option value="Phone">Позвонить</option>
-                <option value="Telegram">Telegram</option>
-                <option value="WhatsApp">WhatsApp</option>
-                <option value="Max">Max</option>
+                <option value="phone">Позвонить</option>
+                <option value="telegram">Telegram</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="max_messenger">Max</option>
               </select>
             </div>
             <div class="field">
@@ -129,7 +130,7 @@
             </div>
             <div class="field field--full">
               <label class="consent">
-                <input type="checkbox" name="soglasiye-persdan" value="Согласен" required>
+                <input type="checkbox" name="soglasiye-persdan" value="yes" required>
                 <span>Согласен на обработку персональных данных в соответствии с
                   <a href="/policy">политикой конфиденциальности</a>.</span>
               </label>
