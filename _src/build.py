@@ -15,6 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
+import images as IMG  # noqa: E402
 from data import (SITE, NAV, LEGAL, HALLS, FORMATS, FORM_OPTIONS, LOGOS,
                   INCLUDED, TIMING, PROCESS, PRICE_PARTS, COVERS)  # noqa: E402
 
@@ -95,11 +96,15 @@ def seed_page_images(page):
                 PAGE_IMAGES.add(item["image"])
 
 
-def picture(src, alt, cls="", lazy=True, sizes=None):
+def esc_attr(v):
+    return E(str(v), quote=True)
+
+
+def picture(src, alt, cls="", lazy=True, slot="card", priority=False):
+    """Кадр в вёрстке. Ширины и форматы берутся из _src/images.json."""
     PAGE_IMAGES.add(src)
-    return '<img src="%s" alt="%s"%s%s decoding="async"%s>' % (
-        E(src), E(alt, quote=True), ' class="%s"' % cls if cls else "",
-        ' loading="lazy"' if lazy else "", ' sizes="%s"' % sizes if sizes else "")
+    return IMG.markup(src, alt, cls=cls, lazy=lazy, slot=slot,
+                      priority=priority, esc=esc_attr)
 
 
 # --------------------------------------------------------------------------- sections
@@ -108,8 +113,8 @@ def s_hero(s):
         '<div class="scale-mark" style="left:%s%%"><b>%s</b><span>%s</span></div>' % (pct, E(num), E(lbl))
         for pct, num, lbl in s.get("scale", []))
     lines = "".join('<span class="rise"><span>%s</span></span>' % l for l in s["lines"])
-    media = picture(s["image"], s.get("alt", ""), lazy=False)
-    if s["image"].startswith("/assets/img/hero-banquet"):
+    media = picture(s["image"], s.get("alt", ""), lazy=False, slot="hero", priority=True)
+    if not IMG.known(s["image"]) and s["image"].startswith("/assets/img/hero-banquet"):
         media = ('<img src="/assets/img/hero-banquet-1668.jpg" '
                  'srcset="/assets/img/hero-banquet-504.jpg 504w, /assets/img/hero-banquet-1668.jpg 1668w" '
                  'sizes="100vw" alt="%s" fetchpriority="high" decoding="async">' % E(s.get("alt", ""), quote=True))
@@ -159,7 +164,7 @@ def s_hero_page(s):
   </div>
   <div class="wrap hero__scale"><div class="ruler" aria-hidden="true"></div></div>
 </section>""" % (
-        picture(s["image"], s.get("alt", ""), lazy=False),
+        picture(s["image"], s.get("alt", ""), lazy=False, slot="hero", priority=True),
         eyebrow(s.get("eyebrow", "")),
         s["title"], s.get("lede", ""), buttons(s.get("actions")))
 
@@ -179,7 +184,7 @@ def s_picker(s):
     panels = "".join(
         '<div class="picker__panel%s" data-hall-panel>%s</div>' % (
             " is-active" if i == 0 else "",
-            picture(PHOTOS[h["slug"]][0], "Зал: " + h["name"]))
+            picture(PHOTOS[h["slug"]][0], "Зал: " + h["name"], slot="card"))
         for i, h in enumerate(HALLS))
     # no-JS fallback: the halls stay reachable as plain links
     fallback = "".join('<li><a class="tlink" href="%s">%s — %s%s</a></li>' % (h["url"], E(h["name"]), E(h["cap"]), CHEV)
@@ -222,7 +227,7 @@ def s_cards(s):
         cap = '<span class="card__cap data">%s</span>' % E(c["cap"]) if c.get("cap") else ""
         if c.get("image"):
             media = '<div class="card__media">%s%s</div>' % (
-                picture(c["image"], c.get("alt", c["name"])), cap)
+                picture(c["image"], c.get("alt", c["name"]), slot="card"), cap)
         else:
             # a format we deliberately do not illustrate keeps the grid rhythm
             media = '<div class="card__media card__media--blank">%s</div>' % cap
@@ -253,7 +258,8 @@ def s_split(s):
         eyebrow(s.get("eyebrow", "")), s["title"], body,
         '<p class="hero__note mt-m">%s</p>' % E(s["note"]) if s.get("note") else "",
         buttons(s.get("actions")))
-    media = '<div class="%s reveal" data-delay="1">%s</div>' % (media_cls, picture(s["image"], s.get("alt", "")))
+    media = '<div class="%s reveal" data-delay="1">%s</div>' % (
+        media_cls, picture(s["image"], s.get("alt", ""), slot="split"))
     order = [media, text] if s.get("reverse") else [text, media]
     return section('<div class="split">%s</div>' % "".join(order), s)
 
@@ -278,6 +284,16 @@ def s_price(s):
     return section("%s<div class=\"price\">%s</div>%s" % (head_block(s), cells, after), s)
 
 
+def full_attrs(src):
+    """Крупная версия для лайтбокса: 1680 px в каждом доступном формате."""
+    out = ' data-full="%s"' % esc_attr(IMG.at(src, "jpg", 1680) or src)
+    for fmt in IMG.FORMATS:
+        url = IMG.at(src, fmt, 1680)
+        if url:
+            out += ' data-full-%s="%s"' % (fmt, esc_attr(url))
+    return out
+
+
 def s_gallery(s):
     shots_src = [x for x in s["shots"] if x[0] not in PAGE_IMAGES]
     s = dict(s, shots=shots_src or s["shots"])
@@ -287,15 +303,15 @@ def s_gallery(s):
             '<button type="button" data-tag="%s" aria-pressed="%s">%s</button>' % (E(tag), "true" if i == 0 else "false", E(label))
             for i, (tag, label) in enumerate(s["filters"]))
     shots = "".join(
-        '<button type="button" class="shot" data-tags="%s" data-full="%s">%s</button>' % (
-            E(tags), E(src), picture(src, alt))
+        '<button type="button" class="shot" data-tags="%s"%s>%s</button>' % (
+            E(tags), full_attrs(src), picture(src, alt, slot="gallery"))
         for src, alt, tags in s["shots"])
     return section("%s%s<div class=\"masonry\">%s</div>%s" % (
         head_block(s), chips, shots, buttons(s.get("actions"))), s)
 
 
 def s_marquee(s):
-    row = "".join('<img src="%s" alt="" loading="lazy" decoding="async">' % E(u) for u in LOGOS)
+    row = "".join(picture(u, "", lazy=True, slot="logo") for u in LOGOS)
     return section("%s<div class=\"marquee\"><div class=\"marquee__track\">%s%s</div></div>" % (
         head_block(s), row, row), s)
 
@@ -310,7 +326,7 @@ def s_band(s):
     return """<section class="section band">
   <div class="band__media">%s</div>
   <div class="wrap"><div class="band__inner reveal">%s<h2 class="h-lg">%s</h2><p class="lede mt-s">%s</p>%s</div></div>
-</section>""" % (picture(s["image"], ""), eyebrow(s.get("eyebrow", "")), s["title"], s["lede"], buttons(s.get("actions")))
+</section>""" % (picture(s["image"], "", slot="band"), eyebrow(s.get("eyebrow", "")), s["title"], s["lede"], buttons(s.get("actions")))
 
 
 def s_contacts(s):
@@ -514,7 +530,7 @@ def render_footer():
 LIGHTBOX = """<div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
   <button class="lightbox__close" type="button" aria-label="Закрыть">✕</button>
   <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>
-  <img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+  <div class="lightbox__fig"></div>
   <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>
 </div>"""
 
@@ -529,6 +545,35 @@ def render_chrome(include_form=True):
     """
     parts = [render_form()] if include_form else []
     return "\n".join(parts + [render_footer(), LIGHTBOX])
+
+
+# Пока часть фотографий тянется со старого CDN, соединение к нему стоит
+# открыть заранее. Когда все кадры сжаты и лежат рядом с сайтом, эта строка
+# исчезает сама — лишний preconnect только занимает соединение.
+CDN_PRECONNECT = ("" if all(IMG.known(u) for u in LOGOS + list(COVERS.values()))
+                  else '<link rel="preconnect" href="https://www.donexpocentre.ru">\n')
+
+
+def og_url(src):
+    """Абсолютный адрес картинки для соцсетей — сжатый jpg, а не оригинал."""
+    url = IMG.og(src)
+    return SITE["origin"] + url if url.startswith("/") else url
+
+
+def hero_preload(p):
+    """Кадр первого экрана просим у сети до того, как разберётся вёрстка."""
+    for sec in p["sections"]:
+        if sec["t"] in ("hero", "hero_page") and sec.get("image"):
+            tag = IMG.preload(sec["image"])
+            if tag:
+                return tag
+            if sec["image"].startswith("/assets/img/hero-banquet"):
+                return ('<link rel="preload" as="image" href="/assets/img/hero-banquet-1668.jpg" '
+                        'imagesrcset="/assets/img/hero-banquet-504.jpg 504w, '
+                        '/assets/img/hero-banquet-1668.jpg 1668w" '
+                        'imagesizes="100vw" fetchpriority="high">')
+            return ""
+    return ""
 
 
 LD = """{
@@ -565,10 +610,9 @@ PAGE = """<!DOCTYPE html>
 <link rel="icon" href="/assets/img/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.donexpocentre.ru">
-%(preload)s
+%(cdn_preconnect)s%(preload)s
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/site.css?v=2">
+<link rel="stylesheet" href="/assets/css/site.css?v=4">
 <script type="application/ld+json">%(ld)s</script>
 </head>
 <body>
@@ -580,7 +624,7 @@ PAGE = """<!DOCTYPE html>
 %(body)s
 </main>
 %(chrome)s
-<script src="/assets/js/site.js?v=2" defer></script>
+<script src="/assets/js/site.js?v=4" defer></script>
 </body>
 </html>
 """
@@ -596,15 +640,12 @@ def build():
             "title": E(p["title"], quote=True),
             "desc": E(p["desc"], quote=True),
             "canonical": SITE["origin"] + (p["url"] if p["url"] != "/" else ""),
-            "og": (SITE["origin"] + p["og"]) if p.get("og", "").startswith("/") else p.get("og") or (SITE["origin"] + COVERS["hero"]),
+            "og": og_url(p.get("og") or COVERS["hero"]),
             "ld": LD,
             "project": SITE["project_id"],
             "pageid": p["file"].replace("page", "").replace(".html", ""),
-            "preload": ('<link rel="preload" as="image" href="/assets/img/hero-banquet-1668.jpg" '
-                        'imagesrcset="/assets/img/hero-banquet-504.jpg 504w, /assets/img/hero-banquet-1668.jpg 1668w" '
-                        'imagesizes="100vw" fetchpriority="high">'
-                        if any(sec.get("image", "").startswith("/assets/img/hero-banquet") for sec in p["sections"])
-                        else ""),
+            "cdn_preconnect": CDN_PRECONNECT,
+            "preload": hero_preload(p),
             "header": render_header(p.get("nav", "")),
             "mnav": render_mobile_nav(),
             "body": body,

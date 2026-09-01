@@ -66,16 +66,17 @@ def build():
         '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
         '<link rel="preconnect" href="%s" crossorigin>\n'
-        '<link rel="preconnect" href="https://www.donexpocentre.ru">\n'
+        '%s'
         '<link href="%s" rel="stylesheet">\n'
-        '<meta name="theme-color" content="#0B181C">\n' % (ASSET_ORIGIN, FONTS)))
+        '<meta name="theme-color" content="#0B181C">\n' % (
+            ASSET_ORIGIN, B.CDN_PRECONNECT, FONTS)))
 
     write(os.path.join(OUT, "_global", "body-code.html"), absolutise(
         '<!-- Настройки сайта → Ещё → HTML-код перед закрывающим тегом </body> -->\n'
         '<!-- Стили подключаются здесь, а не в HEAD: css самой Tilda грузится\n'
         '     последним в head и иначе перебивает наш box-sizing. -->\n'
-        '<link rel="stylesheet" href="/assets/css/site.css?v=3">\n'
-        '<script src="/assets/js/site.js?v=3" defer></script>\n'))
+        '<link rel="stylesheet" href="/assets/css/site.css?v=4">\n'
+        '<script src="/assets/js/site.js?v=4" defer></script>\n'))
 
     write(os.path.join(OUT, "_global", "header-block.html"), absolutise(
         '<!-- Страница «Хедер» → блок T123 «HTML-код» -->\n'
@@ -148,17 +149,41 @@ README = u"""# Перенос в Tilda
 
 ## Что нужно сделать один раз
 
-### 1. Выложить стили и скрипт
+### 1. Сжать фотографии
+
+Сначала — сжатие, иначе страницы будут ссылаться на оригиналы по несколько
+мегабайт:
+
+```
+pip install pillow
+python3 _src/optimize_images.py
+python3 _src/build.py
+ASSET_BASE=%(asset_base)s python3 _src/build_tilda.py
+```
+
+Скрипт скачивает оригиналы, раскладывает каждый кадр по ширинам от 400 до
+2000 px в AVIF, WebP и JPEG (`assets/img/opt/`) и пишет манифест
+`_src/images.json`. Дальше сборка сама подставляет `<picture>` с `srcset` —
+браузер берёт версию под свой экран.
+
+Без этого шага сайт соберётся и будет работать, но с исходными фотографиями.
+
+### 2. Выложить стили, скрипт и фотографии
 
 Tilda не хранит произвольные файлы, поэтому `assets/` нужно положить на любой
 доступный по HTTPS адрес. Подходит любой из трёх вариантов:
 
 - **Ваш сервер `donexpocentre.ru`** — там уже лежат все фотографии сайта.
-  Самый простой путь: залить папку `assets/` рядом с ними.
-- **Файловый менеджер Tilda** (если тариф позволяет) — загрузить `site.css`
-  и `site.js`, Tilda выдаст ссылки на `static.tildacdn.com`.
-- **jsDelivr** — если репозиторий публичный:
-  `https://cdn.jsdelivr.net/gh/OWNER/REPO@main/assets/css/site.css`
+  Самый простой путь: залить папку `assets/` рядом с ними. Заливать её нужно
+  целиком, вместе с `img/opt/`: страницы ссылаются на сжатые версии, и если
+  этой папки не будет, фотографии не откроются.
+- **Файловый менеджер Tilda** — годится для `site.css` и `site.js` (Tilda
+  выдаст ссылки на `static.tildacdn.com`), но не для сотни фотографий.
+- **jsDelivr** — бесплатный CDN поверх публичного репозитория. После сжатия
+  все фотографии весят немного, их можно закоммитить и не заливать никуда:
+  `ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@main/assets/`
+  Учтите: ветку `@main` jsDelivr кэширует до 12 часов. Чтобы изменения
+  появились сразу, ссылайтесь на тег или коммит вместо `@main`.
 
 Затем пересоберите с нужным адресом:
 
@@ -170,7 +195,7 @@ ASSET_BASE=https://ваш-адрес/assets/ python3 _src/build_tilda.py
 (этот адрес зашит в `_src/build_tilda.py` как значение по умолчанию —
 переменную окружения задавать не обязательно).
 
-### 2. Фотографии галереи
+### 3. Фотографии галереи
 
 Страница «Галерея» показывает файлы из `assets/gallery/`: `1.jpg` … `27.jpg`.
 В репозитории их нет — они лежат сразу на хостинге,
@@ -186,7 +211,7 @@ ASSET_BASE=https://ваш-адрес/assets/ python3 _src/build_tilda.py
 чипы появятся сами. Подписи (alt для поисковиков) задаются там же
 в `GALLERY_ALT`.
 
-### 3. Настройки сайта → Ещё
+### 4. Настройки сайта → Ещё
 
 - **HTML-код внутрь HEAD** — содержимое `_global/head-code.html`
 - **HTML-код перед `</body>`** — содержимое `_global/body-code.html`
@@ -196,12 +221,12 @@ css Tilda (`tilda-grid-3.0`) задаёт `box-sizing: content-box` для вс�
 элементов и в HEAD загрузится последним. В `site.css` есть защита от этого,
 но подключение в конце body надёжнее.
 
-### 4. Фон страниц
+### 5. Фон страниц
 
 Настройки сайта → Шрифты и цвета → цвет фона: **#0B181C**. Иначе при загрузке
 будет белая вспышка до применения стилей.
 
-### 5. Шапка и подвал
+### 6. Шапка и подвал
 
 Создайте служебные страницы «Хедер» и «Футер» (Tilda: «Создать страницу» →
 тип «Хедер» / «Футер»), в каждой один блок **T123 «HTML-код»**:

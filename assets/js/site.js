@@ -177,16 +177,31 @@
   /* ---------- lightbox --------------------------------------------------- */
   var lb = $('.lightbox');
   if (lb) {
-    var lbImg = $('img', lb);
+    var lbFig = $('.lightbox__fig', lb);
     var visible = function () { return $$('.shot').filter(function (s) { return !s.hidden; }); };
     var at = 0;
     var show = function (i) {
       var list = visible();
       if (!list.length) return;
       at = (i + list.length) % list.length;
-      var src = list[at].getAttribute('data-full') || $('img', list[at]).src;
-      lbImg.src = src;
-      lbImg.alt = $('img', list[at]).alt || '';
+      var shot = list[at];
+      var thumb = $('img', shot);
+      // Крупная версия в самом лёгком формате, который поймёт браузер.
+      var pic = document.createElement('picture');
+      ['avif', 'webp'].forEach(function (fmt) {
+        var url = shot.getAttribute('data-full-' + fmt);
+        if (!url) return;
+        var src = document.createElement('source');
+        src.type = 'image/' + fmt;
+        src.srcset = url;
+        pic.appendChild(src);
+      });
+      var im = document.createElement('img');
+      im.src = shot.getAttribute('data-full') || (thumb && thumb.currentSrc) || thumb.src;
+      im.alt = (thumb && thumb.alt) || '';
+      pic.appendChild(im);
+      while (lbFig.firstChild) lbFig.removeChild(lbFig.firstChild);
+      lbFig.appendChild(pic);
     };
     document.addEventListener('click', function (e) {
       var shot = e.target.closest('.shot');

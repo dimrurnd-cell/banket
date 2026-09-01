@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://www.donexpocentre.ru">
 
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/site.css?v=2">
+<link rel="stylesheet" href="/assets/css/site.css?v=4">
 <script type="application/ld+json">{
   "@context":"https://schema.org",
   "@type":"EventVenue",
@@ -62,7 +62,7 @@
 </div>
 <main id="main">
 <section class="hero hero--page">
-  <div class="hero__media"><img src="https://www.donexpocentre.ru/media/filer_public/GG/korporat.jpg" alt="Корпоратив в Ростове-на-Дону" decoding="async"></div>
+  <div class="hero__media"><img src="https://www.donexpocentre.ru/media/filer_public/GG/korporat.jpg" alt="Корпоратив в Ростове-на-Дону" fetchpriority="high" decoding="async"></div>
   <div class="hero__scrim" aria-hidden="true"></div>
   <div class="wrap hero__body">
     <p class="eyebrow">Мероприятия · 50–2 500 гостей</p>
@@ -179,9 +179,9 @@
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
   <button class="lightbox__close" type="button" aria-label="Закрыть">✕</button>
   <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>
-  <img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+  <div class="lightbox__fig"></div>
   <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>
 </div>
-<script src="/assets/js/site.js?v=2" defer></script>
+<script src="/assets/js/site.js?v=4" defer></script>
 </body>
 </html>
