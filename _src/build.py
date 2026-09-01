@@ -197,11 +197,12 @@ def s_cards(s):
         else:
             # a format we deliberately do not illustrate keeps the grid rhythm
             media = '<div class="card__media card__media--blank">%s</div>' % cap
+        note = '<span class="card__note">%s</span>' % E(c["note"]) if c.get("note") else ""
         cards.append(
-            '<article class="card reveal" data-delay="%d">%s<div class="card__body"><h3>%s</h3><p>%s</p>'
+            '<article class="card reveal" data-delay="%d">%s<div class="card__body">%s<h3>%s</h3><p>%s</p>'
             '<span class="tlink card__link">%s%s</span></div>'
             '<a class="card__stretch" href="%s"><span class="visually-hidden">%s</span></a></article>' % (
-                i % 3, media, E(c["name"]), c["short"], E(c.get("cta", "Подробнее")), CHEV,
+                i % 3, media, note, E(c["name"]), c["short"], E(c.get("cta", "Подробнее")), CHEV,
                 E(c["url"]), E(c["name"])))
     inner = "%s<div class=\"grid grid--%d\">%s</div>" % (head_block(s), s.get("cols", 3), "".join(cards))
     return section(inner, s)

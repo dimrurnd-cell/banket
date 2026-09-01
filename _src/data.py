@@ -45,7 +45,8 @@ PHOTOS = {
     "kofe-breyk": [img("kf breik (%d).jpg" % n) for n in range(1, 6)],
     "detskiy-prazdnik": [img("dr detskii.jpg")],
     "vypusknoy": [img("zal_ametist.png")],
-    "pominalny-obed": [],
+    "novogodniy-korporativ": ["/assets/img/newyear.jpg"],
+    "pominalny-obed": ["/assets/img/pominki.jpg"],
 }
 
 COVERS = {
@@ -59,7 +60,8 @@ COVERS = {
     "kofe-breyk": img("coffee break.png"),
     "detskiy-prazdnik": img("dr detskii.jpg"),
     "vypusknoy": img("zal_ametist.png"),
-    "pominalny-obed": "",
+    "novogodniy-korporativ": "/assets/img/newyear.jpg",
+    "pominalny-obed": "/assets/img/pominki.jpg",
     "hero": "/assets/img/hero-banquet-1668.jpg",
     "hall2": img("zal1.jpg"),
     "hall3": img("zal2.JPG"),
@@ -120,6 +122,14 @@ FORMATS = [
         "form_value": "Корпоратив",
     },
     {
+        "slug": "novogodniy-korporativ", "url": "/novogodniy-korporativ",
+        "name": "Новогодние корпоративы", "cap": "50–2 500 гостей",
+        "note": "Открыли бронь на декабрь 2026",
+        "short": "Итоги года, награждение и шоу-программа в одном зале. В декабре четыре пятницы — "
+                 "и половина города хочет две из них.",
+        "form_value": "Новогодний корпоратив",
+    },
+    {
         "slug": "den-rozhdeniya", "url": "/den-rozhdeniya", "name": "Дни рождения и юбилеи", "cap": "от 20 гостей",
         "short": "Пятьдесят лет, золотая свадьба, семейный юбилей. Зал, где сорок человек "
                  "не теряются, а сто не сидят вплотную.",
@@ -155,7 +165,8 @@ FORMATS = [
     },
 ]
 
-FORM_OPTIONS = ["Свадьба", "Корпоратив", "День рождения", "Юбилей", "Выпускной", "Фуршет", "Кофе-брейк",
+FORM_OPTIONS = ["Свадьба", "Корпоратив", "Новогодний корпоратив", "День рождения", "Юбилей",
+                "Выпускной", "Фуршет", "Кофе-брейк",
                 "Конференция", "Детский праздник", "Поминальный обед", "Выездной кейтеринг",
                 "Аренда оборудования", "Другое"]
 
