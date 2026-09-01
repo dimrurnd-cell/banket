@@ -487,13 +487,16 @@ LIGHTBOX = """<div class="lightbox" role="dialog" aria-modal="true" aria-label="
 </div>"""
 
 
-def render_chrome():
-    """Форма заявки, подвал и лайтбокс — одинаковы на всех страницах.
+def render_chrome(include_form=True):
+    """Подвал и лайтбокс — одинаковы на всех страницах.
 
-    В сборке для Tilda этот же кусок целиком уходит в служебную страницу
-    «Футер», поэтому вставлять форму в каждую страницу не нужно.
+    include_form=False — форму даёт что-то внешнее: в Tilda это штатный
+    блок формы, он сам прописывает получателей заявок. Кнопки по сайту
+    ведут на якорь #zayavka, поэтому этот якорь должен быть у внешнего
+    блока (в Tilda: настройки блока → ID блока для ссылки → zayavka).
     """
-    return "\n".join([render_form(), render_footer(), LIGHTBOX])
+    parts = [render_form()] if include_form else []
+    return "\n".join(parts + [render_footer(), LIGHTBOX])
 
 
 LD = """{

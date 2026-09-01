@@ -82,6 +82,22 @@
 
   function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
+  /* Поле ищем по id нашей формы, а если её нет — по имени: так подстановка
+     работает и со штатным блоком формы Tilda, лишь бы имена полей совпадали. */
+  function findField(id, name) {
+    return document.getElementById(id) ||
+           document.querySelector('[name="' + name + '"]');
+  }
+
+  function setField(el, value) {
+    if (!el) return;
+    el.value = value;
+    /* Tilda вешает на свои поля собственные обработчики — уведомляем их,
+       иначе плавающая подпись и валидация не заметят подставленное значение. */
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
   /* ---------- capacity picker (signature) -------------------------------- */
   /* A logarithmic guest scale: 20 → 2500. Position on the scale selects the
      hall, and the chosen number is carried into the request form. */
@@ -124,12 +140,11 @@
     slider.addEventListener('input', function () { apply(+slider.value); });
     apply(+slider.value);
 
-    /* carry the chosen guest count into the form */
+    /* выбранное число гостей уезжает в форму */
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-prefill-guests]');
-      if (!t) return;
-      var field = $('#f-guests');
-      if (field) field.value = readout.textContent.replace(/\s/g, '');
+      if (!e.target.closest('[data-prefill-guests]')) return;
+      setField(findField('f-guests', 'Выберите количество гостей'),
+               readout.textContent.replace(/\s/g, ''));
     });
   }
 
@@ -197,16 +212,6 @@
     var status = $('.form-status', form);
     var submit = $('[type=submit]', form);
 
-    /* pre-select the event format when a page-level CTA names one */
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-format]');
-      if (!t) return;
-      var sel = $('#f-format', form);
-      if (sel) {
-        var want = t.getAttribute('data-format');
-        $$('option', sel).forEach(function (o) { if (o.value === want) sel.value = want; });
-      }
-    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -265,6 +270,18 @@
     }
   }
 
+  /* ---------- формат мероприятия из кнопки страницы ---------------------- */
+  /* Живёт отдельно от нашей формы: в Tilda форму даёт штатный блок,
+     а подставить формат всё равно нужно. */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-format]');
+    if (!t) return;
+    var sel = findField('f-format', 'мероприятие');
+    if (!sel) return;
+    var want = t.getAttribute('data-format');
+    if ($$('option', sel).some(function (o) { return o.value === want; })) setField(sel, want);
+  });
+
   /* ---------- anchor scrolling ------------------------------------------- */
   /* Отступ под фиксированную шапку задаётся в css через scroll-margin-top,
      поэтому здесь достаточно scrollIntoView. Ленивые картинки догружаются
@@ -294,7 +311,11 @@
     if (!a) return;
     var id = a.getAttribute('href');
     if (id.length < 2) return;
-    var target = document.getElementById(id.slice(1));
+    /* Tilda отдаёт якорь блока то как id, то как <a name>. Поддерживаем оба,
+       иначе теряется отступ под шапку и плавная прокрутка. */
+    var key = id.slice(1);
+    var target = document.getElementById(key) ||
+                 document.querySelector('a[name="' + key + '"]');
     if (!target) return;
     e.preventDefault();
     scrollToTarget(target);
