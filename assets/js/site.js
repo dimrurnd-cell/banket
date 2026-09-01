@@ -82,12 +82,21 @@
 
   function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
-  /* Поле ищем по id нашей формы, а если её нет — по имени: так подстановка
-     работает и со штатным блоком формы Tilda, лишь бы имена полей совпадали. */
-  function findField(id, name) {
-    return document.getElementById(id) ||
-           document.querySelector('[name="' + name + '"]');
+  /* Поле ищем по id нашей формы, а если её нет — по имени переменной.
+     Имён несколько: рекомендованное для новой формы Tilda и те, что
+     использовались раньше, — чтобы подстановка работала при любом варианте. */
+  function findField(id, names) {
+    var el = document.getElementById(id);
+    if (el) return el;
+    for (var i = 0; i < names.length; i++) {
+      el = document.querySelector('[name="' + names[i] + '"]');
+      if (el) return el;
+    }
+    return null;
   }
+
+  var FIELD_GUESTS = ['guests', 'Выберите количество гостей', 'Выберите число гостей'];
+  var FIELD_FORMAT = ['event_type', 'мероприятие', 'Формат мероприятия'];
 
   function setField(el, value) {
     if (!el) return;
@@ -143,7 +152,7 @@
     /* выбранное число гостей уезжает в форму */
     document.addEventListener('click', function (e) {
       if (!e.target.closest('[data-prefill-guests]')) return;
-      setField(findField('f-guests', 'Выберите количество гостей'),
+      setField(findField('f-guests', FIELD_GUESTS),
                readout.textContent.replace(/\s/g, ''));
     });
   }
@@ -276,7 +285,7 @@
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-format]');
     if (!t) return;
-    var sel = findField('f-format', 'мероприятие');
+    var sel = findField('f-format', FIELD_FORMAT);
     if (!sel) return;
     var want = t.getAttribute('data-format');
     if ($$('option', sel).some(function (o) { return o.value === want; })) setField(sel, want);
