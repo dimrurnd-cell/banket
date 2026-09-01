@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /soglasiye-persdan
 Заголовок (Title):     Согласие на обработку персональных данных | Банкет-Холл
 Описание (Description): Правовая информация Банкет-Холла: условия обработки персональных данных и правила использования сайта banket-na5.ru.
-Картинка для соцсетей: https://ЗАМЕНИТЕ-НА-АДРЕС-ХОСТИНГА/assets/img/hero-banquet-1668.jpg
+Картинка для соцсетей: https://donexpocentre.ru/static/banket/assets/img/hero-banquet-1668.jpg

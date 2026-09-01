@@ -22,7 +22,10 @@ from data import SITE  # noqa: E402
 import pages as P  # noqa: E402
 
 OUT = os.path.join(ROOT, "tilda")
-ASSET_BASE = os.environ.get("ASSET_BASE", "https://ЗАМЕНИТЕ-НА-АДРЕС-ХОСТИНГА/assets/").rstrip("/") + "/"
+# Куда залиты css/, js/ и img/ из assets/. Перебивается переменной окружения.
+ASSET_BASE = os.environ.get(
+    "ASSET_BASE", "https://donexpocentre.ru/static/banket/assets/").rstrip("/") + "/"
+ASSET_ORIGIN = "/".join(ASSET_BASE.split("/")[:3])
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600"
          "&family=JetBrains+Mono:wght@400;500&display=swap")
@@ -56,9 +59,10 @@ def build():
         '<!-- Настройки сайта → Ещё → HTML-код для вставки внутрь HEAD -->\n'
         '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        '<link rel="preconnect" href="%s" crossorigin>\n'
         '<link rel="preconnect" href="https://www.donexpocentre.ru">\n'
         '<link href="%s" rel="stylesheet">\n'
-        '<meta name="theme-color" content="#0B181C">\n' % FONTS))
+        '<meta name="theme-color" content="#0B181C">\n' % (ASSET_ORIGIN, FONTS)))
 
     write(os.path.join(OUT, "_global", "body-code.html"), absolutise(
         '<!-- Настройки сайта → Ещё → HTML-код перед закрывающим тегом </body> -->\n'
@@ -148,6 +152,8 @@ ASSET_BASE=https://ваш-адрес/assets/ python3 _src/build_tilda.py
 ```
 
 Сейчас в файлах подставлено: `%(asset_base)s`
+(этот адрес зашит в `_src/build_tilda.py` как значение по умолчанию —
+переменную окружения задавать не обязательно).
 
 ### 2. Настройки сайта → Ещё
 
