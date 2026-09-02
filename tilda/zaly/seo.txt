@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /zaly
 Заголовок (Title):     Банкетные залы в Ростове-на-Дону: от 50 до 2 500 гостей | Банкет-Холл
 Описание (Description): Три зала на пр. Нагибина, 30: банкетный зал на 50–150 гостей, «Аметист» на 150–500 и выставочный до 2 500. Сцена, свет, звук, гримёрные, парковка. Проверить свободную дату.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/cover-ametist.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/cover-ametist.webp

@@ -39,6 +39,22 @@
    ========================================================================== */
 
 /* --- tokens ------------------------------------------------------------- */
+/* Запасная гарнитура с подогнанными метриками.
+   Пока Jost едет по сети, текст рисуется системным шрифтом. У Arial буквы
+   шире и короче, поэтому в момент подмены строки переливались и страница
+   дёргалась — Chrome мерил CLS 0,115 на контактах при пороге 0,1.
+   Замерено в браузере: Jost занимает 94,19 % ширины Arial при равном
+   кегле, подъём 107 %, спуск 38 % от em. Эти же числа проставлены ниже,
+   поэтому запасной шрифт занимает ровно столько же места. */
+@font-face{
+  font-family:'Jost fallback';
+  src:local('Arial'),local('Liberation Sans'),local('Helvetica'),local('Roboto');
+  size-adjust:94.19%;
+  ascent-override:113.6%;
+  descent-override:40.3%;
+  line-gap-override:0%;
+}
+
 :root{
   --ink:#0B181C;
   --ink-2:#102830;
@@ -59,8 +75,8 @@
   --line-dark:rgba(243,234,216,.16);
   --line-light:rgba(11,24,28,.14);
 
-  --font-display:'Jost','Futura','Century Gothic',Arial,sans-serif;
-  --font-body:'Jost','Futura','Century Gothic',Arial,sans-serif;
+  --font-display:'Jost','Jost fallback','Futura','Century Gothic',Arial,sans-serif;
+  --font-body:'Jost','Jost fallback','Futura','Century Gothic',Arial,sans-serif;
   --font-data:'JetBrains Mono','SF Mono',Consolas,monospace;
 
   --wrap:1340px;

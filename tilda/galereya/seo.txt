@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /galereya
 Заголовок (Title):     Фото залов и мероприятий в Ростове-на-Дону | Банкет-Холл
 Описание (Description): Фотографии залов, свадеб, корпоративов и фуршетов на пр. М. Нагибина, 30 в Ростове-на-Дону. Фильтр по залу и формату, съёмка с реальных мероприятий — без рендеров.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/zal-2.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/zal-2.webp

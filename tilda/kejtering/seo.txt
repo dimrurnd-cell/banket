@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /kejtering
 Заголовок (Title):     Выездной кейтеринг в Ростове-на-Дону и области | Банкет-Холл
 Описание (Description): Кейтеринг на вашей площадке в Ростове-на-Дону и области: кухня, посуда, мебель, персонал и логистика. Свой транспорт и оборудование, своя команда на выезде. Расчёт по запросу.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/furshet-1.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/furshet-1.webp

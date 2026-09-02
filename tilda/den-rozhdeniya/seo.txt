@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /den-rozhdeniya
 Заголовок (Title):     Зал на юбилей и день рождения в Ростове-на-Дону | Банкет-Холл
 Описание (Description): Зал для юбилея и дня рождения в Ростове-на-Дону, пр. М. Нагибина, 30. От 20 гостей, своя кухня, парковка на 300 мест, свой ведущий и музыканты — можно. Узнать стоимость.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/cover-den-rozhdeniya.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/cover-den-rozhdeniya.webp

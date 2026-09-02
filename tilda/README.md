@@ -14,7 +14,7 @@
 pip install pillow
 python3 _src/optimize_images.py
 python3 _src/build.py
-ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/ python3 _src/build_tilda.py
+ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/ python3 _src/build_tilda.py
 ```
 
 Скрипт раскладывает каждый кадр по ширинам 400 / 800 / 1280 px в AVIF и WebP
@@ -48,7 +48,7 @@ ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@assets-v1/assets/ py
 Откройте в браузере:
 
 ```
-https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/gallery-01.webp
+https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-01.webp
 ```
 
 Если картинка открылась — всё в порядке, вставляйте блоки. Если нет —
@@ -67,11 +67,16 @@ https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914
 зависит в любом случае, новой точки отказа не появится:
 
 ```
-CODE_BASE=https://static.tildacdn.com/ВАШ-ПУТЬ/ ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/ python3 _src/build_tilda.py
+CODE_BASE=https://static.tildacdn.com/ВАШ-ПУТЬ/ ASSET_BASE=https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/ python3 _src/build_tilda.py
 ```
 
 Сборщик подставит `CODE_BASE` только под `css/` и `js/`, картинки
 останутся на прежнем адресе.
+
+Одна оговорка: шрифты подключены внутри `site.css` относительным путём
+(`../fonts/`), то есть браузер ищет их рядом с самим файлом стилей. Если
+переносите `site.css` в другое место, положите туда же папку `fonts/` —
+иначе текст останется на запасной гарнитуре.
 
 #### Если фотографии меняются
 
