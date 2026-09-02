@@ -193,7 +193,39 @@
   }
 
   /* ---------- lightbox --------------------------------------------------- */
-  var lb = $('.lightbox');
+  /* Разметку лайтбокса строит скрипт, а не вёрстка страницы. Причина:
+     в Tilda подвал — это вставленный руками html, и он отстаёт от кода,
+     как только код меняется. Так уже вышло однажды: скрипт искал
+     контейнер, которого в старом подвале не было, падал на первом же
+     клике, и фотографии перестали открываться. Теперь разметка либо
+     создаётся с нуля, либо чинится на месте — от вставленного html
+     ничего не зависит. */
+  var ensureLightbox = function () {
+    var el = $('.lightbox');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'lightbox';
+      el.setAttribute('role', 'dialog');
+      el.setAttribute('aria-modal', 'true');
+      el.setAttribute('aria-label', 'Просмотр фотографии');
+      el.innerHTML =
+        '<button class="lightbox__close" type="button" aria-label="Закрыть">\u2715</button>' +
+        '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">\u2039</button>' +
+        '<div class="lightbox__fig"></div>' +
+        '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">\u203a</button>';
+      document.body.appendChild(el);
+      return el;
+    }
+    if (!$('.lightbox__fig', el)) {          // подвал предыдущей сборки
+      var fig = document.createElement('div');
+      fig.className = 'lightbox__fig';
+      var stale = $('img', el);
+      if (stale) el.replaceChild(fig, stale); else el.appendChild(fig);
+    }
+    return el;
+  };
+
+  var lb = $$('.shot').length ? ensureLightbox() : null;
   if (lb) {
     var lbFig = $('.lightbox__fig', lb);
     var visible = function () { return $$('.shot').filter(function (s) { return !s.hidden; }); };

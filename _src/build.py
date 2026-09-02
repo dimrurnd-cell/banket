@@ -527,12 +527,10 @@ def render_footer():
                 E(SITE["address_full"]), E(SITE["hours"]), E(SITE["legal_name"]), legal)
 
 
-LIGHTBOX = """<div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
-  <button class="lightbox__close" type="button" aria-label="Закрыть">✕</button>
-  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото">‹</button>
-  <div class="lightbox__fig"></div>
-  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото">›</button>
-</div>"""
+# Лайтбокс в разметку не попадает: его строит site.js. В Tilda подвал —
+# это вставленный руками html, и любая правка разметки требует повторной
+# вставки; скрипт же приезжает по ссылке и обновляется сам.
+LIGHTBOX = ""
 
 
 def render_chrome(include_form=True):
