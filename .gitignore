@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+
+# Кэш скачанных оригиналов для _src/optimize_images.py
+_src/.cache/

@@ -69,6 +69,15 @@ RewriteRule ^kofe-breyk/$ page171380609.html [NC]
 RewriteRule ^detskiy-prazdnik$ page171393309.html [NC]
 RewriteRule ^detskiy-prazdnik/$ page171393309.html [NC]
 
+RewriteRule ^novogodniy-korporativ$ page171645209.html [NC]
+RewriteRule ^novogodniy-korporativ/$ page171645209.html [NC]
+
+RewriteRule ^vypusknoy$ page171645009.html [NC]
+RewriteRule ^vypusknoy/$ page171645009.html [NC]
+
+RewriteRule ^pominalny-obed$ page171645109.html [NC]
+RewriteRule ^pominalny-obed/$ page171645109.html [NC]
+
 RewriteRule ^kejtering$ page171393709.html [NC]
 RewriteRule ^kejtering/$ page171393709.html [NC]
 
