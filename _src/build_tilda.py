@@ -33,8 +33,11 @@ CODE_BASE = os.environ.get("CODE_BASE", ASSET_BASE).rstrip("/") + "/"
 ASSET_ORIGIN = "/".join(ASSET_BASE.split("/")[:3])
 CODE_ORIGIN = "/".join(CODE_BASE.split("/")[:3])
 
-FONTS = ("https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600"
-         "&family=JetBrains+Mono:wght@400;500&display=swap")
+# Шрифты лежат рядом с сайтом и подключаются из site.css. Предзагрузку
+# намеренно не делаем: замер показал, что она отнимает у кадра первого
+# экрана те же ~290 мс, которые выигрывает у первой отрисовки текста,
+# а LCP — метрика ранжирования, в отличие от FCP.
+FONTS = ""
 
 
 def absolutise(html):
@@ -76,11 +79,9 @@ def build():
     # стилей со статической сборкой — расхождений нет.
     write(os.path.join(OUT, "_global", "head-code.html"), absolutise(
         '<!-- Настройки сайта → Ещё → HTML-код для вставки внутрь HEAD -->\n'
-        '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
         '%s'
         '%s'
-        '<link href="%s" rel="stylesheet">\n'
+        '%s'
         '<link rel="stylesheet" href="/assets/css/site.css?v=4">\n'
         '<script src="/assets/js/site.js?v=4" defer></script>\n'
         '<meta name="theme-color" content="#0B181C">\n' % (
@@ -240,6 +241,11 @@ python3 _src/build_tilda.py
 
 Сборщик подставит `CODE_BASE` только под `css/` и `js/`, картинки
 останутся на прежнем адресе.
+
+Одна оговорка: шрифты подключены внутри `site.css` относительным путём
+(`../fonts/`), то есть браузер ищет их рядом с самим файлом стилей. Если
+переносите `site.css` в другое место, положите туда же папку `fonts/` —
+иначе текст останется на запасной гарнитуре.
 
 #### Если фотографии меняются
 

@@ -219,7 +219,7 @@ Telegram) настраиваются средствами Tilda и точно р
 | `/meropriyatiya` | Где провести мероприятие в Ростове-на-Дону |… | meropriyatiya | 32 КБ |
 | `/svadba` | Зал для свадьбы в Ростове-на-Дону на 50–2 50… | svadba | 29 КБ |
 | `/korporativ` | Корпоратив в Ростове-на-Дону: зал, кухня, до… | korporativ | 27 КБ |
-| `/novogodniy-korporativ` | Новогодний корпоратив в Ростове-на-Дону: бро… | novogodniy-korporativ | 23 КБ |
+| `/novogodniy-korporativ` | Новогодний корпоратив в Ростове-на-Дону | Ба… | novogodniy-korporativ | 23 КБ |
 | `/den-rozhdeniya` | Зал на юбилей и день рождения в Ростове-на-Д… | den-rozhdeniya | 29 КБ |
 | `/furshet` | Фуршет в Ростове-на-Дону для выставок и дело… | furshet | 26 КБ |
 | `/kofe-breyk` | Кофе-брейк в Ростове-на-Дону для конференций… | kofe-breyk | 26 КБ |

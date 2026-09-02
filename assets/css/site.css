@@ -1,3 +1,34 @@
+/* --- шрифты ------------------------------------------------------------
+   Лежат рядом с сайтом, а не на fonts.gstatic.com. Причина простая:
+   недоступный или медленный сторонний шрифтовой хост задерживает
+   перерисовку всего текста, и страница «доезжает» с большой задержкой.
+   Jost и JetBrains Mono — вариативные, поэтому все начертания от 200 до
+   600 умещаются в один файл на алфавит. Четыре файла, 75 КБ на всё.
+   Обе гарнитуры под OFL — размещать у себя разрешено.
+   Путь относительный: адрес внутри CSS считается от самого файла
+   стилей, а не от страницы, — иначе с CDN он укажет мимо.
+   ---------------------------------------------------------------------- */
+@font-face{
+  font-family:'Jost';font-style:normal;font-weight:200 600;font-display:swap;
+  src:url('../fonts/jost-cyrillic.woff2') format('woff2');
+  unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face{
+  font-family:'Jost';font-style:normal;font-weight:200 600;font-display:swap;
+  src:url('../fonts/jost-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;
+  src:url('../fonts/jetbrains-mono-cyrillic.woff2') format('woff2');
+  unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face{
+  font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;
+  src:url('../fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ==========================================================================
    БанкетХолл — designs system
    Palette: petrol night + parchment + brass (candle flame)
@@ -5,6 +36,22 @@
    ========================================================================== */
 
 /* --- tokens ------------------------------------------------------------- */
+/* Запасная гарнитура с подогнанными метриками.
+   Пока Jost едет по сети, текст рисуется системным шрифтом. У Arial буквы
+   шире и короче, поэтому в момент подмены строки переливались и страница
+   дёргалась — Chrome мерил CLS 0,115 на контактах при пороге 0,1.
+   Замерено в браузере: Jost занимает 94,19 % ширины Arial при равном
+   кегле, подъём 107 %, спуск 38 % от em. Эти же числа проставлены ниже,
+   поэтому запасной шрифт занимает ровно столько же места. */
+@font-face{
+  font-family:'Jost fallback';
+  src:local('Arial'),local('Liberation Sans'),local('Helvetica'),local('Roboto');
+  size-adjust:94.19%;
+  ascent-override:113.6%;
+  descent-override:40.3%;
+  line-gap-override:0%;
+}
+
 :root{
   --ink:#0B181C;
   --ink-2:#102830;
@@ -13,15 +60,20 @@
   --parchment:#F3EAD8;
   --parchment-2:#E8DBC2;
   --brass:#D9A441;
-  --brass-deep:#9C7220;
+  /* на пергаменте старое значение давало 3,63:1 — не хватало мелкому
+     тексту и надзаголовкам. Затемнено до 4,59:1, оттенок сохранён. */
+  --brass-deep:#87631C;
   --cream:#F3EAD8;
   --cream-dim:rgba(243,234,216,.62);
-  --cream-faint:rgba(243,234,216,.38);
+  /* .38 давало 3,07:1 на тёмном — мелкий текст в 11-13px этого не тянет.
+     .56 берёт 4,5:1 на всех трёх фонах; приглушённость держится за счёт
+     размера, разрядки и капители, а не за счёт прозрачности. */
+  --cream-faint:rgba(243,234,216,.56);
   --line-dark:rgba(243,234,216,.16);
   --line-light:rgba(11,24,28,.14);
 
-  --font-display:'Jost','Futura','Century Gothic',Arial,sans-serif;
-  --font-body:'Jost','Futura','Century Gothic',Arial,sans-serif;
+  --font-display:'Jost','Jost fallback','Futura','Century Gothic',Arial,sans-serif;
+  --font-body:'Jost','Jost fallback','Futura','Century Gothic',Arial,sans-serif;
   --font-data:'JetBrains Mono','SF Mono',Consolas,monospace;
 
   --wrap:1340px;
@@ -234,7 +286,9 @@ ul{margin:0;padding:0;list-style:none}
 .header__link[aria-current="page"]::after{
   content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--brass);
 }
-.header__tel{
+/* высота области нажатия: 22 и 18 px пальцем не берутся, минимум 24 */
+.header__logo{padding-block:9px}
+.header__tel{padding-block:8px;
   font-family:var(--font-data);font-size:14px;letter-spacing:.01em;
   white-space:nowrap;transition:color .3s var(--ease);
 }
@@ -302,6 +356,7 @@ ul{margin:0;padding:0;list-style:none}
   padding-bottom:clamp(40px,4vw,64px);
 }
 .footer__about{font-size:15px;color:var(--cream-dim);max-width:34ch;margin-top:18px}
+.footer__h,
 .footer h4{
   font-family:var(--font-data);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--cream-faint);margin-bottom:16px;font-weight:500;
@@ -318,7 +373,9 @@ ul{margin:0;padding:0;list-style:none}
 }
 .footer__bottom a{transition:color .25s var(--ease)}
 .footer__bottom a:hover{color:var(--cream-dim)}
-.footer__legal{display:flex;flex-wrap:wrap;gap:8px 20px}
+/* 22 px по высоте пальцем не берётся: минимум по WCAG 2.2 — 24. */
+.footer__legal{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:center}
+.footer__legal a{padding-block:5px}
 
 /* --- hero --------------------------------------------------------------- */
 .hero{
@@ -796,7 +853,8 @@ ul{margin:0;padding:0;list-style:none}
   font-family:var(--font-body);font-size:13.5px;font-weight:400;
   letter-spacing:0;text-transform:none;color:var(--cream-dim);line-height:1.55;
 }
-.consent input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--brass)}
+/* 18 px — меньше минимума 24 по WCAG 2.2; галочку ставят пальцем. */
+.consent input{width:24px;height:24px;flex:none;margin-top:0;accent-color:var(--brass)}
 .consent a{text-decoration:underline;text-underline-offset:3px}
 
 .form-status{font-size:14.5px;padding:12px 0 0;display:none}
@@ -821,7 +879,10 @@ ul{margin:0;padding:0;list-style:none}
 .contact-card b{font-family:var(--font-data);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);font-weight:500}
 .contact-card .val{font-family:var(--font-display);font-weight:400;font-size:clamp(19px,1.8vw,25px);line-height:1.3;letter-spacing:-.012em}
 .contact-card p{font-size:14.5px;color:var(--cream-dim)}
-.map{border:1px solid var(--line-dark);border-radius:14px;overflow:hidden;background:var(--petrol);aspect-ratio:16/8;min-height:340px}
+/* width обязателен: при aspect-ratio без заданной ширины браузер выводит
+   её из высоты, а min-height на узком экране делал карту 680 px и
+   растягивал всю страницу вбок. */
+.map{width:100%;border:1px solid var(--line-dark);border-radius:14px;overflow:hidden;background:var(--petrol);aspect-ratio:16/8;min-height:340px}
 .map iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.35) contrast(1.05)}
 
 /* --- legal document pages ----------------------------------------------- */

@@ -507,9 +507,9 @@ def render_footer():
         <p class="footer__about">Три банкетных зала от 50 до 2 500 гостей, кухня в здании и собственный
           инвентарь — на территории выставочного центра в Ростове-на-Дону.</p>
       </div>
-      <div><h4>Залы</h4><ul class="footer__list">%s</ul></div>
-      <div><h4>Мероприятия</h4><ul class="footer__list">%s</ul></div>
-      <div><h4>Контакты</h4>
+      <div><h2 class="footer__h">Залы</h2><ul class="footer__list">%s</ul></div>
+      <div><h2 class="footer__h">Мероприятия</h2><ul class="footer__list">%s</ul></div>
+      <div><h2 class="footer__h">Контакты</h2>
         <div class="footer__contacts">
           <a class="data" href="%s">%s</a>
           <a href="mailto:%s">%s</a>
@@ -541,8 +541,16 @@ def render_chrome(include_form=True):
     ведут на якорь #zayavka, поэтому этот якорь должен быть у внешнего
     блока (в Tilda: настройки блока → ID блока для ссылки → zayavka).
     """
-    parts = [render_form()] if include_form else []
-    return "\n".join(parts + [render_footer(), LIGHTBOX])
+    return render_footer()
+
+
+def render_lead_form(include_form=True):
+    """Форма заявки. Отдаётся отдельно, чтобы попасть внутрь <main>.
+
+    Секция между </main> и <footer> не принадлежит ни одному ориентиру,
+    и экранный диктор не может к ней перейти по структуре страницы.
+    """
+    return render_form() if include_form else ""
 
 
 # Пока часть фотографий тянется со старого CDN, соединение к нему стоит
@@ -578,7 +586,7 @@ LD = """{
   "@context":"https://schema.org",
   "@type":"EventVenue",
   "name":"Банкет-Холл — ВЦ «ДонЭкспоцентр»",
-  "url":"https://banket-na5.ru",
+  "url":"https://banket-na5.ru/",
   "telephone":"+78632563530",
   "email":"banket@donexpocentre.ru",
   "maximumAttendeeCapacity":2500,
@@ -596,7 +604,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(title)s</title>
 <meta name="description" content="%(desc)s">
-<link rel="canonical" href="%(canonical)s">
+<link rel="canonical" href="%(canonical)s">%(robots)s
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Банкет-Холл">
 <meta property="og:title" content="%(title)s">
@@ -606,10 +614,7 @@ PAGE = """<!DOCTYPE html>
 <meta property="og:locale" content="ru_RU">
 <meta name="theme-color" content="#0B181C">
 <link rel="icon" href="/assets/img/favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 %(cdn_preconnect)s%(preload)s
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css?v=4">
 <script type="application/ld+json">%(ld)s</script>
 </head>
@@ -620,6 +625,7 @@ PAGE = """<!DOCTYPE html>
 %(mnav)s
 <main id="main">
 %(body)s
+%(leadform)s
 </main>
 %(chrome)s
 <script src="/assets/js/site.js?v=4" defer></script>
@@ -637,7 +643,10 @@ def build():
         html_out = PAGE % {
             "title": E(p["title"], quote=True),
             "desc": E(p["desc"], quote=True),
-            "canonical": SITE["origin"] + (p["url"] if p["url"] != "/" else ""),
+            # со слэшем: ровно так адрес записан в sitemap и так его
+            # отдаёт сервер. Две формы одного адреса — это две страницы
+            # для поисковика.
+            "canonical": SITE["origin"] + p["url"],
             "og": og_url(p.get("og") or COVERS["hero"]),
             "ld": LD,
             "project": SITE["project_id"],
@@ -647,6 +656,12 @@ def build():
             "header": render_header(p.get("nav", "")),
             "mnav": render_mobile_nav(),
             "body": body,
+            # Юридические документы и 404 в выдаче не нужны: одинаковые
+            # тексты на семи адресах читаются поисковиком как дубли.
+            # follow оставляем — ссылки с них всё равно должны работать.
+            "robots": ("\n<meta name=\"robots\" content=\"noindex, follow\">"
+                       if p.get("noindex") else ""),
+            "leadform": render_lead_form(),
             "chrome": render_chrome(),
         }
         html_out = re.sub(r"\n{3,}", "\n\n", html_out)
