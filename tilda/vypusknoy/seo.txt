@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /vypusknoy
 Заголовок (Title):     Зал на выпускной в Ростове-на-Дону: банкет для класса | Банкет-Холл
 Описание (Description): Выпускной вечер в Ростове-на-Дону, пр. М. Нагибина, 30. Отдельный зал от 30 человек, своя кухня, парковка на 300 мест, смета с суммой на одного выпускника. Проверить дату.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/zal-1.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/zal-1.webp

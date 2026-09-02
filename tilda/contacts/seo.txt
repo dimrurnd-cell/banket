@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /contacts
 Заголовок (Title):     Контакты и схема проезда — Ростов-на-Дону, пр. Нагибина, 30
 Описание (Description): Банкет-Холл: телефон, почта, схема проезда и парковка на 300 мест. Банкетное направление ВЦ «ДонЭкспоцентр», пр. М. Нагибина, 30, Ростов-на-Дону. Пн–Сб, 9:00–18:00.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/hero-banquet-1668.jpg
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/hero-banquet-1668.jpg

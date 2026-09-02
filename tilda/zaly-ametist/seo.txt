@@ -4,4 +4,4 @@
 Адрес страницы (URL):  /zaly/ametist
 Заголовок (Title):     Зал на 300 человек в Ростове-на-Дону — «Аметист» | Банкет-Холл
 Описание (Description): Зал «Аметист» на 150–500 гостей на пр. М. Нагибина, 30 в Ростове-на-Дону. Сцена, свет, звук и гримёрные на месте. Большие свадьбы, корпоративы с шоу-программой, форумы.
-Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@84b4c029a0f9eed7b438e162d7f8f9a8fff63a63/assets/img/photo/cover-ametist.webp
+Картинка для соцсетей: https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@5778eb0f261dffffd1bdfc424bfe914a1fd4f01b/assets/img/photo/cover-ametist.webp
