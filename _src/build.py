@@ -178,17 +178,18 @@ def s_stats(s):
 
 
 def s_picker(s):
+    halls = s.get("halls", HALLS)
     import json
-    payload = json.dumps([{k: h[k] for k in ("name", "note", "meta", "url", "to")} for h in HALLS], ensure_ascii=False)
+    payload = json.dumps([{k: h[k] for k in ("name", "note", "meta", "url", "to")} for h in halls], ensure_ascii=False)
     from data import PHOTOS
     panels = "".join(
         '<div class="picker__panel%s" data-hall-panel>%s</div>' % (
             " is-active" if i == 0 else "",
             picture(PHOTOS[h["slug"]][0], "Зал: " + h["name"], slot="card"))
-        for i, h in enumerate(HALLS))
+        for i, h in enumerate(halls))
     # no-JS fallback: the halls stay reachable as plain links
     fallback = "".join('<li><a class="tlink" href="%s">%s — %s%s</a></li>' % (h["url"], E(h["name"]), E(h["cap"]), CHEV)
-                       for h in HALLS)
+                       for h in halls)
     inner = """%s
 <div class="picker reveal" data-picker='%s'>
   <div class="picker__stage">%s<span class="picker__badge">Рекомендация по вместимости</span></div>
@@ -277,7 +278,7 @@ def s_tiles(s):
 
 def s_price(s):
     cells = "".join('<div class="price__cell reveal" data-delay="%d"><b>%s</b><h3>%s</h3><p>%s</p></div>'
-                    % (i, E(k), E(t), E(p)) for i, (k, t, p) in enumerate(PRICE_PARTS))
+                    % (i, E(k), E(t), E(p)) for i, (k, t, p) in enumerate(s.get("items", PRICE_PARTS)))
     after = ""
     if s.get("after"):
         after = '<div class="mt-l reveal"><p class="lede">%s</p>%s</div>' % (s["after"], buttons(s.get("actions")))
