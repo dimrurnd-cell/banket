@@ -1,0 +1,465 @@
+<style>
+/* Variant 2: warm editorial hospitality. Scoped to keep variant 1 intact. */
+.v2-page{background:#f7f4ee;color:#2a2926}
+html body .bn2{--v2-paper:#f7f4ee;--v2-ink:#2a2926;--v2-muted:#666159;--v2-accent:#a7432c;--v2-line:#d8d1c5;--v2-white:#fffdf9;background:var(--v2-paper);color:var(--v2-ink);font-family:Jost,Arial,sans-serif;font-size:17px;line-height:1.55;font-weight:400;letter-spacing:0}
+html body .bn2 *,html body .bn2 *::before,html body .bn2 *::after{box-sizing:border-box}
+.bn2 h1,.bn2 h2,.bn2 h3,.bn2 p,.bn2 figure{margin:0}
+.bn2 a{color:inherit;text-decoration:none}
+.bn2 button,.bn2 input,.bn2 select,.bn2 textarea{font:inherit}
+.bn2 button,.bn2 summary{cursor:pointer}
+.bn2 button{color:inherit}
+.bn2 img{display:block;width:100%;height:100%;object-fit:cover}
+.bn2 picture{display:block;width:100%;height:100%}
+.bn2 [hidden]{display:none!important}
+.bn2 [id]{scroll-margin-top:105px}
+.bn2 :focus-visible{outline:3px solid var(--v2-accent);outline-offset:5px}
+.bn2 .v2-wrap{width:calc(100% - 96px);max-width:1344px;margin-inline:auto}
+.bn2 .v2-section{padding:100px 0}
+.bn2 .v2-kicker{font-size:12px;font-weight:500;letter-spacing:.11em;text-transform:uppercase;color:var(--v2-accent);line-height:1.6}
+.bn2 h2{font-size:clamp(36px,4.25vw,62px);line-height:1.1;font-weight:400;letter-spacing:-.045em;margin-top:22px;text-wrap:balance}
+.bn2 h2 em,.bn2 h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.055em}
+.bn2 h3{font-size:24px;line-height:1.2;font-weight:500;letter-spacing:-.025em}
+.bn2 .v2-intro{font-size:18px;line-height:1.65;max-width:460px;color:var(--v2-muted);margin-top:24px}
+.bn2 .v2-small{font-size:13px;color:var(--v2-muted);line-height:1.65;margin-top:16px}
+.bn2 .v2-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:54px;padding:15px 24px;background:var(--v2-accent);border:1px solid var(--v2-accent);border-radius:4px;color:#fffdf9;font-size:15px;font-weight:500;line-height:1.4;transition:background .2s,transform .2s}
+.bn2 .v2-button:hover{background:#88331f;border-color:#88331f;transform:translateY(-2px)}
+.bn2 .v2-button span,.bn2 .v2-text-link span{font-family:Arial,sans-serif;font-size:21px;font-weight:400}
+.bn2 .v2-text-link{display:inline-flex;align-items:center;justify-content:space-between;gap:22px;min-height:44px;font-size:15px;font-weight:500;border-bottom:1px solid var(--v2-ink);padding-block:8px;transition:color .2s}
+.bn2 .v2-text-link:hover{color:var(--v2-accent);border-color:var(--v2-accent)}
+.bn2 .v2-heading-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:42px}
+.bn2 .v2-side-note{font-size:17px;color:var(--v2-muted);padding-bottom:4px;line-height:1.6}
+.bn2 .v2-header{background:var(--v2-paper);border-bottom:1px solid var(--v2-line);position:sticky;top:0;z-index:40}
+.bn2 .v2-header-inner{height:90px;display:flex;align-items:center;gap:32px}
+.bn2 .v2-brand{font-size:21px;font-weight:600;letter-spacing:-.06em;white-space:nowrap;line-height:1.2;display:inline-block}
+.bn2 .v2-brand span{color:var(--v2-accent)}
+.bn2 .v2-brand small{display:block;font-size:8px;letter-spacing:.31em;font-weight:500;margin-top:6px}
+.bn2 .v2-nav{display:flex;gap:27px;align-items:center;margin-left:auto}
+.bn2 .v2-nav a{font-size:14px;min-height:44px;display:flex;align-items:center}
+.bn2 .v2-nav a:hover{color:var(--v2-accent)}
+.bn2 .v2-header-phone{font-size:13px;white-space:nowrap}
+.bn2 .v2-button-small{min-height:44px;padding:12px 17px;font-size:13px;gap:22px}
+.bn2 .v2-menu-button{display:none}
+.bn2 .v2-skip{position:fixed;left:20px;top:-100px;background:var(--v2-ink);color:white;z-index:100;padding:12px 20px}
+.bn2 .v2-skip:focus{top:10px}
+.bn2 .v2-hero{display:grid;grid-template-columns:1.04fr 1fr;gap:36px;align-items:center;padding-top:36px;padding-bottom:36px;min-height:580px}
+.bn2 .v2-hero-copy{padding:24px 0 16px}
+.bn2 .v2-dot{display:inline-block;width:7px;height:7px;background:var(--v2-accent);border-radius:50%;margin-right:10px;margin-bottom:1px}
+.bn2 .v2-hero h1{font-size:clamp(48px,5.8vw,84px);font-weight:400;letter-spacing:-.055em;line-height:1.09;margin:30px 0 26px}
+.bn2 .v2-hero h1 em{font-size:.88em;white-space:nowrap}
+.bn2 .v2-hero-lede{font-size:18px;color:var(--v2-muted);line-height:1.6;max-width:400px}
+.bn2 .v2-hero-actions{display:flex;align-items:center;gap:28px;margin-top:32px}
+.bn2 .v2-location{font-size:12px;color:var(--v2-muted);margin-top:38px}
+.bn2 .v2-location span{padding-inline:7px}
+.bn2 .v2-hero-photo{height:510px;position:relative;overflow:hidden;border-radius:170px 8px 8px 8px;background:#dbd4c7}
+.bn2 .v2-hero-photo img{object-position:52% 50%}
+.bn2 .v2-hero-photo:after{content:'';position:absolute;inset:50% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.66));pointer-events:none}
+.bn2 .v2-hero-photo figcaption{position:absolute;bottom:27px;left:32px;right:25px;display:flex;align-items:flex-end;justify-content:space-between;z-index:1;color:white;font-size:16px;line-height:1.4}
+.bn2 .v2-photo-seal{width:107px;height:107px;border-radius:50%;background:#f7f4ee;color:#3b382e;border:1px solid #d4c8b5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:8px;letter-spacing:.18em;line-height:1.3;transform:rotate(9deg)}
+.bn2 .v2-photo-seal b{font:italic 25px Georgia,serif;letter-spacing:-.03em;line-height:.75}
+.bn2 .v2-proof{display:grid;grid-template-columns:1fr 1fr 1fr auto;align-items:center;border-top:1px solid var(--v2-line);border-bottom:1px solid var(--v2-line);padding:25px 0 28px;gap:24px}
+.bn2 .v2-proof>div{display:flex;align-items:center;gap:15px}
+.bn2 .v2-proof b{font-size:39px;font-weight:400;line-height:1}
+.bn2 .v2-proof span{font-size:13px;color:var(--v2-muted);max-width:140px;line-height:1.4}
+.bn2 .v2-proof>a{font-size:13px;display:flex;gap:25px;align-items:center;min-height:44px}
+.bn2 .v2-proof>a span{font-size:26px;color:var(--v2-accent)}
+.bn2 .v2-halls-section{padding-top:92px}
+.bn2 .v2-picker{display:grid;grid-template-columns:245px 1fr auto;align-items:center;gap:38px;padding:28px 32px;background:#ede7db;border:1px solid #e4ddce;border-radius:6px}
+.bn2 .v2-picker label{font-size:14px;font-weight:500}
+.bn2 .v2-number{display:flex;gap:12px;align-items:baseline;margin-top:4px}
+.bn2 .v2-number input{width:116px;padding:0;border:0;border-bottom:1px solid #9c9589;background:transparent;font-size:40px;line-height:1.2;font-weight:400;color:var(--v2-ink);border-radius:0;-moz-appearance:textfield}
+.bn2 .v2-number input::-webkit-inner-spin-button{opacity:1;font-size:16px}
+.bn2 .v2-number span{font-size:14px;color:var(--v2-muted)}
+.bn2 .v2-range-wrap input{appearance:none;width:100%;height:44px;background:transparent;cursor:pointer;display:block;margin:0}
+.bn2 .v2-range-wrap input::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:linear-gradient(to right,var(--v2-accent) var(--v2-range-progress,4%),#c5bcad var(--v2-range-progress,4%))}
+.bn2 .v2-range-wrap input::-webkit-slider-thumb{appearance:none;width:24px;height:24px;background:var(--v2-accent);border:4px solid var(--v2-paper);border-radius:50%;margin-top:-11px;box-shadow:0 0 0 1px var(--v2-accent)}
+.bn2 .v2-range-wrap input::-moz-range-track{height:3px;background:#c5bcad}
+.bn2 .v2-range-wrap input::-moz-range-thumb{width:18px;height:18px;border:3px solid var(--v2-paper);border-radius:50%;background:var(--v2-accent)}
+.bn2 .v2-range-ticks{display:flex;justify-content:space-between;color:var(--v2-muted);font-size:12px;margin-top:1px}
+.bn2 .v2-presets{display:flex;gap:8px}
+.bn2 .v2-presets button{border:1px solid #c8bfb1;background:transparent;border-radius:30px;min-width:46px;min-height:44px;padding:7px 14px;font-size:13px;transition:background .2s}
+.bn2 .v2-presets button:hover,.bn2 .v2-presets button[aria-pressed=true]{color:white;background:var(--v2-accent);border-color:var(--v2-accent)}
+.bn2 .v2-picker-status{font-size:13px;color:var(--v2-muted);margin:16px 0 30px;min-height:21px}
+.bn2 .v2-hall-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.bn2 .v2-hall{background:var(--v2-white);border:1px solid var(--v2-line);border-radius:6px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.bn2 .v2-hall.is-recommended{border-color:var(--v2-accent);box-shadow:0 0 0 1px var(--v2-accent)}
+.bn2 .v2-hall-image{height:252px;position:relative}
+.bn2 .v2-hall-number{position:absolute;left:18px;top:18px;color:white;border:1px solid #fff8;background:#24232066;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px}
+.bn2 .v2-recommend-badge{position:absolute;right:14px;bottom:14px;background:var(--v2-accent);color:white;padding:6px 11px;font-size:12px;border-radius:3px}
+.bn2 .v2-hall-body{padding:24px 25px 26px}
+.bn2 .v2-hall h3{margin:10px 0 8px;font-size:27px}
+.bn2 .v2-hall .v2-kicker{font-size:10px}
+.bn2 .v2-capacity{font-size:14px;font-weight:500}
+.bn2 .v2-hall-note{font-size:15px;line-height:1.6;color:var(--v2-muted);margin-top:16px;min-height:96px}
+.bn2 .v2-hall-details{font-size:14px;color:var(--v2-muted);margin:10px 0 16px}
+.bn2 .v2-hall-details summary{font-size:12px;padding:11px 0;min-height:44px;list-style:none;text-decoration:underline;text-underline-offset:3px}
+.bn2 .v2-hall-details p{padding-bottom:12px;line-height:1.65}
+.bn2 .v2-hall-details strong{font-weight:500;color:var(--v2-ink)}
+.bn2 .v2-hall .v2-text-link{width:100%;border-top:1px solid var(--v2-line);border-bottom:0;padding-top:17px}
+.bn2 .v2-halls-footnote{max-width:620px;text-align:center;margin:34px auto 0;color:var(--v2-muted);font-size:14px}
+.bn2 .v2-formats-section{background:#ebe5da}
+.bn2 .v2-format-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.bn2 .v2-format{position:relative;height:360px;overflow:hidden;border-radius:5px}
+.bn2 .v2-format:after{content:'';position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#000b)}
+.bn2 .v2-format img{transition:transform .5s}
+.bn2 .v2-format:hover img{transform:scale(1.035)}
+.bn2 .v2-format>div{position:absolute;bottom:25px;left:25px;right:25px;z-index:1;color:white}
+.bn2 .v2-format>div>span{font-size:12px}
+.bn2 .v2-format h3{display:flex;justify-content:space-between;align-items:center;font-size:31px;margin-top:10px}
+.bn2 .v2-more-formats{display:flex;flex-wrap:wrap;gap:12px 35px;margin-top:22px}
+.bn2 .v2-more-formats a{font-size:14px;min-height:44px;display:flex;align-items:center;border-bottom:1px solid #b9b0a2}
+.bn2 .v2-service-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.bn2 .v2-service-photo{height:620px;position:relative}
+.bn2 .v2-service-photo picture{height:calc(100% - 40px);border-radius:6px 140px 6px 6px;overflow:hidden}
+.bn2 .v2-service-photo figcaption{font-size:12px;color:var(--v2-muted);margin-top:14px}
+.bn2 .v2-service-grid h2{font-size:clamp(36px,3.7vw,54px)}
+.bn2 .v2-benefit{display:flex;gap:22px;border-top:1px solid var(--v2-line);padding-top:23px;margin-top:24px}
+.bn2 .v2-benefit>span{font-size:12px;color:var(--v2-accent);padding-top:4px}
+.bn2 .v2-benefit h3{font-size:20px;font-weight:400}
+.bn2 .v2-benefit p{font-size:15px;color:var(--v2-muted);margin-top:8px;max-width:340px}
+.bn2 .v2-service-links{display:flex;flex-wrap:wrap;gap:20px;margin-top:24px}
+.bn2 .v2-service-links a{font-size:13px}
+.bn2 .v2-price-section{background:#343c32;color:#f7f4ee;--v2-muted:#d2d4cb;--v2-line:#626b5e;--v2-accent:#e6b899}
+.bn2 .v2-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px}
+.bn2 .v2-price-section .v2-button{margin-top:32px;background:#edd5ba;color:#2a2926;border-color:#edd5ba}
+.bn2 .v2-price-section .v2-button:hover{background:#fff0dd}
+.bn2 .v2-price-row{border-top:1px solid var(--v2-line)}
+.bn2 .v2-price-row:last-of-type{border-bottom:1px solid var(--v2-line)}
+.bn2 .v2-price-row summary{display:grid;grid-template-columns:45px 1fr 25px;gap:15px;align-items:center;list-style:none;min-height:95px;padding:20px 0}
+.bn2 summary::-webkit-details-marker{display:none}
+.bn2 .v2-price-row summary>span:first-child{font-size:12px;color:var(--v2-muted)}
+.bn2 .v2-price-row h3{font-size:29px;font-weight:400}
+.bn2 .v2-price-row p{font-size:16px;color:var(--v2-muted);padding:0 30px 26px 60px}
+.bn2 .v2-plus{font-size:25px;font-weight:300;transition:transform .2s}
+.bn2 details[open] .v2-plus{transform:rotate(45deg)}
+.bn2 .v2-price-note{font-size:14px;color:var(--v2-muted);margin-top:28px;max-width:410px}
+.bn2 .v2-price-explain{font-size:14px;color:var(--v2-muted);margin-top:10px}
+.bn2 .v2-price-explain summary{min-height:44px;padding-block:12px;text-decoration:underline;text-underline-offset:4px;list-style:none}
+.bn2 .v2-price-explain p{padding-top:14px}
+.bn2 .v2-gallery-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:22px;align-items:end}
+.bn2 .v2-gallery-shot{position:relative;display:block;height:360px;border-radius:5px;overflow:hidden}
+.bn2 .v2-gallery-shot-0{height:440px}
+.bn2 .v2-gallery-shot-2{height:290px}
+.bn2 .v2-gallery-shot>span{position:absolute;right:16px;bottom:16px;width:42px;height:42px;border-radius:50%;background:var(--v2-white);color:var(--v2-ink);display:grid;place-items:center;font-size:22px}
+.bn2 .v2-gallery-caption{font-size:13px;color:var(--v2-muted);margin-top:23px}
+.bn2 .v2-faq-section{border-top:1px solid var(--v2-line);padding-top:70px}
+.bn2 .v2-faq-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:100px}
+.bn2 .v2-faq-item{border-bottom:1px solid var(--v2-line)}
+.bn2 .v2-faq-item summary{display:flex;justify-content:space-between;gap:30px;font-size:18px;padding:23px 0;list-style:none}
+.bn2 .v2-faq-item summary span{font-size:24px;font-weight:300;flex-shrink:0}
+.bn2 .v2-faq-item p{padding:0 45px 26px 0;font-size:16px;color:var(--v2-muted)}
+.bn2 .v2-request-section{background:#ede6d9}
+.bn2 .v2-request-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px}
+.bn2 .v2-request-grid h2{font-size:clamp(44px,5vw,74px)}
+.bn2 .v2-contact-phone{font-size:25px;display:inline-block;margin-top:35px;letter-spacing:-.02em}
+.bn2 .v2-form{background:var(--v2-white);padding:35px;border-radius:6px;border:1px solid var(--v2-line);min-width:0}
+.bn2 .v2-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.bn2 .v2-full{grid-column:1/-1}
+.bn2 .v2-field{min-width:0}
+.bn2 .v2-field label{display:block;font-size:13px;margin-bottom:7px;color:var(--v2-ink)}
+.bn2 .v2-field input,.bn2 .v2-field select,.bn2 .v2-field textarea{width:100%;min-width:0;height:50px;border:1px solid var(--v2-line);background:var(--v2-white);padding:11px 12px;border-radius:3px;color:var(--v2-ink);font-size:16px;line-height:1.4;color-scheme:light}
+.bn2 .v2-field textarea{height:auto;resize:vertical;min-height:90px}
+.bn2 .v2-field input::placeholder{color:#787269;opacity:1}
+.bn2 .v2-form-extra{font-size:13px;margin-top:14px}
+.bn2 .v2-form-extra summary{list-style:none;text-decoration:underline;text-underline-offset:4px;padding:12px 0;min-height:44px}
+.bn2 .v2-form-extra .v2-field{margin-top:14px}
+.bn2 .v2-consent{display:flex;gap:12px;align-items:flex-start;font-size:12px;color:var(--v2-muted);line-height:1.55;margin:20px 0 24px;cursor:pointer;min-height:44px}
+.bn2 .v2-consent input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--v2-accent);flex-shrink:0}
+.bn2 .v2-consent a{text-decoration:underline;text-underline-offset:3px}
+.bn2 .v2-form>.v2-button{width:100%;font-size:14px;gap:12px}
+.bn2 .v2-form>.v2-small{font-size:11px;text-align:center;margin-top:10px}
+.bn2 .form-status--ok{color:#23542b;background:#eef5e9;font-size:15px;padding:12px}
+.bn2 .form-status--err{color:#963525;background:#fff0e8;font-size:15px;padding:12px}
+.bn2 .v2-footer{padding:55px 0 25px}
+.bn2 .v2-footer-top{display:grid;grid-template-columns:.8fr 1.3fr 1fr auto;gap:35px;align-items:start;font-size:13px;line-height:1.8}
+.bn2 .v2-footer-top .v2-text-link{font-size:13px}
+.bn2 .v2-footer-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:42px;padding-top:20px;border-top:1px solid var(--v2-line);font-size:11px;color:var(--v2-muted)}
+@media(min-width:1600px){.bn2 .v2-hero{min-height:650px}.bn2 .v2-hero-photo{height:570px}}
+@media(max-width:1200px){.bn2 .v2-wrap{width:calc(100% - 64px)}.bn2 .v2-header-phone{display:none}.bn2 .v2-header-inner{gap:24px}.bn2 .v2-nav{gap:22px}.bn2 .v2-hero{gap:30px;min-height:550px}.bn2 .v2-hero-photo{height:470px}.bn2 .v2-hero h1{font-size:6vw}.bn2 .v2-hero-actions{gap:20px}.bn2 .v2-hero-actions .v2-text-link{font-size:13px}.bn2 .v2-picker{grid-template-columns:210px 1fr;gap:25px}.bn2 .v2-presets{grid-column:2;grid-row:2;margin-top:-25px}.bn2 .v2-range-wrap{align-self:start}.bn2 .v2-hall-body{padding:22px 19px}.bn2 .v2-hall h3{font-size:24px}.bn2 .v2-hall-note{min-height:120px}.bn2 .v2-service-grid,.bn2 .v2-price-grid,.bn2 .v2-request-grid,.bn2 .v2-faq-grid{gap:55px}.bn2 .v2-service-photo{height:580px}}
+@media(max-width:900px){.bn2 .v2-header-inner{height:76px;gap:18px}.bn2 .v2-nav{gap:18px}.bn2 .v2-nav a{font-size:12px}.bn2 .v2-header-inner>.v2-button{display:none}.bn2 .v2-hero h1{font-size:6.1vw}.bn2 .v2-hero-photo{height:450px;border-top-left-radius:120px}.bn2 .v2-hero-lede{font-size:16px}.bn2 .v2-hero-actions{flex-wrap:wrap;gap:10px}.bn2 .v2-location{margin-top:20px}.bn2 .v2-hero{min-height:520px}.bn2 .v2-proof{grid-template-columns:repeat(3,1fr)}.bn2 .v2-proof>a{display:none}.bn2 .v2-proof>div{gap:12px}.bn2 .v2-proof b{font-size:34px}.bn2 .v2-proof span{font-size:12px}.bn2 .v2-section{padding:72px 0}.bn2 .v2-hall-grid{gap:14px}.bn2 .v2-hall-image{height:205px}.bn2 .v2-hall-body{padding:18px 15px}.bn2 .v2-hall h3{font-size:21px}.bn2 .v2-hall-note{font-size:14px;min-height:134px}.bn2 .v2-hall .v2-kicker{font-size:9px}.bn2 .v2-hall-details summary{font-size:11px}.bn2 .v2-format-grid{gap:16px}.bn2 .v2-format{height:295px}.bn2 .v2-format>div{left:18px;right:18px;bottom:22px}.bn2 .v2-format h3{font-size:23px}.bn2 .v2-format>div>span{font-size:10px}.bn2 .v2-service-grid,.bn2 .v2-request-grid{gap:35px}.bn2 .v2-service-photo{height:590px}.bn2 .v2-service-links{gap:8px}.bn2 .v2-price-grid,.bn2 .v2-faq-grid{gap:35px}.bn2 .v2-gallery-shot{height:290px}.bn2 .v2-gallery-shot-0{height:360px}.bn2 .v2-gallery-shot-2{height:230px}.bn2 .v2-form{padding:24px}.bn2 .v2-form-grid{gap:15px}.bn2 .v2-footer-top{grid-template-columns:1fr 1fr}.bn2 .v2-footer-top .v2-text-link{justify-self:start}}
+@media(max-width:640px){.bn2 .v2-wrap{width:calc(100% - 40px)}.bn2 .v2-header-inner{height:72px;justify-content:space-between;position:relative}.bn2 .v2-brand{font-size:20px}.bn2 .v2-brand small{font-size:7px}.bn2 .v2-menu-button{display:flex;align-items:center;gap:12px;background:transparent;border:1px solid var(--v2-line);border-radius:3px;min-height:44px;padding:9px 13px;font-size:13px}.bn2 .v2-menu-button span{font-size:16px}.bn2 .v2-nav{display:none;position:absolute;top:72px;left:-20px;right:-20px;margin:0;padding:15px 20px 25px;background:var(--v2-paper);border-bottom:1px solid var(--v2-line);box-shadow:0 12px 15px #29251b0c}.bn2 .v2-nav.is-open{display:grid;grid-template-columns:1fr 1fr;gap:7px 20px}.bn2 .v2-nav a{font-size:16px;min-height:46px}.bn2 .v2-hero{grid-template-columns:1fr;gap:24px;padding-top:30px;padding-bottom:25px}.bn2 .v2-hero-copy{padding:0}.bn2 .v2-hero .v2-kicker{font-size:10px;letter-spacing:.065em}.bn2 .v2-hero h1{font-size:clamp(43px,11.8vw,69px);line-height:1.12;margin:24px 0 20px}.bn2 .v2-hero h1 em{font-size:.94em;letter-spacing:-.057em}.bn2 .v2-hero-lede{font-size:16px;max-width:330px}.bn2 .v2-hero-actions{gap:20px;margin-top:23px;flex-wrap:nowrap}.bn2 .v2-hero-actions .v2-button{padding:13px 17px;gap:14px;font-size:14px}.bn2 .v2-hero-actions .v2-text-link{font-size:12px;gap:8px}.bn2 .v2-location{font-size:10px;margin-top:21px}.bn2 .v2-location span{padding-inline:3px}.bn2 .v2-hero-photo{height:330px;border-top-left-radius:105px}.bn2 .v2-hero-photo figcaption{left:23px;right:18px;bottom:20px;font-size:14px}.bn2 .v2-photo-seal{width:85px;height:85px;font-size:6px}.bn2 .v2-photo-seal b{font-size:22px}.bn2 .v2-proof{gap:14px;padding:22px 0}.bn2 .v2-proof>div{display:block}.bn2 .v2-proof b{font-size:31px;display:block;margin-bottom:7px}.bn2 .v2-proof span{display:block;font-size:11px;max-width:100px;line-height:1.45}.bn2 .v2-section{padding:60px 0}.bn2 h2{font-size:40px;margin-top:15px}.bn2 .v2-kicker{font-size:10px}.bn2 .v2-heading-row{gap:20px;align-items:flex-start;flex-direction:column;margin-bottom:30px}.bn2 .v2-side-note{font-size:14px}.bn2 .v2-side-note br{display:none}.bn2 .v2-picker{grid-template-columns:1fr;padding:22px;gap:15px}.bn2 .v2-picker>div:first-child{display:flex;align-items:center;justify-content:space-between;gap:15px}.bn2 .v2-picker label{font-size:13px;max-width:120px}.bn2 .v2-number{gap:6px;margin:0}.bn2 .v2-number input{font-size:31px;width:92px}.bn2 .v2-number span{font-size:12px}.bn2 .v2-presets{grid-column:auto;grid-row:auto;margin:0;justify-content:space-between}.bn2 .v2-range-ticks{font-size:11px}.bn2 .v2-presets button{font-size:12px;min-height:44px;min-width:53px}.bn2 .v2-picker-status{font-size:12px;margin:15px 0 25px;min-height:38px}.bn2 .v2-hall-grid{grid-template-columns:1fr;gap:23px}.bn2 .v2-hall-image{height:255px}.bn2 .v2-hall-body{padding:23px}.bn2 .v2-hall h3{font-size:28px}.bn2 .v2-hall-note{font-size:16px;min-height:0;margin-top:15px}.bn2 .v2-hall .v2-kicker{font-size:10px}.bn2 .v2-hall-details summary{font-size:13px}.bn2 .v2-hall-details{margin-top:8px;margin-bottom:10px}.bn2 .v2-halls-footnote{font-size:13px;text-align:left;margin-top:25px}.bn2 .v2-format-grid{grid-template-columns:1fr;gap:18px}.bn2 .v2-format{height:300px}.bn2 .v2-format h3{font-size:31px}.bn2 .v2-format>div>span{font-size:12px}.bn2 .v2-more-formats{gap:5px 20px;margin-top:22px}.bn2 .v2-more-formats a{font-size:13px}.bn2 .v2-service-grid{grid-template-columns:1fr;gap:34px}.bn2 .v2-service-photo{height:365px}.bn2 .v2-service-photo picture{border-top-right-radius:105px}.bn2 .v2-service-photo figcaption{font-size:11px}.bn2 .v2-service-grid h2{font-size:38px}.bn2 .v2-benefit{padding-top:21px;margin-top:23px}.bn2 .v2-benefit h3{font-size:20px}.bn2 .v2-service-links{gap:16px}.bn2 .v2-price-grid,.bn2 .v2-faq-grid,.bn2 .v2-request-grid{grid-template-columns:1fr;gap:34px}.bn2 .v2-price-section .v2-intro{font-size:17px}.bn2 .v2-price-section .v2-button{margin-top:24px}.bn2 .v2-price-row summary{min-height:83px;grid-template-columns:30px 1fr 25px}.bn2 .v2-price-row h3{font-size:27px}.bn2 .v2-price-row p{padding-left:45px;font-size:15px}.bn2 .v2-gallery-grid{grid-template-columns:1fr 1fr;gap:13px;align-items:stretch}.bn2 .v2-gallery-shot{height:195px}.bn2 .v2-gallery-shot-0{grid-column:1/-1;height:305px}.bn2 .v2-gallery-shot-2{height:195px}.bn2 .v2-gallery-caption{font-size:12px}.bn2 .v2-faq-item summary{font-size:17px;gap:20px;padding:20px 0}.bn2 .v2-faq-item p{font-size:15px;padding-right:20px}.bn2 .v2-request-grid h2{font-size:49px}.bn2 .v2-request-grid .v2-intro{font-size:17px}.bn2 .v2-contact-phone{font-size:25px;margin-top:25px}.bn2 .v2-form{padding:24px 20px}.bn2 .v2-field label{font-size:12px}.bn2 .v2-form-grid{gap:17px 12px}.bn2 .v2-field input,.bn2 .v2-field select{padding:11px 9px}.bn2 .v2-consent{font-size:11px}.bn2 .v2-form>.v2-button{font-size:12px;padding:15px;gap:8px}.bn2 .v2-footer{padding:40px 0 25px}.bn2 .v2-footer-top{gap:27px;grid-template-columns:1fr}.bn2 .v2-footer-bottom{font-size:10px;flex-direction:column;gap:10px;margin-top:30px}.bn2 [id]{scroll-margin-top:88px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bn2 *,.bn2 *::before,.bn2 *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.bn2 .v2-button:hover,.bn2 .v2-format:hover img{transform:none}}
+.bn2 button.v2-gallery-shot{padding:0;border:0;width:100%;background:transparent;aspect-ratio:auto;text-align:left}
+
+</style>
+<div class="bn2"><section class="v2-hero v2-wrap" aria-labelledby="v2-title">
+      <div class="v2-hero-copy"><p class="v2-kicker"><span class="v2-dot" aria-hidden="true"></span>Банкетные залы · Ростов-на-Дону</p>
+        <h1 id="v2-title">Место для<br><em>вашего события.</em></h1>
+        <p class="v2-hero-lede">Три зала на 50–2 500 гостей.<br>Кухня, сервировка и команда — на одной площадке.</p>
+        <div class="v2-hero-actions"><a class="v2-button" href="#zayavka">Проверить дату<span aria-hidden="true">↗</span></a><a class="v2-text-link" href="#zaly">Посмотреть залы<span aria-hidden="true">↗</span></a></div>
+        <p class="v2-location">пр. М. Нагибина, 30 <span>·</span> ВЦ «ДонЭкспоцентр»</p>
+      </div>
+      <figure class="v2-hero-photo"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-1680.avif 1680w" sizes="(max-width:860px) calc(100vw - 40px), 620px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-1680.webp 1680w" sizes="(max-width:860px) calc(100vw - 40px), 620px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/hero-banquet-1668-109b5c-1280.jpg 1280w" sizes="(max-width:860px) calc(100vw - 40px), 620px" width="1680" height="1119" alt="Сервированный банкетный зал со сценой и праздничным светом" fetchpriority="high" decoding="async"></picture>
+        <figcaption><span>Место встречи.<br>Повод — ваш.</span><span class="v2-photo-seal">СОБИРАЕМ<br><b>с 2001</b><br>БЛИЗКИХ</span></figcaption>
+      </figure>
+    </section>
+    <div class="v2-proof v2-wrap" aria-label="О площадке"><div><b>3</b><span>зала по одному адресу</span></div><div><b>25</b><span>лет организуем события</span></div><div><b>300</b><span>парковочных мест</span></div><a href="#zaly">Найдём ваш зал <span aria-hidden="true">↓</span></a></div><section class="v2-section v2-halls-section" id="zaly"><div class="v2-wrap">
+      <div class="v2-heading-row"><div class="v2-section-head"><p class="v2-kicker">01 / Пространства</p><h2>Три зала.<br><em>Ваш масштаб.</em></h2></div><p class="v2-side-note">От ужина в кругу близких<br>до большого события на весь город.</p></div>
+      <div class="v2-picker"><div><label for="v2-guests">Сколько будет гостей?</label><div class="v2-number"><input id="v2-guests" type="number" min="20" max="2500" step="1" value="120" inputmode="numeric" aria-describedby="v2-recommendation"><span>гостей</span></div></div>
+        <div class="v2-range-wrap"><label class="visually-hidden" for="v2-range">Подобрать зал по количеству гостей</label><input id="v2-range" type="range" min="20" max="2500" step="1" value="120"><div class="v2-range-ticks"><span>20</span><span>2 500</span></div></div>
+        <div class="v2-presets" aria-label="Быстрый выбор числа гостей"><button type="button" data-v2-guests="50">50</button><button type="button" data-v2-guests="150">150</button><button type="button" data-v2-guests="300">300</button><button type="button" data-v2-guests="1000">1 000</button></div>
+      </div>
+      <p id="v2-recommendation" class="v2-picker-status" aria-live="polite">На 120 гостей рекомендуем Банкетный зал. Можно выбрать зал просторнее.</p>
+      <div class="v2-hall-grid"><article class="v2-hall is-recommended" data-v2-hall="bankethall">
+          <div class="v2-hall-image"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-1537.avif 1537w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/cover-bankethall.webp 1537w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-bankethall-95f172-1280.jpg 1280w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px" width="1537" height="1023" alt="Банкетный зал" loading="lazy" decoding="async"></picture><span class="v2-hall-number">01</span><span class="v2-recommend-badge" data-v2-badge >Подходит вам</span></div>
+          <div class="v2-hall-body"><p class="v2-kicker">Камерно и уютно</p><h3>Банкетный зал</h3><p class="v2-capacity">50–150 гостей</p><p class="v2-hall-note">Для свадьбы, юбилея или встречи своей команды. Есть место для сцены и танцпола.</p>
+          <details class="v2-hall-details"><summary>Подробнее о пространстве</summary><p><strong>Универсальный зал до 150 гостей. Легко адаптируется под любой масштаб: даже небольшая компания будет чувствовать себя уютно. Пространство грамотно зонировано — здесь достаточно места для сцены, интерактивной программы и просторного танцпола.</strong></p></details>
+          <a class="v2-text-link" href="/zaly/bankethall">Смотреть зал<span aria-hidden="true">↗</span></a></div></article><article class="v2-hall " data-v2-hall="ametist">
+          <div class="v2-hall-image"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-1537.avif 1537w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/cover-ametist.webp 1537w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-ametist-69a6dc-1280.jpg 1280w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px" width="1537" height="1023" alt="Зал «Аметист»" loading="lazy" decoding="async"></picture><span class="v2-hall-number">02</span><span class="v2-recommend-badge" data-v2-badge hidden>Подходит вам</span></div>
+          <div class="v2-hall-body"><p class="v2-kicker">С размахом и музыкой</p><h3>Зал «Аметист»</h3><p class="v2-capacity">150–500 гостей</p><p class="v2-hall-note">Для событий на 200–300 гостей. Сцена, свет, звук и гримёрные уже в зале.</p>
+          <details class="v2-hall-details"><summary>Подробнее о пространстве</summary><p><strong>Зал для масштабных событий на 200–300 гостей.</strong> Идеален для шоу-программ и живой музыки. Главный плюс — <strong>всё включено</strong>: профессиональная сцена, свет, звук и гримёрные уже в зале. Никаких трат на сторонний прокат, доставку и сложный монтаж.</p></details>
+          <a class="v2-text-link" href="/zaly/ametist">Смотреть зал<span aria-hidden="true">↗</span></a></div></article><article class="v2-hall " data-v2-hall="vystavochny">
+          <div class="v2-hall-image"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-1537.avif 1537w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/cover-vystavochny.webp 1537w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/cover-vystavochny-d8cc9a-1280.jpg 1280w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px" width="1537" height="1023" alt="Выставочный зал" loading="lazy" decoding="async"></picture><span class="v2-hall-number">03</span><span class="v2-recommend-badge" data-v2-badge hidden>Подходит вам</span></div>
+          <div class="v2-hall-body"><p class="v2-kicker">Городской масштаб</p><h3>Выставочный зал</h3><p class="v2-capacity">до 2 500 гостей</p><p class="v2-hall-note">Конференции, выставки с фуршетом и корпоративы на тысячи гостей. Прямой подъезд для монтажа.</p>
+          <details class="v2-hall-details"><summary>Подробнее о пространстве</summary><p><strong>Масштабное пространство для событий на тысячи гостей.</strong> Зал создан для масштабных конференций, выставок с фуршетом и масштабных городских корпоративов. Площадка полностью технически оснащена, а прямой подъезд максимально упрощает логистику. Сюда заезжают сразу со своей сценой и декорациями, а не с чемоданами.</p></details>
+          <a class="v2-text-link" href="/zaly/vystavochny">Смотреть зал<span aria-hidden="true">↗</span></a></div></article></div>
+      <p class="v2-halls-footnote">Список гостей вырос? При смене зала кухня, посуда, команда и договор остаются прежними.</p>
+    </div></section><section class="v2-section v2-formats-section" id="formats"><div class="v2-wrap">
+      <div class="v2-heading-row"><div class="v2-section-head"><p class="v2-kicker">02 / Поводы</p><h2>У каждого события<br><em>свой характер.</em></h2></div><a class="v2-text-link" href="/meropriyatiya">Все форматы<span aria-hidden="true">↗</span></a></div>
+      <div class="v2-format-grid"><a class="v2-format" href="/svadba"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-1920.avif 1920w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/ametist-2.webp 1920w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/ametist-2-7baf08-1280.jpg 1280w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px" width="1920" height="1440" alt="Свадьбы" loading="lazy" decoding="async"></picture><div><span>Один из самых важных дней</span><h3>Свадьбы<span aria-hidden="true">↗</span></h3></div></a><a class="v2-format" href="/korporativ"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-1920.avif 1920w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/korporativ-1.webp 1920w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/korporativ-1-af2d3b-1280.jpg 1280w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px" width="1920" height="1278" alt="Корпоративы" loading="lazy" decoding="async"></picture><div><span>Повод быть вместе</span><h3>Корпоративы<span aria-hidden="true">↗</span></h3></div></a><a class="v2-format" href="/den-rozhdeniya"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-1920.avif 1920w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/den-rozhdeniya-1.webp 1920w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/den-rozhdeniya-1-945f5e-1280.jpg 1280w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:1000px) 46vw, 400px" width="1920" height="1316" alt="Дни рождения" loading="lazy" decoding="async"></picture><div><span>Свои люди за одним столом</span><h3>Дни рождения<span aria-hidden="true">↗</span></h3></div></a></div><div class="v2-more-formats"><a href="/furshet">Фуршеты ↗</a><a href="/kofe-breyk">Кофе-брейки ↗</a><a href="/detskiy-prazdnik">Детские праздники ↗</a><a href="/vypusknoy">Выпускные ↗</a></div>
+    </div></section><section class="v2-section v2-service-section"><div class="v2-wrap v2-service-grid">
+      <figure class="v2-service-photo"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-1680.avif 1680w" sizes="(max-width:860px) calc(100vw - 40px), 620px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-1680.webp 1680w" sizes="(max-width:860px) calc(100vw - 40px), 620px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/banquet-table-b2af8d-1280.jpg 1280w" sizes="(max-width:860px) calc(100vw - 40px), 620px" width="1680" height="1120" alt="Сервировка банкетного стола" loading="lazy" decoding="async"></picture><figcaption>Внимание к деталям — от кухни до сервировки.</figcaption></figure>
+      <div><div class="v2-section-head"><p class="v2-kicker">03 / Забота о деталях</p><h2>Вы собираете близких.<br><em>Мы — всё остальное.</em></h2></div>
+        <div class="v2-benefit"><span>01</span><div><h3>Кухня прямо в здании</h3><p>Готовим на площадке и подаём блюда горячими.</p></div></div>
+        <div class="v2-benefit"><span>02</span><div><h3>Команда под ваше событие</h3><p>Организуем работу официантов, барменов и координатора.</p></div></div>
+        <div class="v2-benefit"><span>03</span><div><h3>Один договор. Общий план.</h3><p>Зал, меню и обслуживание согласуем вместе — до начала подготовки.</p></div></div>
+        <div class="v2-service-links"><a class="v2-text-link" href="/kejtering">Выездной кейтеринг<span aria-hidden="true">↗</span></a><a class="v2-text-link" href="/arenda-oborudovaniya">Аренда оборудования<span aria-hidden="true">↗</span></a></div>
+      </div></div></section><section class="v2-section v2-price-section" id="price"><div class="v2-wrap v2-price-grid"><div><div class="v2-section-head"><p class="v2-kicker">04 / Прозрачная смета</p><h2>Стоимость.<br><em>Всё по пунктам.</em></h2></div><p class="v2-intro">Зал, меню, команда и выбранные опции.<br>Каждую часть сметы утверждаем до договора.</p><a class="v2-button" href="#zayavka">Получить расчёт<span aria-hidden="true">↗</span></a><p class="v2-small">Предварительную смету пришлём в день обращения.</p></div><div><details class="v2-price-row"><summary><span>01</span><h3>Площадка</h3><span class="v2-plus" aria-hidden="true">+</span></summary><p>Аренда зала на все время вашего мероприятия, включая технические часы на монтаж и демонтаж декораций.</p></details><details class="v2-price-row"><summary><span>02</span><h3>Меню</h3><span class="v2-plus" aria-hidden="true">+</span></summary><p>Блюда и напитки, идеально подобранные под ваш формат. Стоимость рассчитывается строго по количеству гостей, а финальные позиции утверждаются заранее.</p></details><details class="v2-price-row"><summary><span>03</span><h3>Команда</h3><span class="v2-plus" aria-hidden="true">+</span></summary><p>Работа официантов, барменов, метрдотеля и координатора, которые отвечают за безупречный сервис на площадке.</p></details><details class="v2-price-row"><summary><span>04</span><h3>Опции</h3><span class="v2-plus" aria-hidden="true">+</span></summary><p>Только то, что выбираете вы: декор, техническое оборудование, шатры или организация выездной регистрации.</p></details><p class="v2-price-note">Без условной цены «от N рублей». Расчёт — под вашу дату, формат и число гостей.</p><details class="v2-price-explain"><summary>Как мы рассчитываем стоимость</summary><p>Мы принципиально не используем формулировку «от N рублей с человека». На практике такая цена всегда оказывается нереалистичной. Вместо этого мы составляем прозрачную смету из четырех понятных блоков, которую вы утверждаете до подписания договора:</p><p>Узнайте точную стоимость вашего события! Напишите нам формат, дату и примерное число гостей. Менеджер рассчитает предварительную смету и пришлет ее в мессенджер в день обращения. Никаких «сюрпризов» в финальном чеке – все дополнительные расходы мы открыто обсуждаем до заключения договора.</p></details></div></div></section><section class="v2-section" id="gallery"><div class="v2-wrap"><div class="v2-heading-row"><div class="v2-section-head"><p class="v2-kicker">05 / Атмосфера</p><h2>Лучше один раз<br><em>почувствовать.</em></h2></div><a class="v2-text-link" href="/galereya">Вся галерея<span aria-hidden="true">↗</span></a></div><div class="v2-gallery-grid"><button type="button" class="shot v2-gallery-shot v2-gallery-shot-0" data-full="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-02.webp" aria-label="Увеличить: Свадебная зона с драпировкой и свечами в банкетном зале"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-1920.avif 1920w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-02.webp 1920w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-02-666402-1280.jpg 1280w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px" width="1920" height="1440" alt="Свадебная зона с драпировкой и свечами в банкетном зале" loading="lazy" decoding="async"></picture><span aria-hidden="true">↗</span></button><button type="button" class="shot v2-gallery-shot v2-gallery-shot-1" data-full="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-06.webp" aria-label="Увеличить: Банкетный зал во время свадебного вечера"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-1280.avif 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-1920.avif 1920w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-1280.webp 1280w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-06.webp 1920w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-1280.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-06-08750d-1280.jpg 1280w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px" width="1920" height="1282" alt="Банкетный зал во время свадебного вечера" loading="lazy" decoding="async"></picture><span aria-hidden="true">↗</span></button><button type="button" class="shot v2-gallery-shot v2-gallery-shot-2" data-full="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-12.webp" aria-label="Увеличить: Корпоративный банкет: круглые столы и сцена"><picture><source type="image/avif" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-400.avif 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-800.avif 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-1170.avif 1170w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px"><source type="image/webp" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-400.webp 400w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-800.webp 800w, https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/photo/gallery-12.webp 1170w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px"><img src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-1170.jpg" srcset="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@bb52f32db34d2458bf3ce1bb7c388d564c1be051/assets/img/opt/gallery-12-93841f-1170.jpg 1170w" sizes="(max-width:560px) calc(100vw - 40px), (max-width:900px) 46vw, 400px" width="1170" height="682" alt="Корпоративный банкет: круглые столы и сцена" loading="lazy" decoding="async"></picture><span aria-hidden="true">↗</span></button></div><p class="v2-gallery-caption">Фотографии наших залов и сервировки. Приезжайте посмотреть площадку вживую.</p></div></section><section class="v2-section v2-faq-section"><div class="v2-wrap v2-faq-grid"><div class="v2-section-head"><p class="v2-kicker">06 / До встречи</p><h2>Вопросы<br><em>перед встречей.</em></h2></div><div><details class="v2-faq-item"><summary>Можно посмотреть зал до бронирования?<span aria-hidden="true">+</span></summary><p>Да. Оставьте заявку — менеджер согласует удобное время просмотра. Вы увидите зал, рассадку и место для программы вживую.</p></details><details class="v2-faq-item"><summary>Можно выбрать зал больше, чем рекомендует подбор?<span aria-hidden="true">+</span></summary><p>Да. Рекомендация помогает сориентироваться по вместимости. Больший зал оставит больше места для сцены, танцпола и свободной рассадки.</p></details><details class="v2-faq-item"><summary>Как закрепить дату?<span aria-hidden="true">+</span></summary><p>Менеджер проверит доступность, согласует зал и смету. Бронирование закрепляется предоплатой и договором.</p></details><details class="v2-faq-item"><summary>Можно со своим ведущим и декоратором?<span aria-hidden="true">+</span></summary><p>Да. Заранее согласуйте работу ведущего, музыкантов, фотографа и декоратора с координатором площадки.</p></details></div></div></section></div>
+<script>
+/* Second homepage: guest recommendation, navigation and gallery focus.
+   Existing site.js continues to own forms, gallery and anchor scrolling. */
+(function () {
+  'use strict';
+
+  var root = document.querySelector('.bn2');
+  if (!root) return;
+
+  var number = root.querySelector('#v2-guests');
+  var range = root.querySelector('#v2-range');
+  var status = root.querySelector('#v2-recommendation');
+  var cards = Array.prototype.slice.call(root.querySelectorAll('[data-v2-hall]'));
+  var presets = Array.prototype.slice.call(root.querySelectorAll('[data-v2-guests]'));
+  var minimum = 20;
+  var maximum = 2500;
+  var current = 120;
+  var chosen = false;
+  var numberDirty = false;
+  var syncingForm = false;
+  var hallNames = {
+    bankethall: 'Банкетный зал',
+    ametist: 'зал «Аметист»',
+    vystavochny: 'Выставочный зал'
+  };
+
+  function bounded(value) {
+    return Math.max(minimum, Math.min(maximum, Math.round(value)));
+  }
+
+  function guestLabel(value) {
+    var lastTwo = value % 100;
+    var last = value % 10;
+    if (lastTwo >= 11 && lastTwo <= 14) return value + ' гостей';
+    if (last === 1) return value + ' гость';
+    if (last >= 2 && last <= 4) return value + ' гостя';
+    return value + ' гостей';
+  }
+
+  function findGuestField() {
+    var field = document.getElementById('f-guests');
+    if (field) return field;
+    var names = ['guests', 'Выберите количество гостей', 'Выберите число гостей'];
+    for (var i = 0; i < names.length; i++) {
+      field = document.querySelector('[name="' + names[i] + '"]');
+      if (field) return field;
+    }
+    return null;
+  }
+
+  function syncForm() {
+    if (!chosen) return;
+    var field = findGuestField();
+    if (!field || field.value === String(current)) return;
+    field.value = String(current);
+    syncingForm = true;
+    try {
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+      field.dispatchEvent(new Event('change', { bubbles: true }));
+    } finally {
+      syncingForm = false;
+    }
+  }
+
+  function render(updateNumber) {
+    var hall = current <= 150 ? 'bankethall' : current <= 500 ? 'ametist' : 'vystavochny';
+    if (updateNumber) number.value = String(current);
+    range.value = String(current);
+    range.setAttribute('aria-valuetext', guestLabel(current));
+    range.style.setProperty('--v2-range-progress', ((current - minimum) / (maximum - minimum) * 100) + '%');
+
+    cards.forEach(function (card) {
+      var recommended = card.getAttribute('data-v2-hall') === hall;
+      card.classList.toggle('is-recommended', recommended);
+      Array.prototype.forEach.call(card.querySelectorAll('[data-v2-badge]'), function (badge) {
+        badge.hidden = !recommended;
+        badge.textContent = current < 50 ? 'Уточним рассадку' : 'Подходит вам';
+      });
+    });
+    presets.forEach(function (preset) {
+      preset.setAttribute('aria-pressed', String(Number(preset.getAttribute('data-v2-guests')) === current));
+    });
+    if (status) {
+      status.textContent = current < 50 ?
+        'Для небольшого мероприятия уточним рассадку с менеджером. Можно выбрать зал просторнее.' :
+        'Гостей: ' + current + '. Рекомендуем ' + hallNames[hall] + '. Можно выбрать зал просторнее.';
+    }
+  }
+
+  function choose(value, updateNumber) {
+    current = bounded(value);
+    chosen = true;
+    render(updateNumber);
+    syncForm();
+  }
+
+  if (number && range) {
+    number.min = range.min = String(minimum);
+    number.max = range.max = String(maximum);
+    number.step = '1';
+    /* A range with step=10 silently rounds exact entries such as 123. */
+    range.step = '1';
+    var initial = number.value.trim() === '' ? NaN : Number(number.value);
+    current = Number.isFinite(initial) ? bounded(initial) : current;
+    if (status) {
+      status.setAttribute('aria-live', 'polite');
+      status.setAttribute('aria-atomic', 'true');
+    }
+    render(true);
+
+    /* A later edit in the request form is the newest choice. Delegation
+       also handles native Tilda fields inserted after this script runs. */
+    function guestFieldChanged(event) {
+      if (syncingForm || event.target === number || event.target === range || event.target !== findGuestField()) return;
+      var text = String(event.target.value).trim();
+      var value = text === '' ? NaN : Number(text);
+      numberDirty = false;
+      if (!Number.isFinite(value) || !Number.isInteger(value) || value < minimum || value > maximum) {
+        chosen = false;
+        return;
+      }
+      current = value;
+      chosen = true;
+      render(true);
+    }
+    document.addEventListener('input', guestFieldChanged);
+    document.addEventListener('change', guestFieldChanged);
+
+    range.addEventListener('input', function () {
+      choose(Number(range.value), true);
+    });
+    number.addEventListener('input', function () {
+      /* Do not clamp intermediate input: typing 250 must allow 2, then 25. */
+      numberDirty = true;
+      if (number.value.trim() === '') return;
+      var value = Number(number.value);
+      if (Number.isFinite(value) && Number.isInteger(value) && value >= minimum && value <= maximum) {
+        choose(value, false);
+      }
+    });
+    function finishNumber() {
+      if (!numberDirty) return;
+      numberDirty = false;
+      var value = number.value.trim() === '' ? NaN : Number(number.value);
+      if (Number.isFinite(value)) choose(value, true);
+      else render(true);
+    }
+    number.addEventListener('change', finishNumber);
+    number.addEventListener('blur', finishNumber);
+
+    presets.forEach(function (preset) {
+      preset.addEventListener('click', function () {
+        var value = Number(preset.getAttribute('data-v2-guests'));
+        if (Number.isFinite(value)) choose(value, true);
+      });
+    });
+    root.addEventListener('click', function (event) {
+      if (event.target.closest('a[href="#zayavka"]')) syncForm();
+    });
+  }
+
+  var toggle = root.querySelector('#v2-menu-toggle');
+  var nav = root.querySelector('#v2-nav');
+  if (toggle && nav) {
+    function setOpen(open, returnFocus) {
+      toggle.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+      if (returnFocus) toggle.focus();
+    }
+    setOpen(false, false);
+    toggle.addEventListener('click', function () {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true', false);
+    });
+    nav.addEventListener('click', function (event) {
+      if (event.target.closest('a')) setOpen(false, false);
+    });
+    document.addEventListener('click', function (event) {
+      if (!nav.contains(event.target) && !toggle.contains(event.target)) setOpen(false, false);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        event.preventDefault();
+        setOpen(false, true);
+      }
+    });
+  }
+
+  /* site.js opens and closes its shared lightbox. Capture the initiating
+     button before that handler runs; query the lightbox at event time so
+     this enhancement also works when Tilda loads site.js afterwards. */
+  var galleryTrigger = null;
+
+  function restoreGalleryFocus() {
+    var trigger = galleryTrigger;
+    if (!trigger) return;
+    window.setTimeout(function () {
+      var lightbox = document.querySelector('.lightbox');
+      if (galleryTrigger !== trigger || (lightbox && lightbox.classList.contains('is-open'))) return;
+      galleryTrigger = null;
+      if (document.documentElement.contains(trigger)) trigger.focus({ preventScroll: true });
+    }, 0);
+  }
+
+  document.addEventListener('click', function (event) {
+    var shot = event.target.closest('.v2-gallery-shot');
+    if (shot && root.contains(shot)) {
+      galleryTrigger = shot;
+      return;
+    }
+    var lightbox = document.querySelector('.lightbox.is-open');
+    if (!galleryTrigger || !lightbox) return;
+    if (event.target === lightbox || event.target.closest('.lightbox__close')) restoreGalleryFocus();
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var lightbox = document.querySelector('.lightbox.is-open');
+    if (!galleryTrigger || !lightbox) return;
+    if (event.key === 'Escape') {
+      restoreGalleryFocus();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+
+    var controls = Array.prototype.slice.call(lightbox.querySelectorAll(
+      '.lightbox__close, .lightbox__nav--prev, .lightbox__nav--next'
+    )).filter(function (control) {
+      return !control.disabled && control.tabIndex >= 0 && !control.hidden &&
+        control.getClientRects().length > 0 && window.getComputedStyle(control).visibility !== 'hidden';
+    });
+    if (!controls.length) return;
+    event.preventDefault();
+    var index = controls.indexOf(document.activeElement);
+    var next = index < 0 ? (event.shiftKey ? controls.length - 1 : 0) :
+      (index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length;
+    controls[next].focus();
+  }, true);
+})();
+
+</script>
