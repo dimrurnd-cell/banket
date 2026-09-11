@@ -9,6 +9,7 @@ from pathlib import Path
 import build as B
 import build_variant2 as V
 import pages as P
+import seo_v2 as SEO
 from data import SITE, HALLS, FORMATS, LEGAL
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -121,11 +122,12 @@ def build():
         content=main_content(page)
         full=header()+'<main id="v2-main">'+content+(form(page) if page['url']!='/404' else '<div id="zayavka"></div>')+'</main>'+footer()
         canonical=SITE['origin']+page['url']
+        schema=SEO.structured(page)
         styles=''.join(f'<link rel="stylesheet" href="{asset(path)}">' for path in ['/assets/css/site.css','/assets/vendor/tilda-forms-1.0.min.css','/assets/css/variant2.css','/assets/css/full-v2.css'])
         bootstrap=f'<script src="{asset("/assets/js/forms-v2.js")}"></script>'
         scripts=bootstrap+''.join(f'<script defer src="{asset(path)}"></script>' for path in ['/assets/vendor/tilda-scripts-3.0.min.js','/assets/vendor/tilda-forms-1.0.min.js','/assets/vendor/tilda-date-picker-1.0.min.js','/assets/js/site.js','/assets/js/variant2.js'])
         robots='<meta name="robots" content="noindex,follow">' if page.get('noindex') else ''
-        doc=f'''<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{E(page['title'])}</title><meta name="description" content="{E(page['desc'],quote=True)}"><link rel="canonical" href="{canonical}">{robots}<meta property="og:title" content="{E(page['title'],quote=True)}"><meta property="og:description" content="{E(page['desc'],quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{B.og_url(page.get('og') or V.COVERS['hero'])}"><meta name="theme-color" content="#f7f4ee"><link rel="icon" href="/assets/img/favicon.ico">{styles}{scripts}</head><body class="v2-page"><div id="allrecords" data-tilda-project-id="{SITE['project_id']}" data-tilda-page-id="{page['file'].removeprefix('page').removesuffix('.html')}" data-tilda-formskey="{SITE['formskey']}" data-tilda-project-lang="RU" data-tilda-root-zone="com"><div class="bn2"><a class="v2-skip" href="#v2-main">Перейти к содержанию</a>{full}</div></div></body></html>'''
+        doc=f'''<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{E(page['title'])}</title><meta name="description" content="{E(page['desc'],quote=True)}"><link rel="canonical" href="{canonical}">{robots}<meta property="og:title" content="{E(page['title'],quote=True)}"><meta property="og:description" content="{E(page['desc'],quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{B.og_url(page.get('og') or V.COVERS['hero'])}"><meta name="theme-color" content="#f7f4ee"><link rel="icon" href="/assets/img/favicon.ico">{styles}{scripts}{schema}<meta property="og:type" content="website"><meta property="og:locale" content="ru_RU"><meta property="og:site_name" content="Банкет-Холл"></head><body class="v2-page"><div id="allrecords" data-tilda-project-id="{SITE['project_id']}" data-tilda-page-id="{page['file'].removeprefix('page').removesuffix('.html')}" data-tilda-formskey="{SITE['formskey']}" data-tilda-project-lang="RU" data-tilda-root-zone="com"><div class="bn2"><a class="v2-skip" href="#v2-main">Перейти к содержанию</a>{full}</div></div></body></html>'''
         (ROOT/page['file']).write_text(doc,encoding='utf-8')
         routes[page['url']]=page['file']
         if page['url']=='/': (ROOT/'variant2.html').write_text(doc,encoding='utf-8')
@@ -133,7 +135,7 @@ def build():
         slug=page['url'].strip('/').replace('/','-') or 'glavnaya'
         dest=ROOT/'tilda/full-v2'/slug;dest.mkdir(parents=True,exist_ok=True)
         base=os.environ.get('ASSET_BASE','https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@codex/complete-site-v2/assets/').rstrip('/')+'/'
-        block=styles+'<style>'+CRITICAL_CSS+'</style>'+scripts+'<div class="bn2">'+full+'</div>'
+        block=schema+styles+'<style>'+CRITICAL_CSS+'</style>'+scripts+'<div class="bn2">'+full+'</div>'
         block=re.sub(r'(?<=[\s\"\'(,])/assets/',base,block)
         (dest/'block.html').write_text(block,encoding='utf-8')
         (dest/'seo.txt').write_text(page['title']+'\n'+page['desc']+'\n'+page['url']+'\nTilda page ID: '+page['file'],encoding='utf-8')
@@ -151,6 +153,7 @@ def build():
     for name in ['.htaccess','htaccess']:(ROOT/name).write_text('\n'.join(rules)+'\n',encoding='utf-8')
     sitemap='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+SITE['origin']+p['url']+'</loc></url>' for p in PAGES if not p.get('noindex'))+'</urlset>'
     (ROOT/'sitemap.xml').write_text(sitemap,encoding='utf-8')
+    SEO.export(ROOT, PAGES)
     print(f'Built {len(PAGES)} complete pages and Tilda blocks')
 
 
