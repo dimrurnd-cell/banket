@@ -24,7 +24,7 @@ IMAGES = M.get("images", {})
 DIR = M.get("dir", "/assets/img/opt/")
 # Порядок важен: первым идёт самый лёгкий формат, браузер берёт первый,
 # который понимает.
-FORMATS = [f for f in ("avif", "webp") if f in M.get("formats", [])]
+FORMATS = [f for f in ("webp",) if f in M.get("formats", [])]
 MIME = {"avif": "image/avif", "webp": "image/webp"}
 
 # Ширина слота на разных экранах. Без этого браузер считает картинку во всю
@@ -87,7 +87,7 @@ def markup(src, alt, cls="", lazy=True, slot="card", priority=False, esc=str):
         for f in FORMATS if f in entry["files"])
     img = ('<img src="%s" srcset="%s" sizes="%s" width="%d" height="%d" '
            'alt="%s"%s decoding="async">') % (
-        _at(entry, "jpg", 1280), _srcset(entry, "jpg"), sizes,
+        _at(entry, "webp", 1280), _srcset(entry, "webp"), sizes,
         entry["w"], entry["h"], esc(alt), attrs)
     return "<picture>%s%s</picture>" % (sources, img)
 
