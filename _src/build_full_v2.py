@@ -12,6 +12,7 @@ import pages as P
 from data import SITE, HALLS, FORMATS, LEGAL
 
 ROOT = Path(__file__).resolve().parent.parent
+CRITICAL_CSS = '.bn2 .v2-inner-content .band .btn--ghost{color:#2a2926!important;background:#fffdf9!important;border-color:#fffdf9!important}.bn2 .v2-inner-content .band .btn--ghost:hover{color:#2a2926!important;background:#e9dfd0!important}.bn2 .v2-inner-content .band .btn:not(.btn--ghost){color:#fffdf9!important;background:#a7432c!important}'
 E = html.escape
 INVENTORY = json.loads((ROOT / '_src/export_inventory.json').read_text(encoding='utf-8'))
 FILES = {x['url']: x['file'] for x in INVENTORY if x['kind'] == 'page'}
@@ -20,7 +21,7 @@ for p in PAGES:
     p['file'] = FILES.get(p['url'], p['file'])
     for section in p['sections']:
         if p['url'] == '/zaly/vystavochny' and section['t'] == 'gallery':
-            section['title'] = 'Выставочный зал на мероприятии'
+            section['title'] = 'Галерея'
             section['lede'] = ''
         if any(f['url'] == p['url'] for f in FORMATS):
             section.pop('note', None)
@@ -40,7 +41,7 @@ def asset(path):
 
 
 def logo():
-    return '<a class="v2-brand v2-logo" href="/" aria-label="Банкет-Холл — главная"><img src="/assets/img/logo-banket-white.png" alt="Банкет-Холл" width="4812" height="2716"></a>'
+    return '<a class="v2-brand v2-logo" href="/" aria-label="Банкет-Холл — главная"><img src="/assets/img/logo-banket-white.webp" alt="Банкет-Холл" width="4812" height="2716"></a>'
 
 
 def header():
@@ -132,7 +133,7 @@ def build():
         slug=page['url'].strip('/').replace('/','-') or 'glavnaya'
         dest=ROOT/'tilda/full-v2'/slug;dest.mkdir(parents=True,exist_ok=True)
         base=os.environ.get('ASSET_BASE','https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@codex/complete-site-v2/assets/').rstrip('/')+'/'
-        block=styles+scripts+'<div class="bn2">'+full+'</div>'
+        block=styles+'<style>'+CRITICAL_CSS+'</style>'+scripts+'<div class="bn2">'+full+'</div>'
         block=re.sub(r'(?<=[\s\"\'(,])/assets/',base,block)
         (dest/'block.html').write_text(block,encoding='utf-8')
         (dest/'seo.txt').write_text(page['title']+'\n'+page['desc']+'\n'+page['url']+'\nTilda page ID: '+page['file'],encoding='utf-8')

@@ -92,6 +92,7 @@ for _slug in ('detskiy-prazdnik', 'den-rozhdeniya', 'korporativ', 'svadba', 'fur
     COVERS[_slug] = ph('supplied-' + _slug)
     PHOTOS[_slug] = [COVERS[_slug]] + PHOTOS[_slug][1:]
 PHOTOS['svadba'] = [ph('supplied-svadba'), ph('supplied-svadba-1'), ph('supplied-svadba-3')]
+PHOTOS['ametist'] = [ph('supplied-svadba'), ph('supplied-korporativ'), ph('supplied-svadba-1'), ph('supplied-svadba-3')] + PHOTOS['ametist']
 PHOTOS['vystavochny'] = [ph('supplied-vystavochny')]
 
 GALLERY = [ph("gallery-%02d" % n) for n in range(1, 28)]

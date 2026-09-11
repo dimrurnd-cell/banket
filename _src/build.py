@@ -287,7 +287,7 @@ def s_price(s):
 
 def full_attrs(src):
     """Крупная версия для лайтбокса: 1680 px в каждом доступном формате."""
-    out = ' data-full="%s"' % esc_attr(IMG.at(src, "jpg", 1680) or src)
+    out = ' data-full="%s"' % esc_attr(IMG.at(src, "webp", 1680) or src)
     for fmt in IMG.FORMATS:
         url = IMG.at(src, fmt, 1680)
         if url:

@@ -104,3 +104,5 @@ html body .bn2{--font-body:Jost,Arial,sans-serif;--font-display:Jost,Arial,sans-
 .bn2 .v2-inner-content .band .btn--ghost{color:#2a2926;background:#fffdf9;border-color:#fffdf9}
 .bn2 .v2-inner-content .band .btn--ghost:hover{color:#2a2926;background:#e9dfd0;border-color:#e9dfd0}
 .bn2 .v2-inner-content .band .eyebrow{color:#fffdf9}
+
+.bn2 .v2-inner-content .band .btn--ghost{color:#2a2926!important;background:#fffdf9!important;border-color:#fffdf9!important}.bn2 .v2-inner-content .band .btn--ghost:hover{color:#2a2926!important;background:#e9dfd0!important}.bn2 .v2-inner-content .band .btn:not(.btn--ghost){color:#fffdf9!important;background:#a7432c!important}
