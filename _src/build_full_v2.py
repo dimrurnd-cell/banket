@@ -19,6 +19,9 @@ PAGES = copy.deepcopy(P.PAGES)
 for p in PAGES:
     p['file'] = FILES.get(p['url'], p['file'])
     for section in p['sections']:
+        if p['url'] == '/zaly/vystavochny' and section['t'] == 'gallery':
+            section['title'] = 'Выставочный зал на мероприятии'
+            section['lede'] = ''
         if any(f['url'] == p['url'] for f in FORMATS):
             section.pop('note', None)
             if section['t'] == 'faq':

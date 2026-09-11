@@ -4705,6 +4705,558 @@
    "src": "/assets/img/photo/korporativ-konferentsiya.webp",
    "w": 1680
   },
+  "/assets/img/photo/supplied-den-rozhdeniya.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       9760,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-400.avif"
+      ],
+      [
+       800,
+       22869,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-800.avif"
+      ],
+      [
+       1280,
+       40877,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-1280.avif"
+      ],
+      [
+       1920,
+       67392,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-1920.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       97537,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       14172,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-400.webp"
+      ],
+      [
+       800,
+       32900,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-800.webp"
+      ],
+      [
+       1280,
+       57312,
+       "/assets/img/opt/supplied-den-rozhdeniya-4d9fa5-1280.webp"
+      ],
+      [
+       1920,
+       177556,
+       "/assets/img/photo/supplied-den-rozhdeniya.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1280,
+   "slug": "supplied-den-rozhdeniya-4d9fa5",
+   "src": "/assets/img/photo/supplied-den-rozhdeniya.webp",
+   "w": 1920
+  },
+  "/assets/img/photo/supplied-detskiy-prazdnik.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       9998,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-400.avif"
+      ],
+      [
+       800,
+       24914,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-800.avif"
+      ],
+      [
+       1280,
+       44884,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-1280.avif"
+      ],
+      [
+       1537,
+       56260,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-1537.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       102298,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       14684,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-400.webp"
+      ],
+      [
+       800,
+       35358,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-800.webp"
+      ],
+      [
+       1280,
+       61100,
+       "/assets/img/opt/supplied-detskiy-prazdnik-818b85-1280.webp"
+      ],
+      [
+       1537,
+       132830,
+       "/assets/img/photo/supplied-detskiy-prazdnik.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1023,
+   "slug": "supplied-detskiy-prazdnik-818b85",
+   "src": "/assets/img/photo/supplied-detskiy-prazdnik.webp",
+   "w": 1537
+  },
+  "/assets/img/photo/supplied-furshet.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       9776,
+       "/assets/img/opt/supplied-furshet-ca8654-400.avif"
+      ],
+      [
+       800,
+       25612,
+       "/assets/img/opt/supplied-furshet-ca8654-800.avif"
+      ],
+      [
+       1280,
+       50831,
+       "/assets/img/opt/supplied-furshet-ca8654-1280.avif"
+      ],
+      [
+       1920,
+       90070,
+       "/assets/img/opt/supplied-furshet-ca8654-1920.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       117013,
+       "/assets/img/opt/supplied-furshet-ca8654-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       15932,
+       "/assets/img/opt/supplied-furshet-ca8654-400.webp"
+      ],
+      [
+       800,
+       41372,
+       "/assets/img/opt/supplied-furshet-ca8654-800.webp"
+      ],
+      [
+       1280,
+       79568,
+       "/assets/img/opt/supplied-furshet-ca8654-1280.webp"
+      ],
+      [
+       1920,
+       268382,
+       "/assets/img/photo/supplied-furshet.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1290,
+   "slug": "supplied-furshet-ca8654",
+   "src": "/assets/img/photo/supplied-furshet.webp",
+   "w": 1920
+  },
+  "/assets/img/photo/supplied-korporativ.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       14879,
+       "/assets/img/opt/supplied-korporativ-229089-400.avif"
+      ],
+      [
+       800,
+       42001,
+       "/assets/img/opt/supplied-korporativ-229089-800.avif"
+      ],
+      [
+       1280,
+       81924,
+       "/assets/img/opt/supplied-korporativ-229089-1280.avif"
+      ],
+      [
+       1920,
+       146183,
+       "/assets/img/opt/supplied-korporativ-229089-1920.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       173396,
+       "/assets/img/opt/supplied-korporativ-229089-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       23890,
+       "/assets/img/opt/supplied-korporativ-229089-400.webp"
+      ],
+      [
+       800,
+       70322,
+       "/assets/img/opt/supplied-korporativ-229089-800.webp"
+      ],
+      [
+       1280,
+       137008,
+       "/assets/img/opt/supplied-korporativ-229089-1280.webp"
+      ],
+      [
+       1920,
+       452606,
+       "/assets/img/photo/supplied-korporativ.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1280,
+   "slug": "supplied-korporativ-229089",
+   "src": "/assets/img/photo/supplied-korporativ.webp",
+   "w": 1920
+  },
+  "/assets/img/photo/supplied-svadba-1.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       9774,
+       "/assets/img/opt/supplied-svadba-1-5b594a-400.avif"
+      ],
+      [
+       800,
+       25183,
+       "/assets/img/opt/supplied-svadba-1-5b594a-800.avif"
+      ],
+      [
+       1280,
+       45738,
+       "/assets/img/opt/supplied-svadba-1-5b594a-1280.avif"
+      ],
+      [
+       1920,
+       76567,
+       "/assets/img/opt/supplied-svadba-1-5b594a-1920.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       109751,
+       "/assets/img/opt/supplied-svadba-1-5b594a-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       15290,
+       "/assets/img/opt/supplied-svadba-1-5b594a-400.webp"
+      ],
+      [
+       800,
+       39208,
+       "/assets/img/opt/supplied-svadba-1-5b594a-800.webp"
+      ],
+      [
+       1280,
+       71232,
+       "/assets/img/opt/supplied-svadba-1-5b594a-1280.webp"
+      ],
+      [
+       1920,
+       211904,
+       "/assets/img/photo/supplied-svadba-1.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1280,
+   "slug": "supplied-svadba-1-5b594a",
+   "src": "/assets/img/photo/supplied-svadba-1.webp",
+   "w": 1920
+  },
+  "/assets/img/photo/supplied-svadba-3.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       13990,
+       "/assets/img/opt/supplied-svadba-3-1ba666-400.avif"
+      ],
+      [
+       800,
+       39576,
+       "/assets/img/opt/supplied-svadba-3-1ba666-800.avif"
+      ],
+      [
+       1280,
+       75777,
+       "/assets/img/opt/supplied-svadba-3-1ba666-1280.avif"
+      ],
+      [
+       1920,
+       129485,
+       "/assets/img/opt/supplied-svadba-3-1ba666-1920.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       165417,
+       "/assets/img/opt/supplied-svadba-3-1ba666-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       22790,
+       "/assets/img/opt/supplied-svadba-3-1ba666-400.webp"
+      ],
+      [
+       800,
+       65164,
+       "/assets/img/opt/supplied-svadba-3-1ba666-800.webp"
+      ],
+      [
+       1280,
+       122862,
+       "/assets/img/opt/supplied-svadba-3-1ba666-1280.webp"
+      ],
+      [
+       1920,
+       351166,
+       "/assets/img/photo/supplied-svadba-3.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1280,
+   "slug": "supplied-svadba-3-1ba666",
+   "src": "/assets/img/photo/supplied-svadba-3.webp",
+   "w": 1920
+  },
+  "/assets/img/photo/supplied-svadba.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       15227,
+       "/assets/img/opt/supplied-svadba-9bba66-400.avif"
+      ],
+      [
+       800,
+       47796,
+       "/assets/img/opt/supplied-svadba-9bba66-800.avif"
+      ],
+      [
+       1280,
+       92551,
+       "/assets/img/opt/supplied-svadba-9bba66-1280.avif"
+      ],
+      [
+       1448,
+       109427,
+       "/assets/img/opt/supplied-svadba-9bba66-1448.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       206585,
+       "/assets/img/opt/supplied-svadba-9bba66-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       25060,
+       "/assets/img/opt/supplied-svadba-9bba66-400.webp"
+      ],
+      [
+       800,
+       80794,
+       "/assets/img/opt/supplied-svadba-9bba66-800.webp"
+      ],
+      [
+       1280,
+       156492,
+       "/assets/img/opt/supplied-svadba-9bba66-1280.webp"
+      ],
+      [
+       1448,
+       301530,
+       "/assets/img/photo/supplied-svadba.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1086,
+   "slug": "supplied-svadba-9bba66",
+   "src": "/assets/img/photo/supplied-svadba.webp",
+   "w": 1448
+  },
+  "/assets/img/photo/supplied-vystavochny.webp": {
+   "alpha": false,
+   "files": {
+    "avif": {
+     "ext": "avif",
+     "widths": [
+      [
+       400,
+       15485,
+       "/assets/img/opt/supplied-vystavochny-c1321a-400.avif"
+      ],
+      [
+       800,
+       47081,
+       "/assets/img/opt/supplied-vystavochny-c1321a-800.avif"
+      ],
+      [
+       1280,
+       95875,
+       "/assets/img/opt/supplied-vystavochny-c1321a-1280.avif"
+      ],
+      [
+       1920,
+       174491,
+       "/assets/img/opt/supplied-vystavochny-c1321a-1920.avif"
+      ]
+     ]
+    },
+    "jpg": {
+     "ext": "jpg",
+     "widths": [
+      [
+       1280,
+       179841,
+       "/assets/img/opt/supplied-vystavochny-c1321a-1280.jpg"
+      ]
+     ]
+    },
+    "webp": {
+     "ext": "webp",
+     "widths": [
+      [
+       400,
+       23770,
+       "/assets/img/opt/supplied-vystavochny-c1321a-400.webp"
+      ],
+      [
+       800,
+       72610,
+       "/assets/img/opt/supplied-vystavochny-c1321a-800.webp"
+      ],
+      [
+       1280,
+       145752,
+       "/assets/img/opt/supplied-vystavochny-c1321a-1280.webp"
+      ],
+      [
+       1920,
+       470424,
+       "/assets/img/photo/supplied-vystavochny.webp"
+      ]
+     ]
+    }
+   },
+   "h": 1280,
+   "slug": "supplied-vystavochny-c1321a",
+   "src": "/assets/img/photo/supplied-vystavochny.webp",
+   "w": 1920
+  },
   "/assets/img/photo/vystavochny-1.webp": {
    "alpha": false,
    "files": {

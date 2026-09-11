@@ -283,7 +283,7 @@ HALL_PAGES = {
             "Аренда считается на всё время: от заезда монтажников до вывоза последнего кофра, "
             "а не «с 18:00 до 23:00».",
         ],
-        "feature_note": "Схему монтажа и график заезда согласуем с координатором площадки.",
+        "feature_note": "",
     },
 }
 
@@ -861,7 +861,7 @@ MEROPRIYATIYA = {
             "на пр. М. Нагибина, 30 в Ростове-на-Дону. От 15 до 2 500 гостей, своя кухня в здании.",
     "og": COVERS["svadba"],
     "sections": [
-        {"t": "hero_page", "image": PHOTOS["svadba"][3], "alt": "Мероприятие в банкетном зале",
+        {"t": "hero_page", "image": PHOTOS["svadba"][2], "alt": "Мероприятие в банкетном зале",
          "eyebrow": "Мероприятия",
          "title": "Шесть форматов, одна площадка",
          "lede": "Свадьба, корпоратив, юбилей, фуршет, кофе-брейк или детский праздник. Выберите свой — "
@@ -1169,3 +1169,4 @@ PAGES = ([HOME, ZALY] + [hall_page(h) for h in HALLS] +
          [MEROPRIYATIYA] + [event_page(f) for f in FORMATS if f["slug"] in EVENT_PAGES] + [POMINALNY] +
          [KEJTERING, ARENDA, GALEREYA, CONTACTS] +
          [legal_page(d) for d in LEGAL] + [NOT_FOUND])
+

@@ -100,3 +100,7 @@
 @media(prefers-reduced-motion:reduce){.bn2 .v2-occasion img,.bn2 .v2-occasion h3 svg{transition:none;transform:none!important}}
 
 html body .bn2{--font-body:Jost,Arial,sans-serif;--font-display:Jost,Arial,sans-serif;--font-data:Jost,Arial,sans-serif}
+
+.bn2 .v2-inner-content .band .btn--ghost{color:#2a2926;background:#fffdf9;border-color:#fffdf9}
+.bn2 .v2-inner-content .band .btn--ghost:hover{color:#2a2926;background:#e9dfd0;border-color:#e9dfd0}
+.bn2 .v2-inner-content .band .eyebrow{color:#fffdf9}
