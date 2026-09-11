@@ -20,6 +20,8 @@ FILES = {x['url']: x['file'] for x in INVENTORY if x['kind'] == 'page'}
 PAGES = copy.deepcopy(P.PAGES)
 for p in PAGES:
     p['file'] = FILES.get(p['url'], p['file'])
+    if p['url'] == '/zaly':
+        p['sections'] = [section for section in p['sections'] if section['t'] != 'cards']
     for section in p['sections']:
         if p['url'] == '/zaly/vystavochny' and section['t'] == 'gallery':
             section['title'] = 'Галерея'
