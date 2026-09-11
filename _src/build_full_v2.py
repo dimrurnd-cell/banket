@@ -77,11 +77,21 @@ def inner_hero(s, page):
     return f'<section class="v2-inner-hero v2-wrap {"v2-inner-hero-plain" if not image else ""}"><nav class="v2-breadcrumbs" aria-label="Хлебные крошки">{crumbs}</nav><div class="v2-inner-hero-grid"><div><p class="v2-kicker">{s.get("eyebrow","")}</p><h1>{title}</h1><p class="v2-intro">{s.get("lede","")}</p>{B.buttons(s.get("actions"))}</div>{image}</div></section>'
 
 
+def all_formats():
+    items = sorted(FORMATS, key=lambda f: f['slug'] != 'novogodniy-korporativ')
+    items = items + [{'slug': 'kejtering', 'url': '/kejtering', 'name': 'Кейтеринг'}]
+    cards = []
+    for f in items:
+        photo = V.PHOTOS[f['slug']][0] if f['slug'] in V.PHOTOS else next(s['image'] for p in PAGES if p['url']=='/kejtering' for s in p['sections'] if s.get('image'))
+        badge = '<span class="v2-booking-badge">Открыта бронь на Декабрь 2026</span>' if f['slug']=='novogodniy-korporativ' else ''
+        cards.append(f'<a class="v2-format" href="{f["url"]}">{V.pic(photo, f["name"])}{badge}<div><h3>{E(f["name"])}{V.ARROW}</h3></div></a>')
+    return f'<section class="v2-section v2-formats-section" id="formats"><div class="v2-wrap"><div class="v2-heading-row">{V.heading("02 / Поводы", "У каждого события<br><em>свой характер.</em>")}{V.link("Все форматы", "/meropriyatiya", "v2-text-link")}</div><div class="v2-format-grid">{"".join(cards)}</div></div></section>'
+
+
 def main_content(page):
     B.seed_page_images(page)
     if page['url']=='/':
-        formats = V.formats().replace('<div class="v2-more-formats">','<div class="v2-more-formats"><a href="/novogodniy-korporativ">Новогодние корпоративы ↗</a><a href="/pominalny-obed">Поминальные обеды ↗</a><a href="/kejtering">Кейтеринг ↗</a>')
-        return V.hero()+V.halls()+formats+V.service()+V.pricing()+V.gallery()+V.faq()
+        return V.hero()+V.halls()+all_formats()+V.service()+V.pricing()+V.gallery()+V.faq()
     out = []
     for s in page['sections']:
         if s['t']=='hero_page': out.append(inner_hero(s,page))
