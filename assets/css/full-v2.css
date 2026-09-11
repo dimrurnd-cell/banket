@@ -2,9 +2,9 @@
 .bn2{--ink:#2a2926;--ink2:#ede7db;--cream:#2a2926;--paper:#f7f4ee;--gold:#a7432c;--muted:#666159;--line:#d8d1c5}
 .bn2 .v2-logo{display:block;flex:0 0 144px;width:144px;height:81px;overflow:hidden}
 .bn2 .v2-logo img{width:100%;height:100%;object-fit:contain;filter:brightness(0)}
-.bn2 .v2-footer .v2-logo img{filter:none}
-.bn2 .v2-footer-links{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:40px;padding:35px 0;border-top:1px solid #ffffff33}
-.bn2 .v2-footer-links h3{font-size:17px;color:#e4c69c;margin-bottom:14px}
+.bn2 .v2-footer .v2-logo img{filter:brightness(0)}
+.bn2 .v2-footer-links{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:40px;padding:35px 0;border-top:1px solid #d8d1c5}
+.bn2 .v2-footer-links h3{font-size:17px;color:#a7432c;margin-bottom:14px}
 .bn2 .v2-footer-links a{display:block;min-height:36px;padding:6px 0;font-size:14px}
 .bn2 .v2-footer-links a:hover{text-decoration:underline}
 .bn2 .v2-legal-links{font-size:13px;padding:15px 0}
@@ -60,7 +60,7 @@
 .bn2 .v2-native-form .t-input-group{margin:0 0 18px!important}
 .bn2 .v2-native-form .t-input-title{font:500 14px/1.5 Jost,Arial;color:#2a2926!important;margin:0 0 6px}
 .bn2 .v2-native-form .t-input{font:400 16px/1.4 Jost,Arial!important;height:52px;color:#2a2926!important;background:#fffdf9!important;border:1px solid #c8bfb1!important;border-radius:4px!important;padding:12px 16px!important}
-.bn2 .v2-native-form .t-input-group_ph .t-input{padding-left:95px!important}
+.bn2 .v2-native-form .t-input-group_ph .t-input{padding-left:16px!important;text-align:left}
 .bn2 .v2-native-form .t-input-group_cb{margin-top:22px!important}
 .bn2 .v2-native-form .t-checkbox__control{color:#666159;font:400 13px/1.6 Jost,Arial}
 .bn2 .v2-native-form .t-checkbox__control a{color:#a7432c!important;text-decoration:underline}
@@ -76,3 +76,27 @@
 
 .bn2 .v2-booking-badge{position:absolute;top:18px;left:18px;right:18px;z-index:2;width:fit-content;max-width:calc(100% - 36px);padding:9px 13px;border-radius:3px;background:#f7f4ee;color:#86351f;font-size:12px;font-weight:600;line-height:1.4}
 .bn2 .v2-format h3{font-size:clamp(23px,2.3vw,31px)}
+
+/* Photo index: ten occasions, two equal rows on desktop. */
+.bn2 .v2-format-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:32px 18px}
+.bn2 .v2-occasion{display:block;height:auto;overflow:visible;border-radius:0;min-width:0}
+.bn2 .v2-occasion:after{display:none}
+.bn2 .v2-occasion-photo{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:#ded7ca}
+.bn2 .v2-occasion:nth-child(5n+1) .v2-occasion-photo{border-top-left-radius:65px}
+.bn2 .v2-occasion:nth-child(5n) .v2-occasion-photo{border-top-right-radius:65px}
+.bn2 .v2-occasion-number{position:absolute;top:14px;left:14px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#f7f4ee;color:#2a2926;font-size:12px}
+.bn2 .v2-occasion .v2-booking-badge{top:auto;bottom:12px;left:12px;right:12px;max-width:calc(100% - 24px);font-size:12px;padding:8px 10px;background:#a7432c;color:#fffdf9}
+.bn2 .v2-occasion>div{position:static;color:var(--v2-ink);padding:16px 0 12px;border-bottom:1px solid var(--v2-line)}
+.bn2 .v2-occasion h3{font-size:clamp(19px,1.6vw,24px);line-height:1.2;margin:0;gap:8px;min-height:58px;align-items:flex-start;text-wrap:balance}
+.bn2 .v2-occasion h3 svg{width:18px;height:18px;flex-shrink:0;margin-top:4px;transition:transform .25s}
+.bn2 .v2-occasion>div>.v2-occasion-more{display:block;font-size:12px;margin-top:10px;color:var(--v2-muted)}
+.bn2 .v2-occasion:hover h3,.bn2 .v2-occasion:focus-visible h3{color:var(--v2-accent)}
+.bn2 .v2-occasion:hover h3 svg{transform:translate(3px,-3px)}
+.bn2 .v2-native-form [name="Phone"]::placeholder{text-align:left;opacity:1;color:#666159}
+.bn2 .v2-native-form .t-checkbox__control span{color:#666159!important}
+.bn2 .v2-native-form .t-checkbox__indicator:after{border-color:#2a2926!important}
+@media(max-width:1000px){.bn2 .v2-format-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 18px}.bn2 .v2-occasion-photo{aspect-ratio:5/4}.bn2 .v2-occasion h3{font-size:24px;min-height:58px}}
+@media(max-width:480px){.bn2 .v2-format-grid{gap:24px 12px}.bn2 .v2-occasion-photo{aspect-ratio:3/4}.bn2 .v2-occasion h3{font-size:19px;min-height:69px}.bn2 .v2-occasion h3 svg{width:14px}.bn2 .v2-occasion .v2-booking-badge{font-size:12px;left:8px;right:8px;bottom:8px;max-width:calc(100% - 16px);padding:7px}.bn2 .v2-occasion-number{width:28px;height:28px;top:10px;left:10px}}
+@media(prefers-reduced-motion:reduce){.bn2 .v2-occasion img,.bn2 .v2-occasion h3 svg{transition:none;transform:none!important}}
+
+html body .bn2{--font-body:Jost,Arial,sans-serif;--font-display:Jost,Arial,sans-serif;--font-data:Jost,Arial,sans-serif}

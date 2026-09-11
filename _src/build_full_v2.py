@@ -18,6 +18,17 @@ FILES = {x['url']: x['file'] for x in INVENTORY if x['kind'] == 'page'}
 PAGES = copy.deepcopy(P.PAGES)
 for p in PAGES:
     p['file'] = FILES.get(p['url'], p['file'])
+    for section in p['sections']:
+        if any(f['url'] == p['url'] for f in FORMATS):
+            section.pop('note', None)
+            if section['t'] == 'faq':
+                section['items'] = [(q, a) for q, a in section['items'] if '6–12 месяцев' not in a]
+        if section['t'] == 'cards':
+            for card in section['items']:
+                if card.get('url', '').startswith('/zaly/'):
+                    card.pop('note', None)
+                    card['short'] = ''
+
 
 
 def asset(path):
@@ -81,10 +92,10 @@ def all_formats():
     items = sorted(FORMATS, key=lambda f: f['slug'] != 'novogodniy-korporativ')
     items = items + [{'slug': 'kejtering', 'url': '/kejtering', 'name': 'Кейтеринг'}]
     cards = []
-    for f in items:
+    for index, f in enumerate(items, 1):
         photo = V.PHOTOS[f['slug']][0] if f['slug'] in V.PHOTOS else next(s['image'] for p in PAGES if p['url']=='/kejtering' for s in p['sections'] if s.get('image'))
         badge = '<span class="v2-booking-badge">Открыта бронь на Декабрь 2026</span>' if f['slug']=='novogodniy-korporativ' else ''
-        cards.append(f'<a class="v2-format" href="{f["url"]}">{V.pic(photo, f["name"])}{badge}<div><h3>{E(f["name"])}{V.ARROW}</h3></div></a>')
+        cards.append(f'<a class="v2-format v2-occasion" href="{f["url"]}"><span class="v2-occasion-photo">{V.pic(photo, f["name"])}<span class="v2-occasion-number" aria-hidden="true">{index:02d}</span>{badge}</span><div><h3>{E(f["name"])}{V.ARROW}</h3><span class="v2-occasion-more">Подробнее о формате</span></div></a>')
     return f'<section class="v2-section v2-formats-section" id="formats"><div class="v2-wrap"><div class="v2-heading-row">{V.heading("02 / Поводы", "У каждого события<br><em>свой характер.</em>")}{V.link("Все форматы", "/meropriyatiya", "v2-text-link")}</div><div class="v2-format-grid">{"".join(cards)}</div></div></section>'
 
 
@@ -96,7 +107,7 @@ def main_content(page):
     for s in page['sections']:
         if s['t']=='hero_page': out.append(inner_hero(s,page))
         elif s['t']=='picker': out.append(V.halls().replace('id="zaly"','id="podbor"'))
-        else: out.append('<div class="v2-inner-content">'+B.RENDER[s['t']](s)+'</div>')
+        else: out.append('<div class="v2-inner-content">'+B.RENDER[s['t']](s).replace('<p></p>', '')+'</div>')
     return ''.join(out)
 
 
