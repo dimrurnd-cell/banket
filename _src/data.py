@@ -91,7 +91,11 @@ COVERS = {
 for _slug in ('detskiy-prazdnik', 'den-rozhdeniya', 'korporativ', 'svadba', 'furshet', 'vystavochny'):
     COVERS[_slug] = ph('supplied-' + _slug)
     PHOTOS[_slug] = [COVERS[_slug]] + PHOTOS[_slug][1:]
-PHOTOS['svadba'] = [ph('supplied-svadba'), ph('supplied-svadba-1'), ph('supplied-svadba-3')]
+PHOTOS['svadba'] = [
+    ph('cover-svadba'), ph('supplied-svadba'), ph('supplied-svadba-1'),
+    ph('supplied-svadba-3'),
+    *[ph('ametist-' + str(n)) for n in range(3, 11)],
+]
 PHOTOS['ametist'] = [ph('supplied-svadba'), ph('supplied-korporativ'), ph('supplied-svadba-1'), ph('supplied-svadba-3')] + PHOTOS['ametist']
 PHOTOS['vystavochny'] = [
     ph('supplied-vystavochny'),
