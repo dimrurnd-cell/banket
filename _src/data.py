@@ -103,6 +103,13 @@ PHOTOS['vystavochny'] = [
     ph('gallery-25'), ph('gallery-26'), ph('gallery-27'),
     ph('den-rozhdeniya-5'),
 ]
+# В корпоративной галерее убираем кадр с чёрными стульями и добавляем
+# две более выразительные обложки залов.
+PHOTOS['korporativ'] = [
+    ph('cover-korporativ'), ph('cover-bankethall'),
+    ph('korporativ-2'), ph('korporativ-3'), ph('korporativ-4'),
+    ph('korporativ-konferentsiya'),
+]
 # Галерея Банкетного зала: добавляем обложки и кадр из общей фотогалереи,
 # чтобы на странице зала показывался полный визуальный ряд площадки.
 PHOTOS['bankethall'] = list(dict.fromkeys([
