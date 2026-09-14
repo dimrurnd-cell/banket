@@ -93,6 +93,17 @@
 .bn2 .v2-occasion:hover h3,.bn2 .v2-occasion:focus-visible h3{color:var(--v2-accent)}
 .bn2 .v2-occasion:hover h3 svg{transform:translate(3px,-3px)}
 .bn2 .v2-native-form [name="Phone"]::placeholder{text-align:left;opacity:1;color:#666159}
+.bn2 .v2-request-section{position:relative;overflow:hidden;background:linear-gradient(135deg,#efe7da 0%,#f7f4ee 54%,#e9ddd0 100%)}
+.bn2 .v2-request-section:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 92% 16%,#a7432c18 0 9rem,transparent 9.1rem),radial-gradient(circle at 8% 90%,#ffffffa8 0 12rem,transparent 12.1rem)}
+.bn2 .v2-request-grid{position:relative;z-index:1}
+.bn2 .v2-request-grid>div:first-child{padding:34px 0 0}
+.bn2 .v2-request-grid>div:first-child:before{content:"01  /  ДЕТАЛИ СОБЫТИЯ";display:block;color:#a7432c;font-size:11px;letter-spacing:.12em;margin-bottom:18px}
+.bn2 .v2-native-form{background:#fffdf9d9;border:1px solid #ffffff;border-radius:16px;padding:30px;box-shadow:0 18px 50px #49351f1c;backdrop-filter:blur(8px)}
+.bn2 .v2-native-form .t-input{transition:border-color .2s,box-shadow .2s,background .2s}
+.bn2 .v2-native-form .t-input:focus{border-color:#a7432c!important;box-shadow:0 0 0 3px #a7432c1c;background:#ffffff!important;outline:0}
+.bn2 .v2-native-form .t-input-group_ph .t-input{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bn2 .v2-native-form .t-submit{box-shadow:0 8px 18px #a7432c33;transition:transform .2s,box-shadow .2s}
+.bn2 .v2-native-form .t-submit:hover{transform:translateY(-2px);box-shadow:0 12px 24px #a7432c44}
 .bn2 .v2-native-form .t-checkbox__control span{color:#666159!important}
 .bn2 .v2-native-form .t-checkbox__indicator:after{border-color:#2a2926!important}
 @media(max-width:1000px){.bn2 .v2-format-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 18px}.bn2 .v2-occasion-photo{aspect-ratio:5/4}.bn2 .v2-occasion h3{font-size:24px;min-height:58px}}

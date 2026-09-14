@@ -61,7 +61,7 @@ window.t_onFuncLoad = window.t_onFuncLoad || function (name, fn) {
           }
           phone.setSelectionRange(position, position);
         }
-        phone.addEventListener('focus', function () { if (!phone.value) phone.value = '+7'; });
+        phone.addEventListener('focus', function () { if (!phone.value || phone.value === '+') phone.value = '+7'; });
         phone.addEventListener('input', maskPhone);
         phone.addEventListener('paste', function (e) {
           var pasted = e.clipboardData.getData('text').replace(/\D/g, '');
@@ -69,7 +69,7 @@ window.t_onFuncLoad = window.t_onFuncLoad || function (name, fn) {
             e.preventDefault(); phone.value = pasted; maskPhone();
           }
         });
-        phone.addEventListener('blur', function () { if (phone.value === '+7') phone.value = ''; });
+        phone.addEventListener('blur', function () { if (!phone.value) phone.value = '+7'; });
       }
       var guests = form.querySelector('[name="guests"]');
       if (guests) { guests.type = 'number'; guests.min = '1'; guests.max = '2500'; guests.step = '1'; }
