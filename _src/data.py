@@ -94,6 +94,12 @@ for _slug in ('detskiy-prazdnik', 'den-rozhdeniya', 'korporativ', 'svadba', 'fur
 PHOTOS['svadba'] = [ph('supplied-svadba'), ph('supplied-svadba-1'), ph('supplied-svadba-3')]
 PHOTOS['ametist'] = [ph('supplied-svadba'), ph('supplied-korporativ'), ph('supplied-svadba-1'), ph('supplied-svadba-3')] + PHOTOS['ametist']
 PHOTOS['vystavochny'] = [ph('supplied-vystavochny')]
+# Галерея Банкетного зала: добавляем обложки и кадр из общей фотогалереи,
+# чтобы на странице зала показывался полный визуальный ряд площадки.
+PHOTOS['bankethall'] = list(dict.fromkeys([
+    COVERS['bankethall'], ph('cover-korporativ'), ph('gallery-05'),
+    *PHOTOS['bankethall'],
+]))
 
 GALLERY = [ph("gallery-%02d" % n) for n in range(1, 28)]
 
