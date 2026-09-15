@@ -117,6 +117,19 @@ PHOTOS['bankethall'] = list(dict.fromkeys([
     *PHOTOS['bankethall'],
 ]))
 
+# Supplied corporate event photos. Existing cover-bankethall is reused once.
+from import_event_photos import SOURCES as EVENT_PHOTO_SOURCES
+EVENT_PHOTOS = [
+    '/assets/img/opt/banquet-table-b2af8d-1680.webp',
+    ph('cover-bankethall'),
+    *['/assets/img/opt/event-' + slug + '-1920.webp' for slug in EVENT_PHOTO_SOURCES],
+]
+# This smaller supplied image retains its native width.
+EVENT_PHOTOS = [s.replace('event-5440828660811239245-1920.webp',
+                         'event-5440828660811239245-800.webp') for s in EVENT_PHOTOS]
+for _event_slug in ('novogodniy-korporativ', 'korporativ'):
+    PHOTOS[_event_slug] = list(dict.fromkeys([*PHOTOS[_event_slug], *EVENT_PHOTOS]))
+
 GALLERY = [ph("gallery-%02d" % n) for n in range(1, 28)]
 
 # Разметка галереи по фильтрам: тег чипа -> номера кадров. Проставлена по

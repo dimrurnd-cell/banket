@@ -296,7 +296,7 @@ def full_attrs(src):
 
 
 def s_gallery(s):
-    shots_src = [x for x in s["shots"] if x[0] not in PAGE_IMAGES]
+    shots_src = [x for x in s["shots"] if s.get('keep_all') or x[0] not in PAGE_IMAGES]
     s = dict(s, shots=shots_src or s["shots"])
     chips = ""
     if s.get("filters"):

@@ -23,6 +23,8 @@ for p in PAGES:
     if p['url'] == '/zaly':
         p['sections'] = [section for section in p['sections'] if section['t'] != 'cards']
     for section in p['sections']:
+        if p['url'] in ('/novogodniy-korporativ', '/korporativ') and section['t'] == 'gallery':
+            section['keep_all'] = True
         if p['url'] == '/zaly/vystavochny' and section['t'] == 'gallery':
             section['title'] = 'Галерея'
             section['lede'] = ''
@@ -101,6 +103,8 @@ def all_formats():
     cards = []
     for index, f in enumerate(items, 1):
         photo = V.PHOTOS[f['slug']][0] if f['slug'] in V.PHOTOS else next(s['image'] for p in PAGES if p['url']=='/kejtering' for s in p['sections'] if s.get('image'))
+        if f['slug'] == 'novogodniy-korporativ':
+            photo = '/assets/img/photo/gallery-20.webp'
         badge = '<span class="v2-booking-badge">Открыта бронь на Декабрь 2026</span>' if f['slug']=='novogodniy-korporativ' else ''
         cards.append(f'<a class="v2-format v2-occasion" href="{f["url"]}"><span class="v2-occasion-photo">{V.pic(photo, f["name"])}<span class="v2-occasion-number" aria-hidden="true">{index:02d}</span>{badge}</span><div><h3>{E(f["name"])}{V.ARROW}</h3><span class="v2-occasion-more">Подробнее о формате</span></div></a>')
     return f'<section class="v2-section v2-formats-section" id="formats"><div class="v2-wrap"><div class="v2-heading-row">{V.heading("02 / Поводы", "У каждого события<br><em>свой характер.</em>")}{V.link("Все форматы", "/meropriyatiya", "v2-text-link")}</div><div class="v2-format-grid">{"".join(cards)}</div></div></section>'
