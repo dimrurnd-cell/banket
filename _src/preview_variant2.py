@@ -2,10 +2,11 @@
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlsplit
-import pages
+import json
+import os
 
 ROOT = Path(__file__).resolve().parent.parent
-ROUTES = {p['url'].rstrip('/') or '/': p['file'] for p in pages.PAGES}
+ROUTES = json.loads((ROOT / '_src/routes-v2.json').read_text(encoding='utf-8'))
 ROUTES['/'] = 'variant2.html'
 
 
@@ -21,5 +22,6 @@ class Preview(SimpleHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    print('Preview: http://127.0.0.1:8765/variant2.html', flush=True)
-    ThreadingHTTPServer(('127.0.0.1', 8765), Preview).serve_forever()
+    port = int(os.environ.get('BANKET_PREVIEW_PORT', '8766'))
+    print(f'Preview: http://127.0.0.1:{port}/variant2.html', flush=True)
+    ThreadingHTTPServer(('127.0.0.1', port), Preview).serve_forever()

@@ -287,7 +287,7 @@ def s_price(s):
 
 def full_attrs(src):
     """Крупная версия для лайтбокса: 1680 px в каждом доступном формате."""
-    out = ' data-full="%s"' % esc_attr(IMG.at(src, "jpg", 1680) or src)
+    out = ' data-full="%s"' % esc_attr(IMG.at(src, "webp", 1680) or src)
     for fmt in IMG.FORMATS:
         url = IMG.at(src, fmt, 1680)
         if url:
@@ -296,7 +296,7 @@ def full_attrs(src):
 
 
 def s_gallery(s):
-    shots_src = [x for x in s["shots"] if x[0] not in PAGE_IMAGES]
+    shots_src = [x for x in s["shots"] if s.get('keep_all') or x[0] not in PAGE_IMAGES]
     s = dict(s, shots=shots_src or s["shots"])
     chips = ""
     if s.get("filters"):
