@@ -92,7 +92,8 @@
   var shown = false, timer;
   function show() {
     if (shown) return;
-    if (cookieBannerOpen()) { clearTimeout(timer); timer = setTimeout(show, 1000); return; }
+    // На широком экране баннер cookie слева, окно справа — показываем оба. На узком они бы наложились: ждём.
+    if (innerWidth < 820 && cookieBannerOpen()) { clearTimeout(timer); timer = setTimeout(show, 1000); return; }
     // Пока человек заполняет форму, не мешаем ему.
     var el = document.activeElement;
     if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) { timer = setTimeout(show, 4000); return; }
