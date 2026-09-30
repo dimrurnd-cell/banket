@@ -117,3 +117,12 @@ html body .bn2{--font-body:Jost,Arial,sans-serif;--font-display:Jost,Arial,sans-
 .bn2 .v2-inner-content .band .eyebrow{color:#fffdf9}
 
 .bn2 .v2-inner-content .band .btn--ghost{color:#2a2926!important;background:#fffdf9!important;border-color:#fffdf9!important}.bn2 .v2-inner-content .band .btn--ghost:hover{color:#2a2926!important;background:#e9dfd0!important}.bn2 .v2-inner-content .band .btn:not(.btn--ghost){color:#fffdf9!important;background:#a7432c!important}
+/* Contacts map: light facade in the v2 palette until the visitor asks for the widget. */
+html body .bn2 .map--facade{background:#efe8dc;border-color:#d8d1c5}
+html body .bn2 .map--facade.is-loaded{background:#2a2926}
+html body .bn2 .map__addr{color:#2a2926;font-size:20px}
+html body .bn2 .map__open{color:#a7432c}
+/* Phones: the date picker opens as a bottom sheet instead of floating over the next fields. */
+@media (max-width:640px){
+  html body .t_datepicker__inner{position:fixed!important;top:auto!important;bottom:0!important;left:0!important;right:0!important;width:auto!important;max-width:none!important;border-radius:16px 16px 0 0;padding-bottom:max(12px,env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(42,41,38,.28);z-index:10000}
+}
