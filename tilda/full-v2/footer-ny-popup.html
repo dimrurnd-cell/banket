@@ -72,8 +72,10 @@
     try { if (window.ym) ym(46229070, 'reachGoal', name); } catch (e) {}
   }
 
-  // Баннер согласия на cookie (блок T972) тоже внизу экрана: ждём, пока посетитель на него ответит.
+  // Баннер согласия на cookie (наш #ckb или блок T972) тоже внизу экрана: ждём, пока посетитель на него ответит.
   function cookieBannerOpen() {
+    var ckb = document.getElementById('ckb');
+    if (ckb && !ckb.hidden) return true;
     var recs = document.querySelectorAll('[data-record-type="972"]');
     for (var i = 0; i < recs.length; i++) {
       var els = recs[i].querySelectorAll('div');
