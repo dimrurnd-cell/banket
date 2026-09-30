@@ -5,6 +5,7 @@ import html
 import json
 import os
 import re
+import subprocess
 from pathlib import Path
 import build as B
 import build_variant2 as V
@@ -38,6 +39,28 @@ for p in PAGES:
                     card.pop('note', None)
                     card['short'] = ''
 
+
+
+def pinned_asset_base():
+    """jsDelivr pinned to the last commit that touched assets/.
+
+    A branch name in the URL means any push goes live and deleting the branch
+    breaks the site; a commit SHA is immutable. Commit assets first, then build.
+    """
+    if os.environ.get('ASSET_BASE'):
+        return os.environ['ASSET_BASE'].rstrip('/')+'/'
+    git=lambda *a: subprocess.run(['git',*a],cwd=ROOT,capture_output=True,text=True).stdout.strip()
+    if git('status','--porcelain','--','assets'):
+        print('! assets/ has uncommitted changes: commit them and rebuild, otherwise the CDN will serve old files')
+    sha=git('log','-1','--format=%H','--','assets')
+    if not sha:
+        raise SystemExit('Cannot resolve commit for assets/; set ASSET_BASE explicitly')
+    return f'https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@{sha}/assets/'
+
+
+ASSET_BASE = pinned_asset_base()
+# JSON-LD and og:image in SEO-settings.csv must point at the same pinned files.
+SEO.CDN = ASSET_BASE.removesuffix('/').removesuffix('/assets')
 
 
 def asset(path):
@@ -140,7 +163,7 @@ def build():
         # One self-contained page block for a blank Tilda page, including shared chrome/form.
         slug=page['url'].strip('/').replace('/','-') or 'glavnaya'
         dest=ROOT/'tilda/full-v2'/slug;dest.mkdir(parents=True,exist_ok=True)
-        base=os.environ.get('ASSET_BASE','https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@codex/complete-site-v2/assets/').rstrip('/')+'/'
+        base=ASSET_BASE
         block=schema+styles+'<style>'+CRITICAL_CSS+'</style>'+scripts+'<div class="bn2">'+full+'</div>'
         block=re.sub(r'(?<=[\s\"\'(,])/assets/',base,block)
         (dest/'block.html').write_text(block,encoding='utf-8')

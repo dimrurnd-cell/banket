@@ -234,3 +234,21 @@
     controls[next].focus();
   }, true);
 })();
+
+(function () {
+  // Карта Яндекса подгружается только после нажатия «Показать карту».
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest('.map__load');
+    if (!button) return;
+    var box = button.closest('[data-map-src]');
+    if (!box) return;
+    var frame = document.createElement('iframe');
+    frame.src = box.getAttribute('data-map-src');
+    frame.title = 'Карта: как доехать до Банкет-Холла';
+    frame.setAttribute('allowfullscreen', '');
+    box.textContent = '';
+    box.appendChild(frame);
+    box.classList.add('is-loaded');
+    frame.focus();
+  });
+})();

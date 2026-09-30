@@ -338,8 +338,16 @@ def s_contacts(s):
 
 
 def s_map(s):
-    return section("%s<div class=\"map reveal\"><iframe src=\"%s\" title=\"Карта: как доехать до Банкет-Холла\" "
-                   "loading=\"lazy\" allowfullscreen></iframe></div>" % (head_block(s), E(SITE["map"])), s)
+    # Виджет Яндекс Карт весит около 5 МБ и тянет сотню запросов. Грузим его
+    # только по нажатию, а до того показываем адрес и прямую ссылку на карты.
+    maps = SITE["map"].replace("/map-widget/v1/", "/maps/")
+    return section(
+        "%s<div class=\"map map--facade reveal\" data-map-src=\"%s\">"
+        "<div class=\"map__facade\"><p class=\"map__addr\">%s</p>"
+        "<button type=\"button\" class=\"btn map__load\">Показать карту</button>"
+        "<a class=\"map__open\" href=\"%s\" target=\"_blank\" rel=\"noopener\">"
+        "Открыть в Яндекс Картах</a></div></div>"
+        % (head_block(s), E(SITE["map"]), E(SITE["address"]), E(maps)), s)
 
 
 def s_doc(s):
