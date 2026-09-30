@@ -72,9 +72,25 @@
     try { if (window.ym) ym(46229070, 'reachGoal', name); } catch (e) {}
   }
 
+  // Баннер согласия на cookie (блок T972) тоже внизу экрана: ждём, пока посетитель на него ответит.
+  function cookieBannerOpen() {
+    var recs = document.querySelectorAll('[data-record-type="972"]');
+    for (var i = 0; i < recs.length; i++) {
+      var els = recs[i].querySelectorAll('div');
+      for (var j = 0; j < els.length; j++) {
+        var st = getComputedStyle(els[j]);
+        if (st.position !== 'fixed' || st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0) continue;
+        var r = els[j].getBoundingClientRect();
+        if (r.width > 0 && r.height > 0 && r.top < innerHeight && r.bottom > 0) return true;
+      }
+    }
+    return false;
+  }
+
   var shown = false, timer;
   function show() {
     if (shown) return;
+    if (cookieBannerOpen()) { clearTimeout(timer); timer = setTimeout(show, 1000); return; }
     // Пока человек заполняет форму, не мешаем ему.
     var el = document.activeElement;
     if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) { timer = setTimeout(show, 4000); return; }
