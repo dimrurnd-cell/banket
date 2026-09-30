@@ -1,0 +1,27 @@
+<!-- Банкет-Холл: исправление поля телефона в форме заявки (Backspace застревал на «+7 (900) »). Блок T123 в подвале. -->
+<script>
+(function () {
+  function digits(v) { return v.replace(/\D/g, ''); }
+  var last = new WeakMap();
+  // Срабатывает раньше маски формы: если Backspace стёр только разделитель «(», «)», пробел или «-»,
+  // стираем цифру перед ним — иначе маска возвращает разделитель, и курсор застревает.
+  document.addEventListener('input', function (e) {
+    var el = e.target;
+    if (window.__phoneMaskFixed || !el.matches || !el.matches('[data-russian-phone]')) return;
+    var prev = last.has(el) ? last.get(el) : '';
+    var raw = el.value, caret = el.selectionStart || 0;
+    if (e.inputType === 'deleteContentBackward' && digits(raw) === digits(prev) && caret > 2) {
+      var i = caret - 1;
+      while (i > 1 && !/\d/.test(raw[i])) i--;
+      if (i > 1) { el.value = raw.slice(0, i) + raw.slice(i + 1); el.setSelectionRange(i, i); }
+    }
+  }, true);
+  // Запоминаем значение уже после маски.
+  document.addEventListener('input', function (e) {
+    if (e.target.matches && e.target.matches('[data-russian-phone]')) last.set(e.target, e.target.value);
+  });
+  document.addEventListener('focusin', function (e) {
+    if (e.target.matches && e.target.matches('[data-russian-phone]')) setTimeout(function () { last.set(e.target, e.target.value); }, 0);
+  });
+})();
+</script>
