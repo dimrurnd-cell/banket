@@ -1,0 +1,107 @@
+<!-- Банкет-Холл: всплывающее окно «Бронь на новогодние корпоративы». Вставить в блок T123 страницы-подвала. -->
+<style>
+.nyp{position:fixed;right:24px;bottom:24px;z-index:9990;width:380px;max-width:calc(100vw - 24px);
+  display:grid;grid-template-columns:112px 1fr;background:#fffdf9;color:#2a2926;border:1px solid #d8d1c5;
+  border-radius:16px;overflow:hidden;box-shadow:0 18px 50px rgba(42,41,38,.22);
+  font-family:Jost,Arial,sans-serif;font-size:15px;line-height:1.45;
+  opacity:0;transform:translateY(16px);visibility:hidden;
+  transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s}
+.nyp[hidden]{display:none}
+.nyp.is-open{opacity:1;transform:none;visibility:visible;transition:opacity .35s ease,transform .35s ease}
+.nyp__img{width:100%;height:100%;object-fit:cover;display:block;background:#efe8dc}
+.nyp__body{padding:18px 20px 20px}
+.nyp__badge{display:inline-block;margin:0 0 8px;padding:3px 10px;border-radius:99px;background:#a7432c;color:#fffdf9;
+  font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.nyp__title{margin:0 0 6px;font-size:20px;line-height:1.2;font-weight:500;color:#2a2926}
+.nyp__text{margin:0 0 14px;color:#666159}
+.nyp__cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:8px;
+  background:#a7432c;color:#fffdf9!important;font-weight:500;text-decoration:none!important}
+.nyp__cta:hover{background:#8e3824}
+.nyp__close{position:absolute;top:6px;right:6px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;
+  color:#666159;font-size:24px;line-height:1;cursor:pointer}
+.nyp__close:hover{background:#efe8dc;color:#2a2926}
+.nyp__cta:focus-visible,.nyp__close:focus-visible{outline:2px solid #2a2926;outline-offset:2px}
+.nyp__short{display:none}
+@media (max-width:640px){
+  .nyp{left:12px;right:12px;bottom:12px;width:auto;max-width:none;grid-template-columns:72px 1fr;border-radius:14px;
+    bottom:calc(12px + env(safe-area-inset-bottom))}
+  .nyp__body{padding:12px 40px 12px 14px}
+  .nyp__badge,.nyp__long{display:none}
+  .nyp__short{display:block}
+  .nyp__title{font-size:16px;margin-bottom:2px}
+  .nyp__text{font-size:13px;margin-bottom:8px}
+  .nyp__cta{min-height:40px;padding:0 14px;font-size:14px}
+  .nyp__close{top:2px;right:2px;width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){.nyp,.nyp.is-open{transition:none;transform:none}}
+</style>
+
+<aside class="nyp" id="nyp" aria-label="Бронь на новогодние корпоративы" hidden>
+  <img class="nyp__img" src="https://cdn.jsdelivr.net/gh/dimrurnd-cell/banket@2605440c1905d46209439fc031eac1a43c528a2e/assets/img/opt/gallery-20-00fd84-400.webp" alt="" width="400" height="233" loading="lazy" decoding="async">
+  <div class="nyp__body">
+    <p class="nyp__badge">Бронь открыта</p>
+    <p class="nyp__title">Новогодний корпоратив&nbsp;2026</p>
+    <p class="nyp__text nyp__long">Залы на 50–2&nbsp;500 гостей, своя кухня, сцена и звук, документы для бухгалтерии. Пятницы и субботы декабря разбирают первыми — проверьте свою дату сейчас.</p>
+    <p class="nyp__text nyp__short">Пятницы и субботы декабря уходят первыми.</p>
+    <a class="nyp__cta" href="/novogodniy-korporativ#zayavka">Проверить дату</a>
+  </div>
+  <button class="nyp__close" type="button" aria-label="Закрыть">×</button>
+</aside>
+
+<script>
+(function () {
+  var SHOW_UNTIL = new Date(2026, 11, 26);          // после 25 декабря не показывать
+  var DELAY_MS = 7000;                              // через сколько секунд появиться
+  var SCROLL_SHARE = 0.35;                          // или когда прокрутили треть страницы
+  var HIDE_DAYS = 3;                                // закрыли крестиком — не показывать 3 дня
+  var CLICK_DAYS = 30;                              // нажали кнопку — не показывать 30 дней
+  var KEY = 'nyp-hidden-until';
+  var SKIP = ['/novogodniy-korporativ', '/404'];    // страницы без окна
+
+  var box = document.getElementById('nyp');
+  if (!box || new Date() > SHOW_UNTIL) return;
+  var path = location.pathname.replace(/\/+$/, '') || '/';
+  if (SKIP.indexOf(path) !== -1) return;
+  try { if (Date.now() < +localStorage.getItem(KEY)) return; } catch (e) {}
+
+  function remember(days) {
+    try { localStorage.setItem(KEY, String(Date.now() + days * 864e5)); } catch (e) {}
+  }
+  function goal(name) {
+    try { if (window.ym) ym(46229070, 'reachGoal', name); } catch (e) {}
+  }
+
+  var shown = false, timer;
+  function show() {
+    if (shown) return;
+    // Пока человек заполняет форму, не мешаем ему.
+    var el = document.activeElement;
+    if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) { timer = setTimeout(show, 4000); return; }
+    shown = true;
+    window.removeEventListener('scroll', onScroll);
+    box.hidden = false;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.add('is-open'); }); });
+    goal('ny_popup_show');
+  }
+  function hide(days) {
+    box.classList.remove('is-open');
+    remember(days);
+    setTimeout(function () { box.hidden = true; }, 400);
+  }
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    if (max > 0 && scrollY / max >= SCROLL_SHARE) show();
+  }
+
+  timer = setTimeout(show, DELAY_MS);
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  box.querySelector('.nyp__close').addEventListener('click', function () { hide(HIDE_DAYS); goal('ny_popup_close'); });
+  box.querySelector('.nyp__cta').addEventListener('click', function () { remember(CLICK_DAYS); goal('ny_popup_click'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && shown && !box.hidden) hide(HIDE_DAYS); });
+  // На телефоне, когда открыта клавиатура, окно прячем, чтобы не закрывало поле ввода.
+  document.addEventListener('focusin', function (e) {
+    if (shown && !box.hidden && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) && innerWidth <= 640) hide(HIDE_DAYS);
+  });
+})();
+</script>
