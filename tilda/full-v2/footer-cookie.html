@@ -1,24 +1,4 @@
-<!-- Банкет-Холл: согласие на cookie. Держит Яндекс Метрику выключенной, пока посетитель не нажмёт «Принять». -->
-<script>
-(function () {
-  var ID = 46229070, KEY = 'cookie-consent', DAYS = 365;
-  var choice = null;
-  try {
-    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if (saved && Date.now() - saved.t < DAYS * 864e5) choice = saved.v;
-  } catch (e) {}
-  window.__cookieChoice = choice;
-  if (choice === 'yes') return;
-  // Метрика Tilda стартует через 2 с после загрузки и вызывает ym(...).
-  // Подменяем ym заглушкой: вызовы копятся и уходят в Метрику только после согласия.
-  window['disableYaCounter' + ID] = true;
-  var held = [];
-  function stub() { held.push(arguments); }
-  stub.__held = held;
-  window.ym = stub;
-})();
-</script>
-
+<!-- Банкет-Холл: уведомление об использовании cookie. Метрика работает сразу, баннер только сообщает об этом. -->
 <style>
 .ckb{position:fixed;left:24px;bottom:24px;z-index:9995;width:400px;max-width:calc(100vw - 24px);box-sizing:border-box;
   padding:18px 20px;background:#fffdf9;color:#2a2926;border:1px solid #d8d1c5;border-radius:16px;
@@ -27,60 +7,37 @@
 .ckb__title{margin:0 0 4px;font-size:16px;font-weight:500}
 .ckb__text{margin:0 0 14px;color:#666159}
 .ckb__text a{color:#a7432c!important;text-decoration:underline!important;text-underline-offset:2px}
-.ckb__row{display:flex;flex-wrap:wrap;gap:8px}
-.ckb__btn{min-height:40px;padding:0 16px;border-radius:8px;border:1px solid #a7432c;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
-.ckb__yes{background:#a7432c;color:#fffdf9}
-.ckb__yes:hover{background:#8e3824}
-.ckb__no{background:transparent;color:#2a2926;border-color:#d8d1c5}
-.ckb__no:hover{border-color:#2a2926}
+.ckb__btn{min-height:40px;padding:0 22px;border-radius:8px;border:1px solid #a7432c;background:#a7432c;color:#fffdf9;
+  font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+.ckb__btn:hover{background:#8e3824}
 .ckb__btn:focus-visible{outline:2px solid #2a2926;outline-offset:2px}
 @media (max-width:640px){
   .ckb{left:12px;right:12px;width:auto;bottom:calc(12px + env(safe-area-inset-bottom));padding:14px 16px;font-size:13px}
   .ckb__title{font-size:15px}
   .ckb__text{margin-bottom:10px}
-  .ckb__btn{flex:1 1 auto;min-height:40px;font-size:13.5px}
+  .ckb__btn{width:100%}
 }
 </style>
 
-<div class="ckb" id="ckb" role="region" aria-label="Согласие на cookie" hidden>
+<div class="ckb" id="ckb" role="region" aria-label="Уведомление о cookie" hidden>
   <p class="ckb__title">Мы используем cookie</p>
-  <p class="ckb__text">Cookie нужны, чтобы сайт работал, а Яндекс Метрика помогает понять, какие страницы полезны гостям. Нажимая «Принять», вы соглашаетесь с <a href="/cookie">политикой обработки cookie</a>.</p>
-  <div class="ckb__row">
-    <button class="ckb__btn ckb__yes" type="button">Принять</button>
-    <button class="ckb__btn ckb__no" type="button">Только необходимые</button>
-  </div>
+  <p class="ckb__text">Сайт использует cookie и Яндекс Метрику, чтобы работать корректно и понимать, какие страницы полезны гостям. Продолжая пользоваться сайтом, вы соглашаетесь с <a href="/cookie">политикой обработки cookie</a>.</p>
+  <button class="ckb__btn" type="button">Понятно</button>
 </div>
 
 <script>
 (function () {
-  var ID = 46229070, KEY = 'cookie-consent';
+  var KEY = 'cookie-consent', DAYS = 365;
   var box = document.getElementById('ckb');
-  if (!box || window.__cookieChoice) return;
+  if (!box) return;
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved && Date.now() - saved.t < DAYS * 864e5) return;   // уже видел баннер
+  } catch (e) {}
   box.hidden = false;
-
-  function save(v) {
-    window.__cookieChoice = v;
-    try { localStorage.setItem(KEY, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {}
+  box.querySelector('.ckb__btn').addEventListener('click', function () {
+    try { localStorage.setItem(KEY, JSON.stringify({ v: 'ok', t: Date.now() })); } catch (e) {}
     box.hidden = true;
-  }
-  box.querySelector('.ckb__yes').addEventListener('click', function () {
-    save('yes');
-    window['disableYaCounter' + ID] = false;
-    var held = (window.ym && window.ym.__held) || [];
-    // Отдаём Метрике придержанные вызовы: стандартная очередь, которую подхватит tag.js.
-    var q = function () { (q.a = q.a || []).push(arguments); };
-    q.l = +new Date();
-    window.ym = q;
-    for (var i = 0; i < held.length; i++) q.apply(null, held[i]);
-    if (held.length) {
-      var s = document.createElement('script');
-      s.async = true; s.src = 'https://mc.yandex.ru/metrika/tag.js';
-      document.head.appendChild(s);
-    }
-  });
-  box.querySelector('.ckb__no').addEventListener('click', function () {
-    save('no');
-    if (window.ym && window.ym.__held) window.ym.__held.length = 0;
   });
 })();
 </script>
